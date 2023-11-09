@@ -1,9 +1,11 @@
+import HlsPlayer from './components/hls'
+
 function App() {
-   return (
-      <>
-         <h1>GBS 화이팅!</h1>
-      </>
-   );
+  return (
+    <>
+      <HlsPlayer />
+    </>
+  )
 }
 
-export default App;
+export default App
