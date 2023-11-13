@@ -1,11 +1,11 @@
 FROM jrottenberg/ffmpeg:4.0-alpine
-FROM node:19.5.0-alpine
+FROM node:lts-alpine
 
 COPY --from=0 / /
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY ./server/encoding-server/package*.json ./
 
 RUN npm i
 
