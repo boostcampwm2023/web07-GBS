@@ -113,7 +113,7 @@ jobs:
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:3000 ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
+            docker run -d -p 1935:1935 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
             docker image prune -f
 
   docker_pull_encoding_server:
@@ -132,5 +132,5 @@ jobs:
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/encoding-server
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:3000 ${{ secrets.NCP_CONTAINER_REGISTRY }}/encoding-server
+            docker run -d -p 1935:1935 ${{ secrets.NCP_CONTAINER_REGISTRY }}/encoding-server
             docker image prune -f

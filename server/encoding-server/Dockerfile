@@ -5,11 +5,11 @@ COPY --from=0 / /
 
 WORKDIR /usr/src/app
 
-COPY ./server/api-server/package*.json ./
+COPY ./server/encoding-server/package*.json ./
 
 RUN npm i
 
-COPY . .
+COPY ./server/encoding-server/. .
 
 EXPOSE 1935
 
