@@ -58,7 +58,7 @@ const TYPO = {
     font-size: ${getFontSize('S')};
     line-height: auto;
   `,
-  REGULAR_M: css`
+  LIGHT_M: css`
     font-family: 'Pretendard', sans-serif;
     font-weight: 400;
     font-size: ${getFontSize('M')};

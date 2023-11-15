@@ -50,7 +50,7 @@ export const InputBox = styled.div`
 `
 
 export const Input = styled.input`
-  ${TYPO.REGULAR_M}
+  ${TYPO.LIGHT_M}
   background-color: #e6e6e6;
   border: none;
   height: 36px;
