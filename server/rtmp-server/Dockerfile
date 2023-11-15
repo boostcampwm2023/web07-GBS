@@ -11,6 +11,8 @@ RUN npm i
 
 COPY ./server/rtmp-server/. .
 
-EXPOSE 1935
+RUN mv ./node_relay_session.js ./node_modules/node-media-server/src/node_relay_session.js
+
+EXPOSE 1935 80
 
 CMD ["node","app.js"]

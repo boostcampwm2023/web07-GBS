@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const NodeMediaServer = require("node-media-server");
 
 const config = {
@@ -8,6 +9,10 @@ const config = {
     gop_cache: true,
     ping: 30,
     ping_timeout: 60,
+  },
+  http: {
+    port: 80,
+    allow_origin: "*",
   },
   relay: {
     ffmpeg: "/usr/local/bin/ffmpeg",
@@ -22,4 +27,5 @@ const config = {
 };
 
 const nms = new NodeMediaServer(config);
+
 nms.run();
