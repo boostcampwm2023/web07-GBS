@@ -1,13 +1,13 @@
-import * as styles from './LogoComponent.styles'
+import * as styles from './Logo.styles'
 
 interface LogoComponentProps {
-  logo: string
+  logo: 'wide' | 'box'
 }
 
-const LogoComponent = ({ logo }: LogoComponentProps) => {
+const Logo = ({ logo }: LogoComponentProps) => {
   const src = logo === 'wide' ? '/src/assets/images/wide-logo.svg' : '/src/assets/images/box-logo.svg'
 
   return <styles.Logo src={src} logo={logo} />
 }
 
-export default LogoComponent
+export default Logo

@@ -1,12 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
-import pretendard from '/src/assets/fonts/Pretendard.woff'
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: "Pretendard";
-    src: url(${pretendard}) format("woff");
-  }
-
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -19,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   article, aside, canvas, details, embed,
   figure, figcaption, footer, header, hgroup,
   main, menu, nav, output, ruby, section, summary,
-  time, mark, audio, video {
+  time, mark, audio, video, input {
     margin: 0;
     padding: 0;
     border: 0;
@@ -69,7 +63,6 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 16px;
-    font-family: "Pretendard";
   }
 `
 export default GlobalStyle

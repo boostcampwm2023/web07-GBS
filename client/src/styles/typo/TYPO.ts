@@ -64,6 +64,12 @@ const TYPO = {
     font-size: ${getFontSize('M')};
     line-height: auto;
   `,
+  LIGHT_R: css`
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 400;
+    font-size: ${getFontSize('R')};
+    line-height: auto;
+  `,
 }
 
 export default TYPO

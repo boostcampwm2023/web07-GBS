@@ -1,11 +1,11 @@
-import * as styles from './AccessComponent.styles'
+import * as styles from './Access.styles'
 
 interface AccessComponentProps {
   leftButton: string
   rightButton: string
 }
 
-const AccessComponent = ({ leftButton, rightButton }: AccessComponentProps) => {
+const Access = ({ leftButton, rightButton }: AccessComponentProps) => {
   return (
     <styles.Container>
       <styles.Access>{leftButton}</styles.Access>
@@ -14,4 +14,4 @@ const AccessComponent = ({ leftButton, rightButton }: AccessComponentProps) => {
   )
 }
 
-export default AccessComponent
+export default Access

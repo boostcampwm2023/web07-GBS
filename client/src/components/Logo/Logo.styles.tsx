@@ -13,4 +13,5 @@ export const Logo = styled.img<LogoProps>`
       return '12.5rem'
     }
   }};
+  cursor: pointer;
 `

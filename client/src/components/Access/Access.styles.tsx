@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import TYPO from '@/styles/typo/TYPO'
 
 export const Container = styled.div`
   display: flex;
@@ -9,10 +10,9 @@ export const Container = styled.div`
 `
 
 export const Access = styled.div`
+  ${TYPO.MEDIUM_M}
   display: flex;
   align-items: center;
   justify-content: right;
-  font-size: 1.5rem;
-  font-weight: 500;
   cursor: pointer;
 `
