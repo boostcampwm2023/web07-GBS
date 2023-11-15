@@ -3,8 +3,10 @@ import TYPO from '@/styles/typo/TYPO'
 
 export const Container = styled.div`
   display: flex;
-  justify-content: left;
   gap: 0rem 1rem;
+  justify-content: left;
+  padding: 0rem 1rem 0rem 1rem;
+  width: 100%;
   height: max-content;
 `
 

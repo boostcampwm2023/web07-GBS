@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   article, aside, canvas, details, embed,
   figure, figcaption, footer, header, hgroup,
   main, menu, nav, output, ruby, section, summary,
-  time, mark, audio, video, input {
+  time, mark, audio, video, textarea {
     margin: 0;
     padding: 0;
     border: 0;

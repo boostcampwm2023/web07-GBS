@@ -40,6 +40,8 @@ export const Chatting = styled.div`
 `
 
 export const ChattingList = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
   border-bottom: 0.0625rem solid #000000;
   height: 43.75rem;
 `
@@ -48,7 +50,8 @@ export const ChattingInput = styled.div`
   height: 9.4375rem;
 `
 
-export const InputBox = styled.input`
+export const InputBox = styled.textarea`
+  ${TYPO.LIGHT_R}
   border: 0.0625rem solid #000000;
   position: absolute;
   bottom: 0.9375rem;
@@ -57,9 +60,11 @@ export const InputBox = styled.input`
   height: 7.5625rem;
   border-radius: 0.625rem;
   padding: 1rem;
+  resize: none;
 `
 
 export const InputSend = styled.div`
+  ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;
   justify-content: center;
