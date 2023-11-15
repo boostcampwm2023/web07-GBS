@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom'
-
 import GlobalStyle from '@/styles/GlobalStyles.styles'
 import HomePage from '@/pages/HomePage/HomePage'
 import ExPage from '@/pages/ExPage/ExPage'

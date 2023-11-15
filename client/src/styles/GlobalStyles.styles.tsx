@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components'
-
 import pretendard from '/src/assets/fonts/Pretendard.woff'
 
 const GlobalStyle = createGlobalStyle`

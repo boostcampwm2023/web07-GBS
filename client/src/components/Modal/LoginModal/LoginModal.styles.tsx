@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import TYPO from '../../../styles/typo/TYPO'
+import TYPO from '@/styles/typo/TYPO'
 
 export const Backdrop = styled.div`
   position: fixed;

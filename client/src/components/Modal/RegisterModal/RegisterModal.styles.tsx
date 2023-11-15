@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import TYPO from '../../../styles/typo/TYPO'
+import TYPO from '@/styles/typo/TYPO'
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -49,7 +49,7 @@ export const InputBox = styled.div`
 `
 
 export const Input = styled.input`
-  ${TYPO.REGULAR_M}
+  ${TYPO.LIGHT_M}
   background-color: #e6e6e6;
   border: none;
   height: 36px;
