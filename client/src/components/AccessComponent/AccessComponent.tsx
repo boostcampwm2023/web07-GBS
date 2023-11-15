@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types'
-
 import * as styles from './AccessComponent.styles'
 
 interface AccessComponentProps {
@@ -14,11 +12,6 @@ const AccessComponent = ({ leftButton, rightButton }: AccessComponentProps) => {
       <styles.Access>{rightButton}</styles.Access>
     </styles.Container>
   )
-}
-
-AccessComponent.propTypes = {
-  leftButton: PropTypes.string.isRequired,
-  rightButton: PropTypes.string.isRequired,
 }
 
 export default AccessComponent

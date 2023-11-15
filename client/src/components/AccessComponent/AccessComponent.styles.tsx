@@ -2,8 +2,9 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
+  justify-content: right;
   gap: 0rem 1rem;
-  width: max-content;
+  width: 12.5rem;
   height: 2.25rem;
 `
 

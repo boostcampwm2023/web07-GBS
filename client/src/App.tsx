@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 
-import GlobalStyle from '/src/styles/GlobalStyles.styles'
-import HomePage from '/src/pages/HomePage/HomePage'
-import ExPage from '/src/pages/ExPage/ExPage'
-import BroadcastPage from '/src/pages/BroadcastPage/BroadcastPage'
+import GlobalStyle from '@/styles/GlobalStyles.styles'
+import HomePage from '@/pages/HomePage/HomePage'
+import ExPage from '@/pages/ExPage/ExPage'
+import BroadcastPage from '@/pages/BroadcastPage/BroadcastPage'
 
 function App() {
   return (

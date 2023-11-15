@@ -1,10 +1,13 @@
 import * as styles from './BroadcastPage.styles'
-import AccessComponent from '/src/components/AccessComponent/AccessComponent'
+import LogoComponent from '@components/LogoComponent/LogoComponent'
+import AccessComponent from '@/components/AccessComponent/AccessComponent'
 
 const BroadcastPage = () => {
   return (
     <styles.Container>
-      <styles.Logo src="/src/assets/images/wide-logo.svg" />
+      <styles.Logo>
+        <LogoComponent logo="wide" />
+      </styles.Logo>
       <styles.Access>
         <AccessComponent leftButton="회원가입" rightButton="로그인" />
       </styles.Access>

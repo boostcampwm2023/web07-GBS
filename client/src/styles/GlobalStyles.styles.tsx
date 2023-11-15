@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    box-sizing: border-box;
   }
 
   /* HTML5 display-role reset for older browsers */
@@ -70,21 +71,6 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 16px;
     font-family: "Pretendard";
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-  
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  button {
-    border: 0;
-    background-color: transparent;
-    cursor: pointer;
   }
 `
 export default GlobalStyle

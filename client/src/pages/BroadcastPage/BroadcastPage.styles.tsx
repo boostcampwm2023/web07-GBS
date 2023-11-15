@@ -5,17 +5,16 @@ export const Container = styled.div`
   height: 61.375rem;
 `
 
-export const Logo = styled.img`
+export const Logo = styled.div`
   position: absolute;
   top: 0rem;
   left: 1.875rem;
-  width: 12.5rem;
-  height: 6.25rem;
 `
+
 export const Access = styled.div`
   position: absolute;
   top: 2.375rem;
-  left: 80.75rem;
+  left: 80.125rem;
 `
 
 export const Broadcast = styled.div`
@@ -41,12 +40,10 @@ export const Chatting = styled.div`
 
 export const ChattingList = styled.div`
   border-bottom: 0.0625rem solid #000000;
-  width: 24.875rem;
   height: 43.75rem;
 `
 
 export const ChattingInput = styled.div`
-  width: 24.875rem;
   height: 9.4375rem;
 `
 
