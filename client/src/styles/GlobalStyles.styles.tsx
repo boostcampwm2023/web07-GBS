@@ -80,5 +80,11 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
+
+  button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
 `
 export default GlobalStyle
