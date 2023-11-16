@@ -3,15 +3,15 @@ import { css } from 'styled-components'
 const getFontSize = (size: 'L' | 'M' | 'R' | 'S') => {
   switch (size) {
     case 'L':
-      return '36px'
+      return '2.25rem'
     case 'M':
-      return '24px'
+      return '1.5rem'
     case 'R':
-      return '18px'
+      return '1.125rem'
     case 'S':
-      return '12px'
+      return '0.75rem'
     default:
-      return '16px'
+      return '1rem'
   }
 }
 
