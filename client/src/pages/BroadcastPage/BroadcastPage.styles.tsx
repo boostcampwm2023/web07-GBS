@@ -72,6 +72,15 @@ export const InputBox = styled.textarea`
   border-radius: 0.625rem;
   padding: 1rem;
   resize: none;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 0.5rem;
+  }
 `
 
 export const InputSend = styled.div`

@@ -13,12 +13,13 @@ const BroadcastPage = () => {
   const [loginModal, setLoginModal] = useState<boolean>(false)
 
   const onSend = () => {
-    if (chatting === '') {
+    if (chatting.trim() === '') {
       alert('채팅을 입력해주세요.')
     } else {
       setChattingList([chatting, ...chattingList])
-      setChatting('')
     }
+
+    setChatting('')
   }
 
   const onRegister = () => {
