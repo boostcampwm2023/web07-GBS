@@ -23,7 +23,7 @@ export const ModalView = styled.div`
   justify-content: space-between;
   flex-direction: column;
   width: 32rem;
-  height: 20rem;
+  height: 20.625rem;
   background-color: #ffffff;
   transition: height 0.5s ease;
   border-radius: 0.625rem;
