@@ -17,5 +17,6 @@ export const Id = styled.div`
 
 export const Context = styled.div`
   ${TYPO.LIGHT_R}
+  word-break:break-all;
   line-height: 2rem;
 `

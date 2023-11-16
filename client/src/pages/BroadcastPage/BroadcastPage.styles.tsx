@@ -74,12 +74,7 @@ export const InputBox = styled.textarea`
   resize: none;
 
   &::-webkit-scrollbar {
-    width: 0.5rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #cccccc;
-    border-radius: 0.5rem;
+    display: none;
   }
 `
 
