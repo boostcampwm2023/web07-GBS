@@ -48,12 +48,10 @@ const LoginModal = ({ onCancle, onConfirm }: LoginModalProps) => {
             </styles.InputBox>
           </styles.Container>
           <styles.ButtonContainer>
-            <styles.Button onClick={onConfirm} style={{ borderBottomLeftRadius: '10px' }}>
+            <styles.Button onClick={onConfirm} style={{ borderRight: '0.0625rem solid #000000' }}>
               확인
             </styles.Button>
-            <styles.Button onClick={onCancle} style={{ borderBottomRightRadius: '10px' }}>
-              취소
-            </styles.Button>
+            <styles.Button onClick={onCancle}>취소</styles.Button>
           </styles.ButtonContainer>
         </styles.ModalView>
       </styles.Modal>
