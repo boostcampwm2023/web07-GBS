@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   article, aside, canvas, details, embed,
   figure, figcaption, footer, header, hgroup,
   main, menu, nav, output, ruby, section, summary,
-  time, mark, audio, video, textarea {
+  time, mark, audio, video, input, textarea {
     margin: 0;
     padding: 0;
     border: 0;
@@ -59,10 +59,34 @@ const GlobalStyle = createGlobalStyle`
     border-spacing: 0;
   }
 
-  /* custom styles */
+  /* responsive web design */
 
   html {
     font-size: 16px;
+  }
+
+  @media (max-width: 1600px) {
+    html {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 1366px) {
+    html {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 1280px) {
+    html {
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    html {
+      font-size: 8px;
+    }
   }
 `
 export default GlobalStyle
