@@ -12,6 +12,15 @@ const BroadcastPage = () => {
   const [registerModal, setRegisterModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
 
+  const onSend = () => {
+    if (chatting === '') {
+      alert('채팅을 입력해주세요.')
+    } else {
+      setChattingList([chatting, ...chattingList])
+      setChatting('')
+    }
+  }
+
   const onRegister = () => {
     setRegisterModal(true)
     setLoginModal(false)
@@ -39,14 +48,7 @@ const BroadcastPage = () => {
         </styles.ChattingList>
         <styles.ChattingInput>
           <styles.InputBox value={chatting} onChange={(event) => setChatting(event.target.value)}></styles.InputBox>
-          <styles.InputSend
-            onClick={() => {
-              setChattingList([chatting, ...chattingList])
-              setChatting('')
-            }}
-          >
-            등록하기
-          </styles.InputSend>
+          <styles.InputSend onClick={onSend}>등록하기</styles.InputSend>
         </styles.ChattingInput>
       </styles.Chatting>
       <styles.Info>
