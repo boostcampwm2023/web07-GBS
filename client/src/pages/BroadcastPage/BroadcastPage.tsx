@@ -41,7 +41,7 @@ const BroadcastPage = () => {
           <styles.InputBox value={chatting} onChange={(event) => setChatting(event.target.value)}></styles.InputBox>
           <styles.InputSend
             onClick={() => {
-              setChattingList([...chattingList, chatting])
+              setChattingList([chatting, ...chattingList])
               setChatting('')
             }}
           >
