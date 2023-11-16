@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 
 export const Container = styled.div`
-  width: 94.5rem;
-  height: 61.375rem;
+  width: 100vw;
+  height: 100vh;
 `
 
 export const Logo = styled.div`
