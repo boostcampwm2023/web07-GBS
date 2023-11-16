@@ -42,16 +42,16 @@ export const ChattingList = styled.div`
   display: flex;
   flex-direction: column-reverse;
   overflow-y: scroll;
-  height: 43.75rem;
   width: 100%;
+  height: 43.75rem;
 
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 0.5rem;
     background: #cccccc;
+    border-radius: 0.5rem;
   }
 `
 

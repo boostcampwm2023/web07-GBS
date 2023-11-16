@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   gap: 0rem 1rem;
   justify-content: left;
-  padding: 0rem 1rem 0rem 1rem;
+  padding: 0rem 0.5rem 0rem 1rem;
   width: 100%;
   height: max-content;
 `
