@@ -36,18 +36,29 @@ export const Chatting = styled.div`
   left: 67.75rem;
   width: 24.875rem;
   height: 53.25rem;
-  border-radius: 1.25rem;
 `
 
 export const ChattingList = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  border-bottom: 0.0625rem solid #000000;
+  overflow-y: scroll;
+  width: 100%;
   height: 43.75rem;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 0.5rem;
+  }
 `
 
 export const ChattingInput = styled.div`
+  border-top: 0.0625rem solid #000000;
   height: 9.4375rem;
+  width: 100%;
 `
 
 export const InputBox = styled.textarea`
@@ -61,6 +72,10 @@ export const InputBox = styled.textarea`
   border-radius: 0.625rem;
   padding: 1rem;
   resize: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const InputSend = styled.div`
