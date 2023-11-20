@@ -8,7 +8,7 @@ COPY ./client/package.json ./client/yarn.lock ./
 RUN yarn install && yarn global add typescript
 
 # 소스 코드 복사
-COPY . .
+COPY ./client .
 
 RUN ls -l
 # 애플리케이션 빌드
