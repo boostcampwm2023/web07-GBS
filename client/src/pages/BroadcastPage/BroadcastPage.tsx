@@ -7,10 +7,18 @@ import RegisterModal from '@components/Modal/RegisterModal/RegisterModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 
 const BroadcastPage = () => {
-  const [chatting, setChatting] = useState<string>('')
-  const [chattingList, setChattingList] = useState<Array<string>>([])
   const [registerModal, setRegisterModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
+  const [chatting, setChatting] = useState<string>('')
+  const [chattingList, setChattingList] = useState<Array<string>>([])
+
+  const onRegister = () => {
+    setRegisterModal(() => !registerModal)
+  }
+
+  const onLogin = () => {
+    setLoginModal(() => !loginModal)
+  }
 
   const onSend = () => {
     if (chatting.trim() === '') {
@@ -20,14 +28,6 @@ const BroadcastPage = () => {
     }
 
     setChatting('')
-  }
-
-  const onRegister = () => {
-    setRegisterModal(() => !registerModal)
-  }
-
-  const onLogin = () => {
-    setLoginModal(() => !loginModal)
   }
 
   return (
