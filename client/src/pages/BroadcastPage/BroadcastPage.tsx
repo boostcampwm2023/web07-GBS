@@ -23,13 +23,11 @@ const BroadcastPage = () => {
   }
 
   const onRegister = () => {
-    setRegisterModal(true)
-    setLoginModal(false)
+    setRegisterModal(() => !registerModal)
   }
 
   const onLogin = () => {
-    setRegisterModal(false)
-    setLoginModal(true)
+    setLoginModal(() => !loginModal)
   }
 
   return (
@@ -57,8 +55,8 @@ const BroadcastPage = () => {
         <styles.InfoViewer>BJ_JMH</styles.InfoViewer>
         <styles.InfoID>시청자 1,557명</styles.InfoID>
       </styles.Info>
-      {registerModal ? <RegisterModal onCancle={() => setRegisterModal(false)} onConfirm={() => setRegisterModal(false)} /> : null}
-      {loginModal ? <LoginModal onCancle={() => setLoginModal(false)} onConfirm={() => setLoginModal(false)} /> : null}
+      {registerModal ? <RegisterModal onCancle={onRegister} onConfirm={onRegister} /> : null}
+      {loginModal ? <LoginModal onCancle={onLogin} onConfirm={onLogin} /> : null}
     </styles.Container>
   )
 }
