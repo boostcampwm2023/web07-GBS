@@ -1,18 +1,22 @@
-FROM jrottenberg/ffmpeg:4.0-alpine
-FROM node:lts-alpine
+FROM alpine:3.13.4 as builder
 
-COPY --from=0 / /
+RUN apk add --update build-base git bash gcc make g++ zlib-dev linux-headers pcre-dev openssl-dev
+RUN git clone https://github.com/arut/nginx-rtmp-module.git && \
+    git clone https://github.com/nginx/nginx.git
+RUN cd nginx && ./auto/configure --add-module=../nginx-rtmp-module && make && make install
 
-WORKDIR /usr/src/app
+COPY ./nginx.conf /usr/local/nginx/conf/nginx.conf
+# COPY ./server/rtmp-server/nginx.conf /usr/local/nginx/conf/nginx.conf
 
-COPY ./server/rtmp-server/package*.json ./
+FROM alpine:3.13.4 as nginx
 
-RUN npm i
+RUN apk add --update pcre ffmpeg
+COPY --from=builder /usr/local/nginx /usr/local/nginx
 
-COPY ./server/rtmp-server/. .
+COPY ./run.sh /usr/local/nginx/conf/run.sh 
+# COPY ./server/rtmp-server/run.sh /usr/local/nginx/conf/run.sh
+RUN chmod +x /usr/local/nginx/conf/run.sh
 
-RUN mv ./node_relay_session.js ./node_modules/node-media-server/src/node_relay_session.js
+EXPOSE 80 443 1935
 
-EXPOSE 1935 80
-
-CMD ["node","app.js"]
+CMD ["/usr/local/nginx/conf/run.sh"]
