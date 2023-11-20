@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 
-export const Container = styled.div`
+export const Access = styled.div`
   display: flex;
   justify-content: right;
   gap: 0rem 1rem;
@@ -9,7 +9,7 @@ export const Container = styled.div`
   height: 2.25rem;
 `
 
-export const Access = styled.div`
+export const Button = styled.div`
   ${TYPO.MEDIUM_M}
   display: flex;
   align-items: center;

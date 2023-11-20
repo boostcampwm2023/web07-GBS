@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 
-export const Container = styled.div`
+export const Chatting = styled.div`
   display: flex;
   gap: 0rem 1rem;
   justify-content: left;
@@ -15,7 +15,7 @@ export const Id = styled.div`
   line-height: 2rem;
 `
 
-export const Context = styled.div`
+export const Text = styled.div`
   ${TYPO.LIGHT_R}
   word-break:break-all;
   line-height: 2rem;
