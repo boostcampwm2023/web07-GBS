@@ -11,6 +11,7 @@ RUN yarn install && yarn global add typescript
 # 소스 코드 복사
 COPY . .
 
+RUN ls -l
 # 애플리케이션 빌드
 RUN yarn build
 
