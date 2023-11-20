@@ -20,9 +20,6 @@ FROM nginx:stable-alpine as production-stage
 # 빌드된 파일을 Nginx 서버로 복사
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-# Nginx 설정 파일 복사 (선택 사항)
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-
 # 80 포트 노출
 EXPOSE 80
 
