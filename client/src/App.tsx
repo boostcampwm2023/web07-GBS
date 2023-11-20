@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import GlobalStyle from '@/styles/GlobalStyles.styles'
-import HomePage from '@/pages/HomePage/HomePage'
-import ExPage from '@/pages/ExPage/ExPage'
+import MainPage from '@/pages/MainPage/MainPage'
 import BroadcastPage from '@/pages/BroadcastPage/BroadcastPage'
 
 function App() {
@@ -9,8 +8,7 @@ function App() {
     <>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/exPage" element={<ExPage />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/broadcastPage" element={<BroadcastPage />} />
       </Routes>
     </>

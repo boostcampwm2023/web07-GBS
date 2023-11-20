@@ -1,4 +1,4 @@
-import * as styles from './HomePage.styles'
+import * as styles from './MainPage.styles'
 
 const HomePage = () => {
   return (
