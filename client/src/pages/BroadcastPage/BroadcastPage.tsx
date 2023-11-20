@@ -11,15 +11,12 @@ const BroadcastPage = () => {
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<string>>([])
-
   const onRegister = () => {
     setRegisterModal(() => !registerModal)
   }
-
   const onLogin = () => {
     setLoginModal(() => !loginModal)
   }
-
   const onSend = () => {
     if (chatting.trim() === '') {
       alert('채팅을 입력해주세요.')
@@ -41,19 +38,19 @@ const BroadcastPage = () => {
       <styles.Broadcast></styles.Broadcast>
       <styles.Chatting>
         <styles.ChattingList>
-          {chattingList.map((chat, index) => (
-            <Chatting id="JMH" context={chat} key={index} />
+          {chattingList.map((chatting, index) => (
+            <Chatting id="JMH" context={chatting} key={index} />
           ))}
         </styles.ChattingList>
-        <styles.ChattingInput>
-          <styles.InputBox value={chatting} onChange={(event) => setChatting(event.target.value)}></styles.InputBox>
-          <styles.InputSend onClick={onSend}>등록하기</styles.InputSend>
-        </styles.ChattingInput>
+        <styles.Input>
+          <styles.Text value={chatting} onChange={(event) => setChatting(event.target.value)}></styles.Text>
+          <styles.Send onClick={onSend}>등록하기</styles.Send>
+        </styles.Input>
       </styles.Chatting>
       <styles.Info>
-        <styles.InfoTitle>JMH의 게임 방송</styles.InfoTitle>
-        <styles.InfoViewer>BJ_JMH</styles.InfoViewer>
-        <styles.InfoID>시청자 1,557명</styles.InfoID>
+        <styles.Title>JMH의 게임 방송</styles.Title>
+        <styles.Viewer>BJ_JMH</styles.Viewer>
+        <styles.Id>시청자 1,557명</styles.Id>
       </styles.Info>
       {registerModal ? <RegisterModal onCancle={onRegister} onConfirm={onRegister} /> : null}
       {loginModal ? <LoginModal onCancle={onLogin} onConfirm={onLogin} /> : null}

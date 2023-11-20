@@ -24,6 +24,4 @@ export const List = styled.div`
   position: absolute;
   top: 15.625rem;
   left: 18.75rem;
-  width: max-content;
-  height: max-content;
 `

@@ -1,17 +1,17 @@
 import * as styles from './Chatting.styles'
 
-interface AccessComponentProps {
+interface ChattingProps {
   id: string
   context: string
 }
 
-const AccessComponent = ({ id, context }: AccessComponentProps) => {
+const Chatting = ({ id, context }: ChattingProps) => {
   return (
-    <styles.Container>
+    <styles.Chatting>
       <styles.Id>{id}</styles.Id>
-      <styles.Context>{context}</styles.Context>
-    </styles.Container>
+      <styles.Text>{context}</styles.Text>
+    </styles.Chatting>
   )
 }
 
-export default AccessComponent
+export default Chatting

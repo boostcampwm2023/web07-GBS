@@ -25,6 +25,7 @@ export const Broadcast = styled.div`
   left: 1.875rem;
   width: 64rem;
   height: 45.5rem;
+  background-color: #000000;
 `
 
 export const Chatting = styled.div`
@@ -55,13 +56,13 @@ export const ChattingList = styled.div`
   }
 `
 
-export const ChattingInput = styled.div`
+export const Input = styled.div`
   border-top: 0.0625rem solid #000000;
   height: 9.4375rem;
   width: 100%;
 `
 
-export const InputBox = styled.textarea`
+export const Text = styled.textarea`
   ${TYPO.LIGHT_R}
   border: 0.0625rem solid #000000;
   position: absolute;
@@ -78,7 +79,7 @@ export const InputBox = styled.textarea`
   }
 `
 
-export const InputSend = styled.div`
+export const Send = styled.div`
   ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;
@@ -105,7 +106,7 @@ export const Info = styled.div`
   border-radius: 1.25rem;
 `
 
-export const InfoTitle = styled.div`
+export const Title = styled.div`
   ${TYPO.BOLD_L}
   display: flex;
   align-items: center;
@@ -117,7 +118,7 @@ export const InfoTitle = styled.div`
   height: 4rem;
 `
 
-export const InfoViewer = styled.div`
+export const Viewer = styled.div`
   ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;
@@ -129,7 +130,7 @@ export const InfoViewer = styled.div`
   height: 2rem;
 `
 
-export const InfoID = styled.div`
+export const Id = styled.div`
   ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;
