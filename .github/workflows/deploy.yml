@@ -114,6 +114,27 @@ jobs:
           context: .
           file: ./client/Dockerfile  
           push: true
-          tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/react-app
-          cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/react-app
+          tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
+          cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/front
           cache-to: type=inline
+  docker_pull_frontend:
+    name: Connect server ssh and pull frontend from container registry
+    needs: docker_push_frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: connect ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FRONT_HOST }}
+          username: ${{ secrets.FRONT_USERNAME }}
+          password: ${{ secrets.FRONT_PASSWORD }}
+          port: ${{ secrets.FRONT_PORT }}
+          script: |
+            docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q)
+            docker run -d -p 80:80 ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
+            docker image prune -f
+
+
+
