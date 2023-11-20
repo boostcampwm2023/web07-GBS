@@ -117,9 +117,9 @@ jobs:
           tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
           cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/front
           cache-to: type=inline
-  docker_pull_frontend:
+  docker_pull_front:
     name: Connect server ssh and pull frontend from container registry
-    needs: docker_push_frontend
+    needs: docker_push_front
     runs-on: ubuntu-latest
     steps:
       - name: connect ssh
