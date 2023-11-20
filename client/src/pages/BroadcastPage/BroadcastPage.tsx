@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import * as styles from './BroadcastPage.styles'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
@@ -6,7 +7,15 @@ import Chatting from '@components/Chatting/Chatting'
 import RegisterModal from '@components/Modal/RegisterModal/RegisterModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 
+interface BroadcastProps {
+  title: string
+  id: string
+  viewer: string
+}
+
 const BroadcastPage = () => {
+  const location = useLocation()
+  const { title, id, viewer }: BroadcastProps = location.state
   const [registerModal, setRegisterModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [chatting, setChatting] = useState<string>('')
@@ -29,8 +38,10 @@ const BroadcastPage = () => {
 
   return (
     <styles.Container>
-      <styles.Logo onClick={() => location.reload()}>
-        <Logo logo="wide" />
+      <styles.Logo>
+        <Link to="/">
+          <Logo logo="wide" />
+        </Link>
       </styles.Logo>
       <styles.Access>
         <Access leftButton="회원가입" rightButton="로그인" onLeftButton={onRegister} onRightButton={onLogin} />
@@ -48,9 +59,9 @@ const BroadcastPage = () => {
         </styles.Input>
       </styles.Chatting>
       <styles.Info>
-        <styles.Title>JMH의 게임 방송</styles.Title>
-        <styles.Viewer>BJ_JMH</styles.Viewer>
-        <styles.Id>시청자 1,557명</styles.Id>
+        <styles.Title>{title}</styles.Title>
+        <styles.Viewer>{id}</styles.Viewer>
+        <styles.Id>시청자 {viewer}명</styles.Id>
       </styles.Info>
       {registerModal ? <RegisterModal onCancle={onRegister} onConfirm={onRegister} /> : null}
       {loginModal ? <LoginModal onCancle={onLogin} onConfirm={onLogin} /> : null}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import * as styles from './MainPage.styles'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
@@ -32,15 +33,19 @@ const MainPage = () => {
 
   return (
     <styles.Container>
-      <styles.Logo onClick={() => location.reload()}>
-        <Logo logo="box" />
+      <styles.Logo>
+        <Link to="/">
+          <Logo logo="box" />
+        </Link>
       </styles.Logo>
       <styles.Access>
         <Access leftButton="회원가입" rightButton="로그인" onLeftButton={onRegister} onRightButton={onLogin} />
       </styles.Access>
       <styles.List>
         {broadcastList.map((broadcast, index) => (
-          <Broadcast title={broadcast.title} id={broadcast.id} viewer={broadcast.viewer} index={index} key={index} />
+          <Link to={`/${broadcast.id}`} state={{ title: broadcast.title, id: broadcast.id, viewer: broadcast.viewer }}>
+            <Broadcast title={broadcast.title} id={broadcast.id} viewer={broadcast.viewer} index={index} key={index} />
+          </Link>
         ))}
       </styles.List>
       {registerModal ? <RegisterModal onCancle={onRegister} onConfirm={onRegister} /> : null}

@@ -36,19 +36,21 @@ export const Title = styled.div`
   top: 1.875rem;
   right: 1.875rem;
   line-height: 4rem;
+  color: #000000;
 `
 
 export const Id = styled.div`
-  ${TYPO.MEDIUM_R}
+  ${TYPO.LIGHT_R}
   justify-content: right;
   position: absolute;
   right: 1.875rem;
   bottom: 4.125rem;
   line-height: 2.25rem;
+  color: #000000;
 `
 
 export const Viewer = styled.div`
-  ${TYPO.MEDIUM_R}
+  ${TYPO.LIGHT_R}
   justify-content: right;
   position: absolute;
   right: 1.875rem;
