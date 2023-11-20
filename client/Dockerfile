@@ -5,13 +5,13 @@ WORKDIR /app
 
 # 의존성 파일 복사 및 설치
 COPY ./client/package*.json ./
-RUN npm install
+RUN yarn install
 
 # 소스 코드 복사
 COPY . .
 
 # 애플리케이션 빌드
-RUN npm run build
+RUN yarn build
 
 # 두 번째 단계: Nginx를 사용하여 애플리케이션 서빙
 FROM nginx:stable-alpine as production-stage
