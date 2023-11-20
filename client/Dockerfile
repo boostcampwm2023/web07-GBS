@@ -4,7 +4,7 @@ FROM node:lts-alpine as build-stage
 WORKDIR /app
 
 # 의존성 파일 복사 및 설치
-COPY package*.json ./
+COPY package*.json .
 RUN npm install
 
 # 소스 코드 복사
