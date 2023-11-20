@@ -5,7 +5,6 @@ WORKDIR /app
 
 # 의존성 파일 복사 및 설치
 COPY ./client/package.json ./
-COPY ./client/yarn.lock ./
 RUN yarn install && yarn global add typescript
 
 # 소스 코드 복사
