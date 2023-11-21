@@ -2,13 +2,7 @@ import { useState } from 'react'
 import * as styles from './RegisterModal.styles'
 
 interface RegisterModalProps {
-  /**
-   * 취소 버튼 눌렀을 때 실행되는 함수
-   */
   onCancle: () => void
-  /**
-   * 확인 버튼 눌렀을 때 실행되는 함수
-   */
   onConfirm: () => void
 }
 
