@@ -13,6 +13,7 @@ export const Chatting = styled.div`
 export const Id = styled.div`
   ${TYPO.BOLD_R}
   line-height: 2rem;
+  cursor: pointer;
 `
 
 export const Text = styled.div`
