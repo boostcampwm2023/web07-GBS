@@ -10,7 +10,7 @@ import Chatting from '@components/Chatting/Chatting'
 
 interface BroadcastProps {
   title: string
-  id: string
+  streamerId: string
   viewer: string
 }
 
@@ -24,11 +24,12 @@ interface ViewerModalProps {
 
 const BroadcastPage = () => {
   const location = useLocation()
-  const { title, id, viewer }: BroadcastProps = location.state
+  const { title, streamerId, viewer }: BroadcastProps = location.state
   const [registerModal, setRegisterModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
   const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ id: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
+  const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<string>>([])
 
@@ -40,10 +41,20 @@ const BroadcastPage = () => {
     setLoginModal(true)
   }
 
+  const getTarget = (id: string): 'viewer' | 'manager' | 'streamer' => {
+    if (id === streamerId) {
+      return 'streamer'
+    } else if (manager.indexOf(id) !== -1) {
+      return 'manager'
+    }
+
+    return 'viewer'
+  }
+
   const onId = (event: React.MouseEvent<HTMLInputElement>) => {
     const id = event.currentTarget.innerText
     const authority = 'streamer'
-    const target = 'viewer'
+    const target = getTarget(id)
     const top = event.pageY
     const left = event.pageX
 
@@ -54,6 +65,18 @@ const BroadcastPage = () => {
   const onBackdrop = () => {
     setRegisterModal(false)
     setLoginModal(false)
+    setViewerModal(false)
+  }
+
+  const onManager = (id: string) => {
+    const index = manager.indexOf(id)
+
+    if (index === -1) {
+      setManager([...manager, id])
+    } else {
+      setManager(manager.filter((manager) => manager !== id))
+    }
+
     setViewerModal(false)
   }
 
@@ -91,7 +114,7 @@ const BroadcastPage = () => {
       </styles.Chatting>
       <styles.Info>
         <styles.Title>{title}</styles.Title>
-        <styles.Viewer>{id}</styles.Viewer>
+        <styles.Viewer>{streamerId}</styles.Viewer>
         <styles.Id>시청자 {viewer}명</styles.Id>
       </styles.Info>
       {registerModal ? <RegisterModal onCancle={onBackdrop} onConfirm={onBackdrop} /> : null}
@@ -104,7 +127,8 @@ const BroadcastPage = () => {
           top={viewerModalInfo.top}
           left={viewerModalInfo.left}
           onCancle={onBackdrop}
-          onConfirm={onBackdrop}
+          onManager={onManager}
+          onKick={onBackdrop}
         />
       ) : null}
     </styles.Container>

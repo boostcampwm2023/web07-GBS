@@ -7,16 +7,17 @@ interface ViewerModalProps {
   top: number
   left: number
   onCancle: () => void
-  onConfirm: () => void
+  onManager: (id: string) => void
+  onKick: () => void
 }
 
-const ViewerModal = ({ id, authority, target, top, left, onCancle, onConfirm }: ViewerModalProps) => {
+const ViewerModal = ({ id, authority, target, top, left, onCancle, onManager, onKick }: ViewerModalProps) => {
   const getViewerModal = (): JSX.Element => {
     if (authority === 'manager' && target === 'viewer') {
       return (
         <styles.Modal top={top} left={left}>
           <styles.Id>{id}</styles.Id>
-          <styles.Content onClick={onConfirm}>강퇴하기</styles.Content>
+          <styles.Content onClick={onKick}>강퇴하기</styles.Content>
         </styles.Modal>
       )
     } else if (authority === 'streamer') {
@@ -24,16 +25,16 @@ const ViewerModal = ({ id, authority, target, top, left, onCancle, onConfirm }: 
         return (
           <styles.Modal top={top} left={left}>
             <styles.Id>{id}</styles.Id>
-            <styles.Content onClick={onConfirm}>매니저로 지정하기</styles.Content>
-            <styles.Content onClick={onConfirm}>강퇴하기</styles.Content>
+            <styles.Content onClick={() => onManager(id)}>매니저로 지정하기</styles.Content>
+            <styles.Content onClick={onKick}>강퇴하기</styles.Content>
           </styles.Modal>
         )
       } else if (target === 'manager') {
         return (
           <styles.Modal top={top} left={left}>
             <styles.Id>{id}</styles.Id>
-            <styles.Content onClick={onConfirm}>매니저 지정 해제하기</styles.Content>
-            <styles.Content onClick={onConfirm}>강퇴하기</styles.Content>
+            <styles.Content onClick={() => onManager(id)}>매니저 지정 해제하기</styles.Content>
+            <styles.Content onClick={onKick}>강퇴하기</styles.Content>
           </styles.Modal>
         )
       }
