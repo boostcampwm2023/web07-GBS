@@ -70,7 +70,7 @@ jobs:
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:3000 ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
+            docker run -d -p 80:3000 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
             docker image prune -f
 
   docker_pull_rtmp_server:
@@ -112,7 +112,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./client/Dockerfile  
+          file: ./client/Dockerfile
           push: true
           tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
           cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/front
@@ -135,6 +135,3 @@ jobs:
             docker rm $(docker ps -a -q)
             docker run -d -p 80:80 ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
             docker image prune -f
-
-
-
