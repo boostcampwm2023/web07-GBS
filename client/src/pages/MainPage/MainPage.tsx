@@ -17,9 +17,11 @@ const MainPage = () => {
   const [registerModal, setRegisterModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [broadcastList, setBroadcastList] = useState<Array<BroadcastProps>>([])
+
   const onRegister = () => {
     setRegisterModal(() => !registerModal)
   }
+
   const onLogin = () => {
     setLoginModal(() => !loginModal)
   }

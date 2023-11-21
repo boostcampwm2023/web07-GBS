@@ -22,12 +22,11 @@ export const ModalView = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
   width: 32rem;
   height: 25.125rem;
   background-color: #ffffff;
-  transition: height 0.5s ease;
   border-radius: 0.625rem;
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
 `
 
 export const Container = styled.div`

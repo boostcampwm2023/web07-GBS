@@ -3,12 +3,13 @@ import * as styles from './Chatting.styles'
 interface ChattingProps {
   id: string
   context: string
+  onId: (event: React.MouseEvent<HTMLInputElement>) => void
 }
 
-const Chatting = ({ id, context }: ChattingProps) => {
+const Chatting = ({ id, context, onId }: ChattingProps) => {
   return (
     <styles.Chatting>
-      <styles.Id>{id}</styles.Id>
+      <styles.Id onClick={onId}>{id}</styles.Id>
       <styles.Text>{context}</styles.Text>
     </styles.Chatting>
   )
