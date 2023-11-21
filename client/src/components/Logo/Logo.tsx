@@ -5,7 +5,7 @@ interface LogoProps {
 }
 
 const Logo = ({ logo }: LogoProps) => {
-  const src = logo === 'wide' ? '/src/assets/images/wide-logo.svg' : '/src/assets/images/box-logo.svg'
+  const src = logo === 'wide' ? '/assets/images/wide-logo.svg' : '/assets/images/box-logo.svg'
 
   return <styles.Logo src={src} logo={logo} />
 }
