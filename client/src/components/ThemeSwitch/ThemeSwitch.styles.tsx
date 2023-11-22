@@ -1,15 +1,27 @@
 import styled from 'styled-components'
 
-export const ToggleButton = styled.button`
-  background: ${(props) => props.theme.colors.primary};
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
+export const ToggleContainer = styled.div<{ isDarkMode: boolean }>`
   cursor: pointer;
-  transition: background-color 0.3s;
+  background-color: ${({ isDarkMode }) => (isDarkMode ? '#333' : '#ddd')};
+  border-radius: 50px;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  width: 6rem; // rem 단위 사용
+  height: 3.5rem; // rem 단위 사용
+  position: relative;
+  transition: background-color 0.3s ease;
+  border: ${({ isDarkMode }) => (isDarkMode ? '1px solid #555' : '1px solid #aaa')};
+`
 
-  &:hover {
-    background: ${(props) => props.theme.colors.primaryWeak};
-  }
+export const ToggleKnob = styled.div<{ isDarkMode: boolean }>`
+  background-color: white;
+  border-radius: 50%;
+  width: 2rem; // rem 단위 사용
+  height: 2rem; // rem 단위 사용
+  position: absolute;
+  left: 5px;
+  transition: transform 0.3s ease;
+
+  ${({ isDarkMode }) => isDarkMode && `transform: translateX(2.8rem);`}
 `
