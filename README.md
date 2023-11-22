@@ -13,10 +13,13 @@
 | [jmhee28](https://github.com/jmhee28) | [kkg5](https://github.com/kkg5) | [ChoiSangwon](https://github.com/ChoiSangwon) | [top-chaser](https://github.com/top-chaser) |
 
 ## 프로젝트 진행상황
-- 그라운드 룰
-- 깃 컨벤션
-- 회의록
-- 피그마
+
+- [❤️ 그라운드 룰](그라운드-룰)
+- [📜 깃 컨벤션](깃-컨벤션)
+- [🎨 Figma](https://www.figma.com/file/16PQPx7fxsQy1hIq4L7bJd/%EA%B8%88%EC%AA%BD%EC%9D%B4%EB%93%A4?type=design&node-id=0%3A1&mode=dev)
+- [📌 FigJam](https://www.figma.com/file/NarTnhNImVLZ7tNeBIt7uV/%EA%B8%88%EC%AA%BD%EC%9D%B4%EB%93%A4?type=whiteboard&node-id=0-1&t=jp40Lhigs4VzBHS2-0)
+- [💡 Backlog](https://docs.google.com/spreadsheets/d/1W500mLy8KgB72Z6Jxu3mU7P4NrGy8EdgYLOWiS0iAfE/edit?usp=sharing)
+- [📋 회의록](회의록)
 
 
 ## 기술 스택 및 도구
@@ -31,9 +34,10 @@
 
 
 - 서버 아키텍처
-
+<img width="684" alt="스크린샷 2023-11-22 오전 9 26 28" src="https://github.com/boostcampwm2023/web07-GBS/assets/21211957/45da0214-3d3f-4ad7-858c-32af2a993f7f">
 
 - CI/CD
+<img width="456" alt="스크린샷 2023-11-22 오전 9 26 37" src="https://github.com/boostcampwm2023/web07-GBS/assets/21211957/c08abf7c-90c1-4fe3-b1d0-4f6055861b58">
 
 
 ### 프론트엔드
@@ -43,6 +47,3 @@
 - 번들러: Vite
 - 상태관리 라이브러리: Recoil
 - 스타일링: Styled Components
-
-
-- 디자인
