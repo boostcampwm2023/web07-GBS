@@ -2,12 +2,12 @@ FROM node:lts-alpine
 
 WORKDIR /usr/src/app
 
-COPY ./server/api-server/package*.json ./
-COPY ./server/api-server/yarn*.lock ./
+COPY ./package*.json ./
+COPY ./yarn*.lock ./
 
 RUN yarn install
 
-COPY ./server/api-server/. .
+COPY . .
 
 EXPOSE 80
 

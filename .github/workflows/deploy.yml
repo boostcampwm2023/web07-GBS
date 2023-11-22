@@ -23,7 +23,7 @@ jobs:
       - name: build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./server/api-server
           file: ./server/api-server/Dockerfile
           push: true
           tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server:latest
@@ -47,7 +47,7 @@ jobs:
       - name: build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./server/rtmp-server
           file: ./server/rtmp-server/Dockerfile
           push: true
           tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server:latest
@@ -91,9 +91,9 @@ jobs:
             docker rm $(docker ps -a -q)
             docker run -d -p 1935:1935 -p 80:80 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
             docker image prune -f
+
   docker_push_front:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -117,6 +117,7 @@ jobs:
           tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
           cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/front
           cache-to: type=inline
+
   docker_pull_front:
     name: Connect server ssh and pull frontend from container registry
     needs: docker_push_front
