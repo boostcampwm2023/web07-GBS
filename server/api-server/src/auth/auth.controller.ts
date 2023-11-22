@@ -28,16 +28,10 @@ export class AuthController {
   }
   @UseGuards(NaverAuthGuard)
   @Get('login/naver/callback')
-  async callback(
-    @Query('code') code: string,
-    @Query('state') state: string,
-    @Res() res: Response,
-  ) {
-    try {
-      const result = await this.authService.getNaverToken(code, state);
-      res.cookie('access_token', result.access_token);
-    } catch (error) {
-      console.error('error =', error);
-    }
+  async callback(@Req() req, @Res() res: Response): Promise<any> {
+    res.cookie('once_token', req.user.once_token);
+    res.redirect('/');
+    // res.cookie('access_token', req.user.access_token);
+    // res.cookie('refresh_token', req.user.refresh_token);
   }
 }

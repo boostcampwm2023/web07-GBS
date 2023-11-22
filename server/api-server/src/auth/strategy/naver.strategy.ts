@@ -19,8 +19,8 @@ export class NaverStrategy extends PassportStrategy(Strategy) {
     profile: any,
     done: any,
   ): Promise<any> {
-    const oauth_id = profile._json.email;
-    // const once_token = this.authService.onceToken(oauth_id);
-    return { oauth_id };
+    const oauth_id = profile._json.id;
+    const once_token = this.authService.onceToken(oauth_id);
+    return { oauth_id, once_token };
   }
 }
