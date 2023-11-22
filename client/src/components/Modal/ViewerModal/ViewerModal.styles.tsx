@@ -49,7 +49,7 @@ export const Id = styled.div`
   ${TYPO.BOLD_M}
   display: flex;
   justify-content: center;
-  width: 15rem;
+  width: 100%;
   line-height: 3rem;
 `
 
@@ -59,7 +59,7 @@ export const Content = styled.div`
   justify-content: left;
   padding: 0rem 1rem 0rem 1rem;
   border-top: 0.0625rem solid #000000;
-  width: 15rem;
+  width: 100%;
   line-height: 3rem;
   cursor: pointer;
 `
