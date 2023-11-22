@@ -15,14 +15,30 @@ export const Backdrop = styled.div`
   height: 100%;
 `
 
+const pxToRem = (px: number): string => {
+  const width = window.innerWidth
+
+  if (width <= 1024) {
+    return `${px / 8}rem`
+  } else if (width <= 1280) {
+    return `${px / 10}rem`
+  } else if (width <= 1366) {
+    return `${px / 12}rem`
+  } else if (width <= 1600) {
+    return `${px / 14}rem`
+  } else {
+    return `${px / 16}rem`
+  }
+}
+
 export const Modal = styled.div<ViewerModalProps>`
   display: flex;
   flex-direction: column;
   border: 0.0625rem solid #000000;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
   position: absolute;
-  top: ${(props) => props.top}px;
-  left: ${(props) => props.left}px;
+  top: ${(props) => pxToRem(props.top)};
+  left: ${(props) => pxToRem(props.left)};
   width: 15rem;
   height: max-content;
   background-color: #ffffff;
