@@ -6,6 +6,7 @@ import Access from '@components/Access/Access'
 import Broadcast from '@components/Broadcast/Broadcast'
 import RegisterModal from '@components/Modal/RegisterModal/RegisterModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
+import ThemeSwitch from '@components/ThemeSwitch/ThemeSwitch'
 
 interface BroadcastProps {
   title: string
@@ -40,14 +41,17 @@ const MainPage = () => {
           <Logo logo="box" />
         </Link>
       </styles.Logo>
+      <ThemeSwitch />
       <styles.Access>
         <Access leftButton="회원가입" rightButton="로그인" onLeftButton={onRegister} onRightButton={onLogin} />
       </styles.Access>
       <styles.List>
         {broadcastList.map((broadcast, index) => (
-          <Link to={`/${broadcast.streamerId}`} state={{ title: broadcast.title, streamerId: broadcast.streamerId, viewer: broadcast.viewer }}>
-            <Broadcast title={broadcast.title} id={broadcast.streamerId} viewer={broadcast.viewer} index={index} key={index} />
-          </Link>
+          <div>
+            <Link to={`/${broadcast.streamerId}`} state={{ title: broadcast.title, streamerId: broadcast.streamerId, viewer: broadcast.viewer }}>
+              <Broadcast title={broadcast.title} id={broadcast.streamerId} viewer={broadcast.viewer} index={index} key={index} />
+            </Link>
+          </div>
         ))}
       </styles.List>
       {registerModal ? <RegisterModal onCancle={onRegister} onConfirm={onRegister} /> : null}

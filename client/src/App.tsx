@@ -2,16 +2,24 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import GlobalStyle from '@/styles/GlobalStyles.styles'
 import MainPage from '@/pages/MainPage/MainPage'
 import BroadcastPage from '@/pages/BroadcastPage/BroadcastPage'
+import { ThemeProvider } from 'styled-components'
+import { useRecoilState } from 'recoil'
+import { themeState, ThemeFlag } from '@/state/theme'
+import { lightTheme, darkTheme } from '@/styles/theme'
 
 function App() {
+  const [currentTheme, setCurrentTheme] = useRecoilState(themeState)
+  const theme = currentTheme === ThemeFlag.light ? lightTheme : darkTheme
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/:id" element={<BroadcastPage />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <GlobalStyle theme={theme} />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/:id" element={<BroadcastPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 
