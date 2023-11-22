@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
+import { Theme } from '@/styles/theme'
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -19,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     font-size: 100%;
     font: inherit;
+    color:inherit;
     vertical-align: baseline;
     box-sizing: border-box;
   }
@@ -38,6 +40,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     line-height: 1;
+    background-color: ${({ theme }) => theme.colors.background_color};
+    color: ${({ theme }) => theme.colors.text_color};
   }
 
   menu, ol, ul {
