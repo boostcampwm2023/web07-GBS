@@ -90,6 +90,13 @@ const BroadcastPage = () => {
     setChatting('')
   }
 
+  const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter' && event.shiftKey === false) {
+      event.preventDefault()
+      onSend()
+    }
+  }
+
   return (
     <styles.Container>
       <styles.Logo>
@@ -108,7 +115,7 @@ const BroadcastPage = () => {
           ))}
         </styles.ChattingList>
         <styles.Input>
-          <styles.Text onChange={(event) => setChatting(event.target.value)} value={chatting}></styles.Text>
+          <styles.Text value={chatting} onChange={(event) => setChatting(event.target.value)} onKeyDown={onEnter}></styles.Text>
           <styles.Send onClick={onSend}>등록하기</styles.Send>
         </styles.Input>
       </styles.Chatting>
