@@ -45,7 +45,7 @@ const MainPage = () => {
       </styles.Access>
       <styles.List>
         {broadcastList.map((broadcast, index) => (
-          <Link to={`/${broadcast.streamerId}`} state={{ title: broadcast.title, id: broadcast.streamerId, viewer: broadcast.viewer }}>
+          <Link to={`/${broadcast.streamerId}`} state={{ title: broadcast.title, streamerId: broadcast.streamerId, viewer: broadcast.viewer }}>
             <Broadcast title={broadcast.title} id={broadcast.streamerId} viewer={broadcast.viewer} index={index} key={index} />
           </Link>
         ))}
