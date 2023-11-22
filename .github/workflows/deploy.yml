@@ -89,7 +89,7 @@ jobs:
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 1935:1935 -p 80:3000 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
+            docker run -d -p 1935:1935 -p 80:80 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
             docker image prune -f
 
   docker_push_front:
