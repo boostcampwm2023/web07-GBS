@@ -91,7 +91,8 @@ const BroadcastPage = () => {
   }
 
   const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && event.shiftKey === false) {
+      event.preventDefault()
       onSend()
     }
   }
@@ -114,7 +115,7 @@ const BroadcastPage = () => {
           ))}
         </styles.ChattingList>
         <styles.Input>
-          <styles.Text value={chatting} onChange={(event) => setChatting(event.target.value)} onKeyUp={(event) => onEnter(event)}></styles.Text>
+          <styles.Text value={chatting} onChange={(event) => setChatting(event.target.value)} onKeyDown={onEnter}></styles.Text>
           <styles.Send onClick={onSend}>등록하기</styles.Send>
         </styles.Input>
       </styles.Chatting>
