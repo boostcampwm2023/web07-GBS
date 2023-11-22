@@ -1,6 +1,10 @@
 export class CreateUserDto {
   readonly userId: string;
-  readonly oauthId: string;
+  oauthId: string;
   readonly oauthType: string;
   readonly nickname: string;
+
+  setUserId(oauthId: string) {
+    this.oauthId = oauthId;
+  }
 }

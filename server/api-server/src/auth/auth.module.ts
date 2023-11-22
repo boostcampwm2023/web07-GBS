@@ -13,7 +13,7 @@ import {UsersService} from "../users/users.service";
     forwardRef(() => UsersModule),
     PassportModule.register({
       defaultStrategy: 'jwt',
-      session: false,
+      session: true,
     }),
     JwtModule.register({
       secret: process.env.JWT_SECRET,

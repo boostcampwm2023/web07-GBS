@@ -29,7 +29,7 @@ export class User {
 
   @Column({
     name: 'oauth_id',
-    length: 10,
+    length: 50,
     unique: true,
     nullable: true,
   })
