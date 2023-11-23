@@ -12,7 +12,7 @@ import { NaverAuthGuard } from './guard/naver-auth.guard';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { LoggedInGuard } from './guard/logge-in.guard';
+import { LoggedInGuard } from './guard/logged-in.guard';
 
 @Controller('oauth')
 export class AuthController {
