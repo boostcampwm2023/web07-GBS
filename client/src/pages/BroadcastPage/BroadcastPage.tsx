@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import io from 'socket.io-client'
 import * as styles from './BroadcastPage.styles'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
@@ -22,6 +23,11 @@ interface ViewerModalProps {
   left: number
 }
 
+interface ChattingProps {
+  id: string
+  message: string
+}
+
 const BroadcastPage = () => {
   const location = useLocation()
   const { title, streamerId, viewer }: BroadcastProps = location.state
@@ -31,7 +37,8 @@ const BroadcastPage = () => {
   const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ id: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
-  const [chattingList, setChattingList] = useState<Array<string>>([])
+  const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
+  const socket = io('http://localhost:5000')
 
   const onRegister = () => {
     setRegisterModal(true)
@@ -84,7 +91,7 @@ const BroadcastPage = () => {
     if (chatting.trim() === '') {
       alert('채팅을 입력해주세요.')
     } else {
-      setChattingList([chatting, ...chattingList])
+      socket.emit('send', { id: 'JMH', message: chatting, room: streamerId })
     }
 
     setChatting('')
@@ -96,6 +103,14 @@ const BroadcastPage = () => {
       onSend()
     }
   }
+
+  useEffect(() => {
+    socket.emit('join', streamerId)
+
+    socket.on('receive', (chatting: ChattingProps) => {
+      setChattingList((chattingList) => [chatting, ...chattingList])
+    })
+  }, [])
 
   return (
     <styles.Container>
@@ -111,7 +126,7 @@ const BroadcastPage = () => {
       <styles.Chatting>
         <styles.ChattingList>
           {chattingList.map((chatting, index) => (
-            <Chatting id="JMH" context={chatting} onId={onId} key={index} />
+            <Chatting id={chatting.id} message={chatting.message} onId={onId} key={index} />
           ))}
         </styles.ChattingList>
         <styles.Input>
