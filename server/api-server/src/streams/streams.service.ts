@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateStreamDto } from './dto/create-stream.dto';
 import { UpdateStreamDto } from './dto/update-stream.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
@@ -19,12 +18,6 @@ export class StreamsService {
     private readonly userRepo: Repository<User>,
     private readonly videoInfoProvider: VideoInfoProvider,
   ) {}
-
-  create(createStreamDto: CreateStreamDto) {
-    return this.streamRepo.create({
-      ...createStreamDto,
-    });
-  }
 
   async findAll(page: number, size: number): Promise<PageDto<ReadStreamDto>> {
     const videoInfos = await this.videoInfoProvider.getVideoInfo();
@@ -80,7 +73,7 @@ export class StreamsService {
 
   async update(userId: string, updateStreamDto: UpdateStreamDto) {
     const stream = await this.streamRepo.findOne({
-      where: { user: {userId} },
+      where: { user: { userId } },
     });
 
     if (!stream) {
