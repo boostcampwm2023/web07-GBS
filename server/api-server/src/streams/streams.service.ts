@@ -23,10 +23,8 @@ export class StreamsService {
     const videoInfos = await this.videoInfoProvider.getVideoInfo();
     const streamKeys = videoInfos.map((info) => info.streamKey);
 
-    const condition = { stream: { streamKey: In(streamKeys) } };
-
     const [users, count] = await this.userRepo.findAndCount({
-      where: condition,
+      where: { stream: { streamKey: In(streamKeys) } },
       skip: (page - 1) * size,
       take: size,
       relations: ['stream'],
