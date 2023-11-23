@@ -7,6 +7,9 @@ import RegisterModal from '@components/Modal/RegisterModal/RegisterModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 import ViewerModal from '@components/Modal/ViewerModal/ViewerModal'
 import Chatting from '@components/Chatting/Chatting'
+import ToggleSwitch from '@components/ThemeSwitch/ThemeSwitch'
+import { useRecoilValue } from 'recoil'
+import { themeState } from '@/state/theme'
 
 interface BroadcastProps {
   title: string
@@ -32,6 +35,7 @@ const BroadcastPage = () => {
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<string>>([])
+  const theme = useRecoilValue(themeState)
 
   const onRegister = () => {
     setRegisterModal(true)
@@ -104,22 +108,27 @@ const BroadcastPage = () => {
           <Logo logo="wide" />
         </Link>
       </styles.Logo>
+      <styles.Switch>
+        <ToggleSwitch />
+      </styles.Switch>
       <styles.Access>
         <Access leftButton="회원가입" rightButton="로그인" onLeftButton={onRegister} onRightButton={onLogin} />
       </styles.Access>
       <styles.Broadcast></styles.Broadcast>
-      <styles.Chatting>
+      <styles.Chatting currentTheme={theme}>
         <styles.ChattingList>
           {chattingList.map((chatting, index) => (
             <Chatting id="JMH" context={chatting} onId={onId} key={index} />
           ))}
         </styles.ChattingList>
-        <styles.Input>
-          <styles.Text value={chatting} onChange={(event) => setChatting(event.target.value)} onKeyDown={onEnter}></styles.Text>
-          <styles.Send onClick={onSend}>등록하기</styles.Send>
+        <styles.Input currentTheme={theme}>
+          <styles.Text currentTheme={theme} value={chatting} onChange={(event) => setChatting(event.target.value)} onKeyDown={onEnter}></styles.Text>
+          <styles.Send currentTheme={theme} onClick={onSend}>
+            등록하기
+          </styles.Send>
         </styles.Input>
       </styles.Chatting>
-      <styles.Info>
+      <styles.Info currentTheme={theme}>
         <styles.Title>{title}</styles.Title>
         <styles.Viewer>{streamerId}</styles.Viewer>
         <styles.Id>시청자 {viewer}명</styles.Id>

@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
+import { ThemeFlag } from '@/state/theme'
+
+interface DarkmodeProps {
+  currentTheme: ThemeFlag
+}
 
 export const Container = styled.div`
   width: 100vw;
@@ -10,6 +15,12 @@ export const Logo = styled.div`
   position: absolute;
   top: 0rem;
   left: 1.875rem;
+`
+
+export const Switch = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  left: 15rem;
 `
 
 export const Access = styled.div`
@@ -28,10 +39,13 @@ export const Broadcast = styled.div`
   background-color: #000000;
 `
 
-export const Chatting = styled.div`
+export const Chatting = styled.div<DarkmodeProps>`
   display: flex;
   flex-direction: column;
-  border: 0.0625rem solid #000000;
+  border: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   position: absolute;
   top: 6.25rem;
   left: 67.75rem;
@@ -56,15 +70,21 @@ export const ChattingList = styled.div`
   }
 `
 
-export const Input = styled.div`
-  border-top: 0.0625rem solid #000000;
+export const Input = styled.div<DarkmodeProps>`
+  border-top: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   height: 9.4375rem;
   width: 100%;
 `
 
-export const Text = styled.textarea`
+export const Text = styled.textarea<DarkmodeProps>`
   ${TYPO.LIGHT_R}
-  border: 0.0625rem solid #000000;
+  border: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   position: absolute;
   bottom: 0.9375rem;
   left: 0.9375rem;
@@ -79,12 +99,15 @@ export const Text = styled.textarea`
   }
 `
 
-export const Send = styled.div`
+export const Send = styled.div<DarkmodeProps>`
   ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.0625rem solid #000000;
+  border: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
   position: absolute;
   right: 0.9375rem;
@@ -95,9 +118,12 @@ export const Send = styled.div`
   cursor: pointer;
 `
 
-export const Info = styled.div`
+export const Info = styled.div<DarkmodeProps>`
   display: flex;
-  border: 0.0625rem solid #000000;
+  border: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   position: absolute;
   top: 53.625rem;
   left: 1.875rem;
