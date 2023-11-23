@@ -6,7 +6,7 @@ import { NaverStrategy } from './strategy/naver.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { HttpModule } from '@nestjs/axios';
+import {UsersService} from "../users/users.service";
 
 @Module({
   imports: [
@@ -18,10 +18,9 @@ import { HttpModule } from '@nestjs/axios';
     JwtModule.register({
       secret: process.env.JWT_SECRET,
     }),
-    HttpModule,
   ],
   controllers: [AuthController],
   providers: [NaverStrategy, AuthService],
-  exports: [PassportModule, JwtModule],
+  exports: [PassportModule, JwtModule, AuthService],
 })
 export class AuthModule {}
