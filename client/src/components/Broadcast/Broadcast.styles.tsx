@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
+import { ThemeFlag } from '@/state/theme'
 
 interface BroadcastProps {
   index: number
+  currentTheme: ThemeFlag
 }
 
 export const Broadcast = styled.div<BroadcastProps>`
@@ -10,7 +12,8 @@ export const Broadcast = styled.div<BroadcastProps>`
     if (props.index === 0) {
       return
     } else {
-      return '0.0625rem solid #000000'
+      if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+      else return '0.0625rem solid #ffffff'
     }
   }};
   position: relative;

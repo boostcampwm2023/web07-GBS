@@ -1,3 +1,4 @@
+import { ThemeFlag } from '@/state/theme'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -17,10 +18,17 @@ export const Access = styled.div`
   left: 63.25rem;
 `
 
-export const List = styled.div`
+interface ListProps {
+  currentTheme: ThemeFlag
+}
+
+export const List = styled.div<ListProps>`
   display: flex;
   flex-direction: column;
-  border: 0.0625rem solid #000000;
+  border: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   position: absolute;
   top: 15.625rem;
   left: 18.75rem;
