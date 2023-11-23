@@ -1,12 +1,11 @@
-import express, { Express, Request, Response } from "express";
+import express from "express";
+import http from "http";
+import { Server } from "socket.io";
 
-const app: Express = express();
-const port = 5000;
+const PORT = 3010;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Typescript + Node.js + Express Server");
-});
+const app = express();
+const server = http.createServer(app);
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at <https://locasdfalt>:${port}`);
-});
+const socket = new Server(server);
+server.listen(PORT, () => console.log(`app listening on port ${PORT}!`));
