@@ -41,7 +41,7 @@ export class AuthController {
     session.refreshToken = req.user.refreshToken;
     session.oauthId = req.user.oauthId;
     session.type = req.user.type;
-    res.redirect('http://localhost:3000');
+    res.redirect('/');
     res.end();
   }
 }
