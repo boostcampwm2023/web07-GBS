@@ -29,6 +29,12 @@ export class Stream {
   })
   desc: string;
 
+  @Column({
+    length: 20,
+    nullable: true,
+  })
+  category: string;
+
   @CreateDateColumn({
     name: 'created_at',
   })

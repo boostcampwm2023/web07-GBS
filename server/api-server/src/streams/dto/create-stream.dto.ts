@@ -1,3 +1,5 @@
 export class CreateStreamDto {
-  readonly userId: string;
+  readonly title: string;
+  readonly desc: string;
+  readonly category: string;
 }

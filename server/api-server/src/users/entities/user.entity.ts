@@ -15,7 +15,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Stream, (stream) => stream.user)
+  @OneToOne(() => Stream, (stream) => stream.user, { cascade: true })
   @JoinColumn({ name: 'stream_key' })
   stream: Stream;
 
@@ -23,6 +23,7 @@ export class User {
     name: 'user_id',
     length: 10,
     unique: true,
+    nullable: true,
   })
   userId: string;
 
@@ -30,19 +31,21 @@ export class User {
     name: 'oauth_id',
     length: 10,
     unique: true,
+    nullable: true,
   })
   oauthId: string;
 
   @Column({
     name: 'oauth_type',
     length: 10,
+    nullable: true,
   })
   oauthType: string;
 
   @Column({
     length: 10,
     unique: true,
-    nullable: false,
+    nullable: true,
   })
   nickname: string;
 
