@@ -23,9 +23,9 @@ export function setUpSession(app: INestApplication): void {
       resave: false,
       store: redisStore,
       cookie: {
-        httpOnly: true,
+        httpOnly: false,
         secure: false,
-        maxAge: 1000 * 60 * 30, // 쿠키 유효기간: 30분
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 쿠키 유효기간: 일주일?
       },
     }),
   );

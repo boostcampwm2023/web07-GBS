@@ -70,7 +70,7 @@ jobs:
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:3000 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
+            docker run -d -p 80:3000 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.REDIS_URL}} ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
             docker image prune -f
 
   docker_pull_rtmp_server:

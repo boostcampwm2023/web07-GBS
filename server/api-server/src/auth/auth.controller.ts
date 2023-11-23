@@ -46,9 +46,9 @@ export class AuthController {
     return;
   }
   //
-  // @UseGuards(LoggedInGuard) // login이 되어있으면 못들어옴 test
-  // @Get('hi')
-  // async hi() {
-  //   return 'hi';
-  // }
+  @UseGuards(LoggedInGuard) // login이 되어있으면 못들어옴 test
+  @Get('hi')
+  async hi() {
+    return 'hi';
+  }
 }
