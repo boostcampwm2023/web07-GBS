@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import {CreateUserDto} from "../users/dto/create-user.dto";
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService) {}
   async validateUser(oauthId: string): Promise<any> {
-    const user = await this.usersService.findOAuthId(oauthId);
+    const user = await this.usersService.findByOAuthId(oauthId);
     if (!user) {
       return null;
     }

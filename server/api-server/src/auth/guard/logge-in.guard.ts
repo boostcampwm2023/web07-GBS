@@ -1,4 +1,3 @@
-// auth/logged-in.guard.ts
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
@@ -12,8 +11,7 @@ export class LoggedInGuard implements CanActivate {
     const sid = this.getSidFromCookie(request.headers.cookie);
     console.log(sid);
     // TODO token이 유효한지 확인하는 로직이 필요함
-    if(sid == null) return false;
-    else return true;
+    return sid !== null;
   }
 
   getSidFromCookie(cookieString) {

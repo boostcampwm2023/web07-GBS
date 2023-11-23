@@ -1,4 +1,4 @@
-import {Controller, Get, Req, Session} from '@nestjs/common';
+import { Controller, Get, Req, Session } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Request } from 'express';
 

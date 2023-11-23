@@ -22,7 +22,7 @@ export class UsersService {
     return this.userRepo.find();
   }
 
-  async findOAuthId(oauthId: string) {
+  async findByOAuthId(oauthId: string) {
     return await this.userRepo.findOne({
       where: { oauthId: oauthId },
     });

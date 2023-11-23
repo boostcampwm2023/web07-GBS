@@ -1,8 +1,7 @@
-import { Strategy } from 'passport-naver';
+import { Strategy } from 'passport-naver-v2';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from '../auth.service';
-// import { AuthService } from '../auth.service';
 
 @Injectable()
 export class NaverStrategy extends PassportStrategy(Strategy) {
@@ -22,8 +21,7 @@ export class NaverStrategy extends PassportStrategy(Strategy) {
     const oauthId = profile._json.id;
     const user = await this.authService.validateUser(oauthId);
     let type = 'login';
-    if (user == null) {
-      // 유저가 없을 때
+    if (!user) {
       type = 'signup';
     }
     return { type, oauthId, accessToken, refreshToken };
