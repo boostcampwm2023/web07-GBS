@@ -1,42 +1,26 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Query } from '@nestjs/common';
 import { StreamsService } from './streams.service';
-import { CreateStreamDto } from './dto/create-stream.dto';
 import { UpdateStreamDto } from './dto/update-stream.dto';
 
 @Controller('streams')
 export class StreamsController {
   constructor(private readonly streamsService: StreamsService) {}
 
-  @Post()
-  create(@Body() createStreamDto: CreateStreamDto) {
-    return this.streamsService.create(createStreamDto);
-  }
-
   @Get()
-  findAll() {
-    return this.streamsService.findAll();
+  findAll(@Query('page') page = '1', @Query('size') size = '5') {
+    return this.streamsService.findAll(+page, +size);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.streamsService.findOne(+id);
+  @Get(':userId')
+  findOne(@Param('userId') userId: string) {
+    return this.streamsService.findOne(userId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStreamDto: UpdateStreamDto) {
-    return this.streamsService.update(+id, updateStreamDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.streamsService.remove(+id);
+  @Patch(':userId')
+  update(
+    @Param('userId') userId: string,
+    @Body() updateStreamDto: UpdateStreamDto,
+  ) {
+    return this.streamsService.update(userId, updateStreamDto);
   }
 }

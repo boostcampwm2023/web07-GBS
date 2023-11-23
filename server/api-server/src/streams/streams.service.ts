@@ -1,34 +1,87 @@
-import { Injectable } from '@nestjs/common';
-import { CreateStreamDto } from './dto/create-stream.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UpdateStreamDto } from './dto/update-stream.dto';
-import { Stream } from './entities/stream.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Stream } from './entities/stream.entity';
+import { VideoInfoProvider } from './provider/video-info.provider';
+import { ReadStreamDetailDto } from './dto/read-stream-detail.dto';
+import { ReadStreamDto } from './dto/read-stream.dto';
+import { PageDto } from 'src/common/dto/page.dto';
 
 @Injectable()
 export class StreamsService {
   constructor(
     @InjectRepository(Stream)
-    private streamRepo: Repository<Stream>,
+    private readonly streamRepo: Repository<Stream>,
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
+    private readonly videoInfoProvider: VideoInfoProvider,
   ) {}
 
-  create(createStreamDto: CreateStreamDto) {
-    return 'This action adds a new stream';
+  async findAll(page: number, size: number): Promise<PageDto<ReadStreamDto>> {
+    const videoInfos = await this.videoInfoProvider.getVideoInfo();
+    const streamKeys = videoInfos.map((info) => info.streamKey);
+
+    const [users, count] = await this.userRepo.findAndCount({
+      where: { stream: { streamKey: In(streamKeys) } },
+      skip: (page - 1) * size,
+      take: size,
+      relations: ['stream'],
+    });
+
+    return {
+      data: users.map((user) => ({
+        userId: user.userId,
+        title: user.stream.title,
+        category: user.stream.category,
+        ...videoInfos.find((info) => info.streamKey === user.stream.streamKey),
+      })),
+      pageInfo: {
+        page,
+        size,
+        totalPage: Math.ceil(count / size),
+      },
+    };
   }
 
-  findAll() {
-    return `This action returns all streams`;
+  async findOne(userId: string): Promise<ReadStreamDetailDto> {
+    const user = await this.userRepo.findOne({
+      where: { userId },
+      relations: ['stream'],
+    });
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    const videoInfos = await this.videoInfoProvider.getVideoInfo();
+    const videoInfo = videoInfos.find(
+      (info) => info.streamKey === user.stream.streamKey,
+    );
+
+    return {
+      userId,
+      title: user.stream.title,
+      category: user.stream.category,
+      desc: user.stream.desc,
+      ...videoInfo,
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} stream`;
-  }
+  async update(userId: string, updateStreamDto: UpdateStreamDto) {
+    const stream = await this.streamRepo.findOne({
+      where: { user: { userId } },
+    });
 
-  update(id: number, updateStreamDto: UpdateStreamDto) {
-    return `This action updates a #${id} stream`;
-  }
+    if (!stream) {
+      throw new HttpException('Stream not found', HttpStatus.NOT_FOUND);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} stream`;
+    stream.title = updateStreamDto.title || stream.title;
+    stream.desc = updateStreamDto.desc || stream.category;
+    stream.category = updateStreamDto.category || stream.category;
+
+    return this.streamRepo.save(stream);
   }
 }
