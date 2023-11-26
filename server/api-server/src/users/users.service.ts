@@ -12,23 +12,32 @@ export class UsersService {
     private userRepo: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    const newUser = this.userRepo.create(createUserDto);
+    await this.userRepo.save(newUser);
+    return newUser;
   }
 
-  findAll() {
-    return `This action returns all users`;
+  findAll(): Promise<User[]> {
+    return this.userRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findByOAuthId(oauthId: string) {
+    return await this.userRepo.findOne({
+      where: { oauthId: oauthId },
+    });
+  }
+  async findOne(id: string) {
+    return await this.userRepo.find({
+      where: { id: id },
+    });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  update(id: string, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} user`;
   }
 }
