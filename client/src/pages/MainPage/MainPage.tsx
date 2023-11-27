@@ -41,7 +41,7 @@ const MainPage = () => {
     <styles.Container>
       <styles.Logo>
         <Link to="/">
-          <Logo logo="box" />
+          <Logo logo="box" currentTheme={theme} />
         </Link>
       </styles.Logo>
       <ThemeSwitch />
@@ -58,7 +58,7 @@ const MainPage = () => {
         ))}
       </styles.List>
       {registerModal ? <RegisterModal currentTheme={theme} onCancle={onRegister} onConfirm={onRegister} /> : null}
-      {loginModal ? <LoginModal currentTheme={theme} onCancle={onLogin} onConfirm={onLogin} /> : null}
+      {loginModal ? <LoginModal currentTheme={theme} onCancle={onLogin} /> : null}
     </styles.Container>
   )
 }

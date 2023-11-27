@@ -57,7 +57,7 @@ const RegisterModal = ({ onCancle, onConfirm, currentTheme }: RegisterModalProps
               />
             </styles.InputBox>
           </styles.Container>
-          <styles.ButtonContainer>
+          <styles.ButtonContainer currentTheme={currentTheme}>
             <styles.Button onClick={onConfirm} style={{ borderRight: '0.0625rem solid #000000' }}>
               확인
             </styles.Button>

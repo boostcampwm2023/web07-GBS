@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/state/theme'
 
-interface DarkmodeProps {
+interface RegisterModalProps {
   currentTheme: ThemeFlag
 }
 
@@ -23,10 +23,14 @@ export const Modal = styled(Backdrop)`
   text-align: center;
 `
 
-export const ModalView = styled.div<DarkmodeProps>`
+export const ModalView = styled.div<RegisterModalProps>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  border: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
   width: 32rem;
   height: 25.125rem;
@@ -60,7 +64,7 @@ export const InputBox = styled.div`
   line-height: 2.25rem;
 `
 
-export const Input = styled.input<DarkmodeProps>`
+export const Input = styled.input<RegisterModalProps>`
   ${TYPO.LIGHT_M}
   padding-right: 1rem;
   padding-left: 1rem;
@@ -73,11 +77,14 @@ export const Input = styled.input<DarkmodeProps>`
   border-radius: 0.625rem;
 `
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div<RegisterModalProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 0.0625rem solid #000000;
+  border-top: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   bottom: 0rem;
   width: 100%;
   height: 4.6875rem;

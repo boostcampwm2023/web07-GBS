@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/state/theme'
 
-interface DarkmodeProps {
+interface BroadcastPageProps {
   currentTheme: ThemeFlag
 }
 
@@ -39,7 +39,7 @@ export const Broadcast = styled.div`
   background-color: #000000;
 `
 
-export const Chatting = styled.div<DarkmodeProps>`
+export const Chatting = styled.div<BroadcastPageProps>`
   display: flex;
   flex-direction: column;
   border: ${(props) => {
@@ -70,7 +70,7 @@ export const ChattingList = styled.div`
   }
 `
 
-export const Input = styled.div<DarkmodeProps>`
+export const Input = styled.div<BroadcastPageProps>`
   border-top: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
     else return '0.0625rem solid #ffffff'
@@ -79,14 +79,14 @@ export const Input = styled.div<DarkmodeProps>`
   width: 100%;
 `
 
-export const Text = styled.textarea<DarkmodeProps>`
+export const Text = styled.textarea<BroadcastPageProps>`
   ${TYPO.LIGHT_R}
   border: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
     else return '0.0625rem solid #ffffff'
   }};
   background-color: ${(props) => {
-    if (props.currentTheme === ThemeFlag.dark) return '#999'
+    if (props.currentTheme === ThemeFlag.dark) return '#808080'
   }};
   position: absolute;
   bottom: 0.9375rem;
@@ -102,7 +102,7 @@ export const Text = styled.textarea<DarkmodeProps>`
   }
 `
 
-export const Send = styled.div<DarkmodeProps>`
+export const Send = styled.div<BroadcastPageProps>`
   ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;
@@ -121,7 +121,7 @@ export const Send = styled.div<DarkmodeProps>`
   cursor: pointer;
 `
 
-export const Info = styled.div<DarkmodeProps>`
+export const Info = styled.div<BroadcastPageProps>`
   display: flex;
   border: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
