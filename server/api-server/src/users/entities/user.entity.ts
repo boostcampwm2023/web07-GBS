@@ -21,7 +21,7 @@ export class User {
 
   @Column({
     name: 'user_id',
-    length: 10,
+    length: 36,
     unique: true,
     nullable: true,
   })
@@ -43,7 +43,7 @@ export class User {
   oauthType: string;
 
   @Column({
-    length: 10,
+    length: 36,
     unique: true,
     nullable: true,
   })

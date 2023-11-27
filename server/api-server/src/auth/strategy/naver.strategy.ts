@@ -18,12 +18,8 @@ export class NaverStrategy extends PassportStrategy(Strategy) {
     profile: any,
     done: any,
   ): Promise<any> {
-    const oauthId = profile._json.id;
-    const user = await this.authService.validateUser(oauthId);
-    let type = 'login';
-    if (!user) {
-      type = 'signup';
-    }
-    return { type, oauthId, accessToken, refreshToken };
+    const oauthId = profile.id;
+    const user = await this.authService.validateUser(oauthId, 'naver');
+    return { userId: user.id };
   }
 }

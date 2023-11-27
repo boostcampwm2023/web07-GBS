@@ -18,14 +18,14 @@ export function setUpSession(app: INestApplication): void {
 
   app.use(
     session({
-      secret: process.env.SESSION_SECRET, // 세션에 사용될 시크릿 값. 감춰두자.
+      secret: process.env.SESSION_SECRET,
       saveUninitialized: false,
       resave: false,
       store: redisStore,
       cookie: {
         httpOnly: false,
         secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 쿠키 유효기간: 일주일?
+        maxAge: 1000 * 60 * 60 * 24 * 7,
       },
     }),
   );
