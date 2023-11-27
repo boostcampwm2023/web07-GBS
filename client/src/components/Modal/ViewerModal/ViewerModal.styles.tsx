@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
+import { ThemeFlag } from '@/state/theme'
 
 interface ViewerModalProps {
   top: number
   left: number
+  currentTheme: ThemeFlag
 }
 
 export const Backdrop = styled.div`
@@ -41,7 +43,10 @@ export const Modal = styled.div<ViewerModalProps>`
   left: ${(props) => pxToRem(props.left)};
   width: 15rem;
   height: max-content;
-  background-color: #ffffff;
+  background-color: ${(props) => {
+    if (props.currentTheme === ThemeFlag.dark) return '#999'
+    else return 'white'
+  }};
   border-radius: 0.625rem;
 `
 

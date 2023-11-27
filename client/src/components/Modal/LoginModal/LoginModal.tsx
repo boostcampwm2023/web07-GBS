@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import * as styles from './LoginModal.styles'
 import { ThemeFlag } from '@/state/theme'
 
