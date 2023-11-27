@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as styles from './RegisterModal.styles'
-import { ThemeFlag } from '@/state/theme'
+import { ThemeFlag } from '@/states/theme'
 
 interface RegisterModalProps {
   onCancle: () => void

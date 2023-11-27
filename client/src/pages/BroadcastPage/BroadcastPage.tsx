@@ -10,7 +10,7 @@ import ViewerModal from '@components/Modal/ViewerModal/ViewerModal'
 import Chatting from '@components/Chatting/Chatting'
 import ToggleSwitch from '@components/ThemeSwitch/ThemeSwitch'
 import { useRecoilValue } from 'recoil'
-import { themeState } from '@/state/theme'
+import { themeState } from '@/states/theme'
 
 interface BroadcastProps {
   title: string

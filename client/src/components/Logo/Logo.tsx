@@ -1,5 +1,5 @@
 import * as styles from './Logo.styles'
-import { ThemeFlag } from '@/state/theme'
+import { ThemeFlag } from '@/states/theme'
 
 interface LogoProps {
   logo: 'wide' | 'box'

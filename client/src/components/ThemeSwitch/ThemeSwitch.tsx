@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { themeState, ThemeFlag } from '@/state/theme'
+import { themeState, ThemeFlag } from '@/states/theme'
 import * as styles from './ThemeSwitch.styles'
 
 const ToggleSwitch: React.FC = () => {

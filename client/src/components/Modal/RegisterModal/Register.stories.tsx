@@ -1,6 +1,6 @@
 import type { StoryObj } from '@storybook/react'
 import RegisterModal from './RegisterModal'
-import { ThemeFlag } from '@/state/theme'
+import { ThemeFlag } from '@/states/theme'
 
 const meta = {
   title: 'Modal/Register',

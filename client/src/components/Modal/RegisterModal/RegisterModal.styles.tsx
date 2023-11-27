@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
-import { ThemeFlag } from '@/state/theme'
+import { ThemeFlag } from '@/states/theme'
 
 interface RegisterModalProps {
   currentTheme: ThemeFlag
