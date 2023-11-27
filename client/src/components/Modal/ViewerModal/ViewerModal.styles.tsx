@@ -8,6 +8,10 @@ interface ViewerModalProps {
   currentTheme: ThemeFlag
 }
 
+interface ViewerModalContentProps {
+  currentTheme: ThemeFlag
+}
+
 export const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -36,7 +40,10 @@ const pxToRem = (px: number): string => {
 export const Modal = styled.div<ViewerModalProps>`
   display: flex;
   flex-direction: column;
-  border: 0.0625rem solid #000000;
+  border: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
   position: absolute;
   top: ${(props) => pxToRem(props.top)};
@@ -58,12 +65,15 @@ export const Id = styled.div`
   line-height: 3rem;
 `
 
-export const Content = styled.div`
+export const Content = styled.div<ViewerModalContentProps>`
   ${TYPO.MEDIUM_M}
   display: flex;
   justify-content: left;
   padding: 0rem 1rem 0rem 1rem;
-  border-top: 0.0625rem solid #000000;
+  border-top: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
   width: 100%;
   line-height: 3rem;
   cursor: pointer;
