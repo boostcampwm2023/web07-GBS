@@ -19,7 +19,7 @@ interface BroadcastProps {
 }
 
 interface ViewerModalProps {
-  viewerNickname: string
+  nickname: string
   authority: 'viewer' | 'manager' | 'streamer'
   target: 'viewer' | 'manager' | 'streamer'
   top: number
@@ -38,7 +38,7 @@ const BroadcastPage = () => {
   const [registerModal, setRegisterModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
-  const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ viewerNickname: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
+  const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ nickname: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const theme = useRecoilValue(themeState)
@@ -70,7 +70,7 @@ const BroadcastPage = () => {
     const top = event.pageY
     const left = event.pageX
 
-    setViewerModalInfo({ viewerNickname, authority, target, top, left })
+    setViewerModalInfo({ nickname: viewerNickname, authority: authority, target: target, top: top, left: left })
     setViewerModal(true)
   }
 
@@ -153,7 +153,7 @@ const BroadcastPage = () => {
       {loginModal ? <LoginModal onCancle={onBackdrop} currentTheme={theme} /> : null}
       {viewerModal ? (
         <ViewerModal
-          nickname={viewerModalInfo.viewerNickname}
+          nickname={viewerModalInfo.nickname}
           authority={viewerModalInfo.authority}
           target={viewerModalInfo.target}
           top={viewerModalInfo.top}
