@@ -2,23 +2,23 @@ import * as styles from './ViewerModal.styles'
 import { ThemeFlag } from '@/states/theme'
 
 interface ViewerModalProps {
-  id: string
+  nickname: string
   authority: 'viewer' | 'manager' | 'streamer'
   target: 'viewer' | 'manager' | 'streamer'
   top: number
   left: number
   onCancle: () => void
-  onManager: (id: string) => void
+  onManager: (nickname: string) => void
   onKick: () => void
   currentTheme: ThemeFlag
 }
 
-const ViewerModal = ({ id, authority, target, top, left, onCancle, onManager, onKick, currentTheme }: ViewerModalProps) => {
+const ViewerModal = ({ nickname, authority, target, top, left, onCancle, onManager, onKick, currentTheme }: ViewerModalProps) => {
   const getViewerModal = (): JSX.Element => {
     if (authority === 'manager' && target === 'viewer') {
       return (
         <styles.Modal top={top} left={left} currentTheme={currentTheme}>
-          <styles.Id>{id}</styles.Id>
+          <styles.Nickname>{nickname}</styles.Nickname>
           <styles.Content onClick={onKick} currentTheme={currentTheme}>
             강퇴하기
           </styles.Content>
@@ -28,8 +28,8 @@ const ViewerModal = ({ id, authority, target, top, left, onCancle, onManager, on
       if (target === 'viewer') {
         return (
           <styles.Modal top={top} left={left} currentTheme={currentTheme}>
-            <styles.Id>{id}</styles.Id>
-            <styles.Content onClick={() => onManager(id)} currentTheme={currentTheme}>
+            <styles.Nickname>{nickname}</styles.Nickname>
+            <styles.Content onClick={() => onManager(nickname)} currentTheme={currentTheme}>
               매니저로 지정하기
             </styles.Content>
             <styles.Content onClick={onKick} currentTheme={currentTheme}>
@@ -40,8 +40,8 @@ const ViewerModal = ({ id, authority, target, top, left, onCancle, onManager, on
       } else if (target === 'manager') {
         return (
           <styles.Modal top={top} left={left} currentTheme={currentTheme}>
-            <styles.Id>{id}</styles.Id>
-            <styles.Content onClick={() => onManager(id)} currentTheme={currentTheme}>
+            <styles.Nickname>{nickname}</styles.Nickname>
+            <styles.Content onClick={() => onManager(nickname)} currentTheme={currentTheme}>
               매니저 지정 해제하기
             </styles.Content>
             <styles.Content onClick={onKick} currentTheme={currentTheme}>
@@ -54,7 +54,7 @@ const ViewerModal = ({ id, authority, target, top, left, onCancle, onManager, on
 
     return (
       <styles.Modal top={top} left={left} currentTheme={currentTheme}>
-        <styles.Id>{id}</styles.Id>
+        <styles.Nickname>{nickname}</styles.Nickname>
       </styles.Modal>
     )
   }

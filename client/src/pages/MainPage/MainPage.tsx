@@ -11,8 +11,9 @@ import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
 
 interface BroadcastProps {
+  id: string
   title: string
-  streamerId: string
+  nickname: string
   viewer: string
 }
 
@@ -32,8 +33,8 @@ const MainPage = () => {
 
   useEffect(() => {
     setBroadcastList([
-      { title: 'JMH의 방송', streamerId: 'BJ_JMH', viewer: '1,557' },
-      { title: '그냥 방송', streamerId: 'BJ_그냥', viewer: '1,601' },
+      { id: 'qwer1234', title: 'JMH의 방송', nickname: 'BJ_JMH', viewer: '1,557' },
+      { id: '11dnjfqhdks', title: '그냥 방송', nickname: 'BJ_그냥', viewer: '1,601' },
     ])
   }, [])
 
@@ -51,8 +52,8 @@ const MainPage = () => {
       <styles.List currentTheme={theme}>
         {broadcastList.map((broadcast, index) => (
           <div>
-            <Link to={`/${broadcast.streamerId}`} state={{ title: broadcast.title, streamerId: broadcast.streamerId, viewer: broadcast.viewer }}>
-              <Broadcast title={broadcast.title} id={broadcast.streamerId} viewer={broadcast.viewer} index={index} key={index} />
+            <Link to={`/${broadcast.id}`} state={{ title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
+              <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
             </Link>
           </div>
         ))}

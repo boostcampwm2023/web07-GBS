@@ -41,7 +41,7 @@ export const Title = styled.div`
   line-height: 4rem;
 `
 
-export const Id = styled.div`
+export const Nickname = styled.div`
   ${TYPO.LIGHT_R}
   justify-content: right;
   position: absolute;

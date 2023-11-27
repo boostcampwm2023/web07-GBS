@@ -10,7 +10,7 @@ export const Chatting = styled.div`
   height: max-content;
 `
 
-export const Id = styled.div`
+export const Nickname = styled.div`
   ${TYPO.BOLD_R}
   line-height: 2rem;
   cursor: pointer;

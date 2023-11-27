@@ -16,7 +16,7 @@ export const Default: Story = {
   args: {
     top: 0,
     left: 0,
-    id: 'test',
+    nickname: 'test',
     authority: 'viewer',
     target: 'viewer',
     onCancle: () => {},

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
-import { CurrentTheme } from '@/types/theme'
+import { ThemeInterface } from '@/types/theme'
 
 interface ViewerModalProps {
   top: number
@@ -54,7 +54,7 @@ export const Modal = styled.div<ViewerModalProps>`
   border-radius: 0.625rem;
 `
 
-export const Id = styled.div`
+export const Nickname = styled.div`
   ${TYPO.BOLD_M}
   display: flex;
   justify-content: center;
@@ -62,7 +62,7 @@ export const Id = styled.div`
   line-height: 3rem;
 `
 
-export const Content = styled.div<CurrentTheme>`
+export const Content = styled.div<ThemeInterface>`
   ${TYPO.MEDIUM_M}
   display: flex;
   justify-content: left;

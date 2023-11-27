@@ -1,5 +1,5 @@
 import { ThemeFlag } from '@/states/theme'
 
-export interface CurrentTheme {
+export interface ThemeInterface {
   currentTheme: ThemeFlag
 }

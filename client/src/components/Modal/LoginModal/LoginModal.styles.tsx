@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
-import { CurrentTheme } from '@/types/theme'
+import { ThemeInterface } from '@/types/theme'
 
 export const Backdrop = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ export const Backdrop = styled.div`
   text-align: center;
 `
 
-export const Modal = styled.div<CurrentTheme>`
+export const Modal = styled.div<ThemeInterface>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -52,7 +52,7 @@ export const LoginImage = styled.img`
   cursor: pointer;
 `
 
-export const ButtonContainer = styled.div<CurrentTheme>`
+export const ButtonContainer = styled.div<ThemeInterface>`
   ${TYPO.MEDIUM_M}
   display: flex;
   align-items: center;
