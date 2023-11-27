@@ -8,7 +8,7 @@ interface ViewerModalProps {
   currentTheme: ThemeFlag
 }
 
-interface ViewerModalContentProps {
+interface ContentProps {
   currentTheme: ThemeFlag
 }
 
@@ -65,7 +65,7 @@ export const Id = styled.div`
   line-height: 3rem;
 `
 
-export const Content = styled.div<ViewerModalContentProps>`
+export const Content = styled.div<ContentProps>`
   ${TYPO.MEDIUM_M}
   display: flex;
   justify-content: left;

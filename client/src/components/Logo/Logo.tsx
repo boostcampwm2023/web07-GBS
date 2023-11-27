@@ -1,19 +1,18 @@
-import { useRecoilValue } from 'recoil'
 import * as styles from './Logo.styles'
-import { ThemeFlag, themeState } from '@/state/theme'
+import { ThemeFlag } from '@/state/theme'
 
 interface LogoProps {
   logo: 'wide' | 'box'
+  currentTheme: ThemeFlag
 }
 
-const Logo = ({ logo }: LogoProps) => {
-  const theme = useRecoilValue(themeState)
+const Logo = ({ logo, currentTheme }: LogoProps) => {
   const src =
     logo === 'wide'
-      ? theme === ThemeFlag.light
+      ? currentTheme === ThemeFlag.light
         ? '/images/wide-logo-dark.svg'
         : '/images/wide-logo-light.svg'
-      : theme === ThemeFlag.light
+      : currentTheme === ThemeFlag.light
       ? '/images/box-logo-dark.svg'
       : '/images/box-logo-light.svg'
 

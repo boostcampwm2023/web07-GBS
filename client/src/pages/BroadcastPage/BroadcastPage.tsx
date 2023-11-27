@@ -120,7 +120,7 @@ const BroadcastPage = () => {
     <styles.Container>
       <styles.Logo>
         <Link to="/">
-          <Logo logo="wide" />
+          <Logo logo="wide" currentTheme={theme} />
         </Link>
       </styles.Logo>
       <styles.Switch>
@@ -149,7 +149,7 @@ const BroadcastPage = () => {
         <styles.Id>시청자 {viewer}명</styles.Id>
       </styles.Info>
       {registerModal ? <RegisterModal onCancle={onBackdrop} onConfirm={onBackdrop} currentTheme={theme} /> : null}
-      {loginModal ? <LoginModal onCancle={onBackdrop} onConfirm={onBackdrop} currentTheme={theme} /> : null}
+      {loginModal ? <LoginModal onCancle={onBackdrop} currentTheme={theme} /> : null}
       {viewerModal ? (
         <ViewerModal
           id={viewerModalInfo.id}

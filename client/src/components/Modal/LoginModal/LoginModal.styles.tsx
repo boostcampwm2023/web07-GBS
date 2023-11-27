@@ -7,6 +7,9 @@ interface LoginModalProps {
 }
 
 export const Backdrop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -14,16 +17,10 @@ export const Backdrop = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-`
-
-export const Modal = styled(Backdrop)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
 `
 
-export const ModalView = styled.div<LoginModalProps>`
+export const Modal = styled.div<LoginModalProps>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -33,7 +30,7 @@ export const ModalView = styled.div<LoginModalProps>`
   }};
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
   width: 32rem;
-  height: 20.625rem;
+  height: max-content;
   background-color: ${(props) => {
     if (props.currentTheme === ThemeFlag.dark) return '#999'
     else return 'white'
@@ -41,11 +38,24 @@ export const ModalView = styled.div<LoginModalProps>`
   border-radius: 0.625rem;
 `
 
-export const Login = styled.div`
+export const LoginContainer = styled.div`
   padding: 0.9375rem 1.875rem 0.9375rem 1.875rem;
 `
 
-export const Button = styled.div<LoginModalProps>`
+export const HeaderText = styled.div`
+  ${TYPO.BOLD_M}
+  margin-bottom: 0.9375rem;
+  line-height: 2.25rem;
+`
+
+export const LoginImage = styled.img`
+  width: 100%;
+  height: 5.625rem;
+  margin-bottom: 0.9375rem;
+  cursor: pointer;
+`
+
+export const ButtonContainer = styled.div<LoginModalProps>`
   ${TYPO.MEDIUM_M}
   display: flex;
   align-items: center;
@@ -57,4 +67,5 @@ export const Button = styled.div<LoginModalProps>`
   bottom: 0rem;
   width: 100%;
   height: 4.6875rem;
+  cursor: pointer;
 `
