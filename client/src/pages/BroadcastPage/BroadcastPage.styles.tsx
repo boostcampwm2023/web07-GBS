@@ -86,7 +86,7 @@ export const Text = styled.textarea<DarkmodeProps>`
     else return '0.0625rem solid #ffffff'
   }};
   background-color: ${(props) => {
-    if (props.currentTheme === ThemeFlag.dark) return '#999'
+    if (props.currentTheme === ThemeFlag.dark) return '#808080'
   }};
   position: absolute;
   bottom: 0.9375rem;
