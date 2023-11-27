@@ -44,7 +44,6 @@ const BroadcastPage = () => {
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
   const socket = io('http://localhost:5000')
 
-
   const onRegister = () => {
     setRegisterModal(true)
   }
@@ -149,8 +148,8 @@ const BroadcastPage = () => {
         <styles.Viewer>{streamerId}</styles.Viewer>
         <styles.Id>시청자 {viewer}명</styles.Id>
       </styles.Info>
-      {registerModal ? <RegisterModal onCancle={onBackdrop} onConfirm={onBackdrop} /> : null}
-      {loginModal ? <LoginModal onCancle={onBackdrop} onConfirm={onBackdrop} /> : null}
+      {registerModal ? <RegisterModal currentTheme={theme} onCancle={onBackdrop} onConfirm={onBackdrop} /> : null}
+      {loginModal ? <LoginModal currentTheme={theme} onCancle={onBackdrop} onConfirm={onBackdrop} /> : null}
       {viewerModal ? (
         <ViewerModal
           id={viewerModalInfo.id}

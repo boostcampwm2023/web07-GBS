@@ -1,13 +1,15 @@
 import { useState } from 'react'
 
 import * as styles from './LoginModal.styles'
+import { ThemeFlag } from '@/state/theme'
 
 interface LoginModalProps {
   onCancle: () => void
   onConfirm: () => void
+  currentTheme: ThemeFlag
 }
 
-const LoginModal = ({ onCancle, onConfirm }: LoginModalProps) => {
+const LoginModal = ({ onCancle, onConfirm, currentTheme }: LoginModalProps) => {
   const [id, setId] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -15,6 +17,7 @@ const LoginModal = ({ onCancle, onConfirm }: LoginModalProps) => {
     <styles.Backdrop onClick={onCancle}>
       <styles.Modal>
         <styles.ModalView
+          currentTheme={currentTheme}
           onClick={(e) => {
             e.stopPropagation()
           }}
@@ -24,6 +27,7 @@ const LoginModal = ({ onCancle, onConfirm }: LoginModalProps) => {
             <styles.InputBox>
               <styles.BodyText>ID</styles.BodyText>
               <styles.Input
+                currentTheme={currentTheme}
                 value={id}
                 onChange={(e) => {
                   setId(e.target.value)
@@ -33,6 +37,7 @@ const LoginModal = ({ onCancle, onConfirm }: LoginModalProps) => {
             <styles.InputBox>
               <styles.BodyText>비밀번호</styles.BodyText>
               <styles.Input
+                currentTheme={currentTheme}
                 value={password}
                 type="password"
                 onChange={(e) => {

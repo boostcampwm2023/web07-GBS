@@ -57,8 +57,8 @@ const MainPage = () => {
           </div>
         ))}
       </styles.List>
-      {registerModal ? <RegisterModal onCancle={onRegister} onConfirm={onRegister} /> : null}
-      {loginModal ? <LoginModal onCancle={onLogin} onConfirm={onLogin} /> : null}
+      {registerModal ? <RegisterModal currentTheme={theme} onCancle={onRegister} onConfirm={onRegister} /> : null}
+      {loginModal ? <LoginModal currentTheme={theme} onCancle={onLogin} onConfirm={onLogin} /> : null}
     </styles.Container>
   )
 }
