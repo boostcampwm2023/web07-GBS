@@ -10,7 +10,7 @@ import { ChatPayload } from './dto/chat-payload';
 
 @WebSocketGateway({
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_ORIGIN,
   },
 })
 export class ChatGateway {
@@ -21,7 +21,6 @@ export class ChatGateway {
     @MessageBody()
     payload: JoinPayload,
   ) {
-    console.log(payload);
     this.server.socketsJoin(payload.room);
   }
 
@@ -30,7 +29,6 @@ export class ChatGateway {
     @MessageBody()
     payload: ChatPayload,
   ): Promise<ChatPayload> {
-    console.log(payload);
     this.server.to(payload.room).emit('chat', payload);
     return payload;
   }
