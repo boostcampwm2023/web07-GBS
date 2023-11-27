@@ -1,7 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import * as session from 'express-session';
 import RedisStore from 'connect-redis';
-import { Redis } from 'ioredis';
 import * as passport from 'passport';
 import { createClient } from 'redis';
 

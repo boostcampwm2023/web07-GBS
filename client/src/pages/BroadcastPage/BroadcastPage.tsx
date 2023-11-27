@@ -28,6 +28,7 @@ interface ViewerModalProps {
 
 interface ChattingProps {
   id: string
+  nickname: string
   message: string
 }
 
@@ -69,7 +70,7 @@ const BroadcastPage = () => {
     const top = event.pageY
     const left = event.pageX
 
-    setViewerModalInfo({ id: id, authority: authority, target: target, top: top, left: left })
+    setViewerModalInfo({ id, authority, target, top, left })
     setViewerModal(true)
   }
 
@@ -95,7 +96,7 @@ const BroadcastPage = () => {
     if (chatting.trim() === '') {
       alert('채팅을 입력해주세요.')
     } else {
-      socket.emit('send', { id: 'JMH', message: chatting, room: streamerId })
+      socket.emit('chat', { id: 'JMH', message: chatting, room: streamerId })
     }
 
     setChatting('')
@@ -109,9 +110,9 @@ const BroadcastPage = () => {
   }
 
   useEffect(() => {
-    socket.emit('join', streamerId)
+    socket.emit('join', { room: streamerId })
 
-    socket.on('receive', (chatting: ChattingProps) => {
+    socket.on('chat', (chatting: ChattingProps) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
     })
   }, [])
