@@ -11,11 +11,11 @@ const Logo = ({ logo }: LogoProps) => {
   const src =
     logo === 'wide'
       ? theme === ThemeFlag.light
-        ? '/assets/images/wide-logo.svg'
-        : '/assets/images/wide-logo-white.svg'
+        ? '/images/wide-logo-dark.svg'
+        : '/images/wide-logo-light.svg'
       : theme === ThemeFlag.light
-      ? '/assets/images/box-logo.svg'
-      : '/assets/images/box-logo-white.svg'
+      ? '/images/box-logo-dark.svg'
+      : '/images/box-logo-light.svg'
 
   return <styles.Logo src={src} logo={logo} />
 }
