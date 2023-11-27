@@ -37,7 +37,7 @@ export class AuthController {
     @Req() req,
     @Res() res: Response,
   ): Promise<any> {
-    session.userId = req.user.user.id;
+    session.userId = req.user.userId;
     res.redirect('/');
     res.end();
   }
