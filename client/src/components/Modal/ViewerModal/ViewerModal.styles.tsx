@@ -1,14 +1,11 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
+import { CurrentTheme } from '@/types/theme'
 
 interface ViewerModalProps {
   top: number
   left: number
-  currentTheme: ThemeFlag
-}
-
-interface ContentProps {
   currentTheme: ThemeFlag
 }
 
@@ -65,7 +62,7 @@ export const Id = styled.div`
   line-height: 3rem;
 `
 
-export const Content = styled.div<ContentProps>`
+export const Content = styled.div<CurrentTheme>`
   ${TYPO.MEDIUM_M}
   display: flex;
   justify-content: left;

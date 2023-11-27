@@ -1,10 +1,7 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
-
-interface LoginModalProps {
-  currentTheme: ThemeFlag
-}
+import { CurrentTheme } from '@/types/theme'
 
 export const Backdrop = styled.div`
   display: flex;
@@ -20,7 +17,7 @@ export const Backdrop = styled.div`
   text-align: center;
 `
 
-export const Modal = styled.div<LoginModalProps>`
+export const Modal = styled.div<CurrentTheme>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -55,7 +52,7 @@ export const LoginImage = styled.img`
   cursor: pointer;
 `
 
-export const ButtonContainer = styled.div<LoginModalProps>`
+export const ButtonContainer = styled.div<CurrentTheme>`
   ${TYPO.MEDIUM_M}
   display: flex;
   align-items: center;
