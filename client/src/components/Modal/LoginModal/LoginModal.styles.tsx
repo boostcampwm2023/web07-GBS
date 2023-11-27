@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
+import { ThemeFlag } from '@/state/theme'
+
+interface DarkmodeProps {
+  currentTheme: ThemeFlag
+}
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -18,14 +23,17 @@ export const Modal = styled(Backdrop)`
   text-align: center;
 `
 
-export const ModalView = styled.div`
+export const ModalView = styled.div<DarkmodeProps>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
   width: 32rem;
   height: 20.625rem;
-  background-color: #ffffff;
+  background-color: ${(props) => {
+    if (props.currentTheme === ThemeFlag.dark) return '#999'
+    else return 'white'
+  }};
   border-radius: 0.625rem;
 `
 
@@ -52,13 +60,16 @@ export const InputBox = styled.div`
   line-height: 2.25rem;
 `
 
-export const Input = styled.input`
+export const Input = styled.input<DarkmodeProps>`
   ${TYPO.LIGHT_M}
   padding-right: 1rem;
   padding-left: 1rem;
   border: none;
   height: 2.25rem;
-  background-color: #e6e6e6;
+  background-color: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '#e6e6e6'
+    else return '#808080'
+  }};
   border-radius: 0.625rem;
 `
 

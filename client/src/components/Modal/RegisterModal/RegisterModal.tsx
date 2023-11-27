@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import * as styles from './RegisterModal.styles'
+import { ThemeFlag } from '@/state/theme'
 
 interface RegisterModalProps {
   onCancle: () => void
   onConfirm: () => void
+  currentTheme: ThemeFlag
 }
 
-const RegisterModal = ({ onCancle, onConfirm }: RegisterModalProps) => {
+const RegisterModal = ({ onCancle, onConfirm, currentTheme }: RegisterModalProps) => {
   const [id, setId] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
@@ -15,6 +17,7 @@ const RegisterModal = ({ onCancle, onConfirm }: RegisterModalProps) => {
     <styles.Backdrop onClick={onCancle}>
       <styles.Modal>
         <styles.ModalView
+          currentTheme={currentTheme}
           onClick={(e) => {
             e.stopPropagation()
           }}
@@ -24,6 +27,7 @@ const RegisterModal = ({ onCancle, onConfirm }: RegisterModalProps) => {
             <styles.InputBox>
               <styles.BodyText>ID</styles.BodyText>
               <styles.Input
+                currentTheme={currentTheme}
                 value={id}
                 onChange={(e) => {
                   setId(e.target.value)
@@ -33,6 +37,7 @@ const RegisterModal = ({ onCancle, onConfirm }: RegisterModalProps) => {
             <styles.InputBox>
               <styles.BodyText>비밀번호</styles.BodyText>
               <styles.Input
+                currentTheme={currentTheme}
                 value={password}
                 type="password"
                 onChange={(e) => {
@@ -43,6 +48,7 @@ const RegisterModal = ({ onCancle, onConfirm }: RegisterModalProps) => {
             <styles.InputBox>
               <styles.BodyText>비밀번호 확인</styles.BodyText>
               <styles.Input
+                currentTheme={currentTheme}
                 value={confirmPassword}
                 type="password"
                 onChange={(e) => {

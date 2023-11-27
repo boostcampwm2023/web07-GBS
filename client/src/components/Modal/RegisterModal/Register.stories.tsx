@@ -1,5 +1,6 @@
 import type { StoryObj } from '@storybook/react'
 import RegisterModal from './RegisterModal'
+import { ThemeFlag } from '@/state/theme'
 
 const meta = {
   title: 'Modal/Register',
@@ -15,5 +16,6 @@ export const Default: Story = {
   args: {
     onConfirm: () => {},
     onCancle: () => {},
+    currentTheme: ThemeFlag.light,
   },
 }
