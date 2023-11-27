@@ -37,10 +37,7 @@ export class AuthController {
     @Req() req,
     @Res() res: Response,
   ): Promise<any> {
-    session.accessToken = req.user.accessToken;
-    session.refreshToken = req.user.refreshToken;
-    session.oauthId = req.user.oauthId;
-    session.type = req.user.type;
+    session.userId = req.user.user.id;
     res.redirect('/');
     res.end();
   }
