@@ -26,7 +26,7 @@ export class AuthController {
 
   @UseGuards(NaverAuthGuard)
   @Get('login/naver')
-  async naverlogin() {
+  async naverLogin() {
     return;
   }
 

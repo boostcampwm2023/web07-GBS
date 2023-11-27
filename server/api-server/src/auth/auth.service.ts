@@ -21,6 +21,7 @@ export class AuthService {
 
     return user;
   }
+
   async signup(createUserDto: CreateUserDto): Promise<any> {
     return await this.usersService.create(createUserDto);
   }
