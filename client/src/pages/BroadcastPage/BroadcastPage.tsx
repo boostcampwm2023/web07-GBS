@@ -43,7 +43,7 @@ const BroadcastPage = () => {
   const [chatting, setChatting] = useState<string>('')
   const theme = useRecoilValue(themeState)
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
-  const socket = io('http://localhost:5000')
+  const socket = io('http://localhost:3000', { withCredentials: true })
 
   const onRegister = () => {
     setRegisterModal(true)
