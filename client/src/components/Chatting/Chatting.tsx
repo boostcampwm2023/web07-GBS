@@ -1,15 +1,15 @@
 import * as styles from './Chatting.styles'
 
 interface ChattingProps {
-  id: string
+  nickname: string
   message: string
-  onId: (event: React.MouseEvent<HTMLInputElement>) => void
+  onNickname: (event: React.MouseEvent<HTMLInputElement>) => void
 }
 
-const Chatting = ({ id, message, onId }: ChattingProps) => {
+const Chatting = ({ nickname, message, onNickname }: ChattingProps) => {
   return (
     <styles.Chatting>
-      <styles.Id onClick={onId}>{id}</styles.Id>
+      <styles.Nickname onClick={onNickname}>{nickname}</styles.Nickname>
       <styles.Text>{message}</styles.Text>
     </styles.Chatting>
   )

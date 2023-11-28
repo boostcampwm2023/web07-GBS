@@ -1,10 +1,7 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
-
-interface BroadcastPageProps {
-  currentTheme: ThemeFlag
-}
+import { ThemeInterface } from '@/types/theme'
 
 export const Container = styled.div`
   width: 100vw;
@@ -39,7 +36,7 @@ export const Broadcast = styled.div`
   background-color: #000000;
 `
 
-export const Chatting = styled.div<BroadcastPageProps>`
+export const Chatting = styled.div<ThemeInterface>`
   display: flex;
   flex-direction: column;
   border: ${(props) => {
@@ -70,7 +67,7 @@ export const ChattingList = styled.div`
   }
 `
 
-export const Input = styled.div<BroadcastPageProps>`
+export const Input = styled.div<ThemeInterface>`
   border-top: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
     else return '0.0625rem solid #ffffff'
@@ -79,7 +76,7 @@ export const Input = styled.div<BroadcastPageProps>`
   width: 100%;
 `
 
-export const Text = styled.textarea<BroadcastPageProps>`
+export const Text = styled.textarea<ThemeInterface>`
   ${TYPO.LIGHT_R}
   border: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
@@ -102,7 +99,7 @@ export const Text = styled.textarea<BroadcastPageProps>`
   }
 `
 
-export const Send = styled.div<BroadcastPageProps>`
+export const Send = styled.div<ThemeInterface>`
   ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;
@@ -121,7 +118,7 @@ export const Send = styled.div<BroadcastPageProps>`
   cursor: pointer;
 `
 
-export const Info = styled.div<BroadcastPageProps>`
+export const Info = styled.div<ThemeInterface>`
   display: flex;
   border: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
@@ -147,7 +144,7 @@ export const Title = styled.div`
   height: 4rem;
 `
 
-export const Viewer = styled.div`
+export const Nickname = styled.div`
   ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;
@@ -159,7 +156,7 @@ export const Viewer = styled.div`
   height: 2rem;
 `
 
-export const Id = styled.div`
+export const Viewer = styled.div`
   ${TYPO.LIGHT_R}
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useParams, useLocation } from 'react-router-dom'
 import io from 'socket.io-client'
 import * as styles from './BroadcastPage.styles'
 import Logo from '@components/Logo/Logo'
@@ -14,12 +14,12 @@ import { themeState } from '@/states/theme'
 
 interface BroadcastProps {
   title: string
-  streamerId: string
+  nickname: string
   viewer: string
 }
 
 interface ViewerModalProps {
-  id: string
+  nickname: string
   authority: 'viewer' | 'manager' | 'streamer'
   target: 'viewer' | 'manager' | 'streamer'
   top: number
@@ -27,18 +27,18 @@ interface ViewerModalProps {
 }
 
 interface ChattingProps {
-  id: string
   nickname: string
   message: string
 }
 
 const BroadcastPage = () => {
+  const { id } = useParams<{ id: string }>()
   const location = useLocation()
-  const { title, streamerId, viewer }: BroadcastProps = location.state
+  const { title, nickname, viewer }: BroadcastProps = location.state
   const [registerModal, setRegisterModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
-  const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ id: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
+  const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ nickname: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const theme = useRecoilValue(themeState)
@@ -53,24 +53,24 @@ const BroadcastPage = () => {
     setLoginModal(true)
   }
 
-  const getTarget = (id: string): 'viewer' | 'manager' | 'streamer' => {
-    if (id === streamerId) {
+  const getTarget = (viewerNickname: string): 'viewer' | 'manager' | 'streamer' => {
+    if (viewerNickname === nickname) {
       return 'streamer'
-    } else if (manager.indexOf(id) !== -1) {
+    } else if (manager.indexOf(viewerNickname) !== -1) {
       return 'manager'
     }
 
     return 'viewer'
   }
 
-  const onId = (event: React.MouseEvent<HTMLInputElement>) => {
-    const id = event.currentTarget.innerText
+  const onNickname = (event: React.MouseEvent<HTMLInputElement>) => {
+    const viewerNickname = event.currentTarget.innerText
     const authority = 'streamer'
-    const target = getTarget(id)
+    const target = getTarget(viewerNickname)
     const top = event.pageY
     const left = event.pageX
 
-    setViewerModalInfo({ id, authority, target, top, left })
+    setViewerModalInfo({ nickname: viewerNickname, authority: authority, target: target, top: top, left: left })
     setViewerModal(true)
   }
 
@@ -80,13 +80,13 @@ const BroadcastPage = () => {
     setViewerModal(false)
   }
 
-  const onManager = (id: string) => {
-    const index = manager.indexOf(id)
+  const onManager = (viewerNickname: string) => {
+    const index = manager.indexOf(viewerNickname)
 
     if (index === -1) {
-      setManager([...manager, id])
+      setManager([...manager, viewerNickname])
     } else {
-      setManager(manager.filter((manager) => manager !== id))
+      setManager(manager.filter((manager) => manager !== viewerNickname))
     }
 
     setViewerModal(false)
@@ -96,7 +96,7 @@ const BroadcastPage = () => {
     if (chatting.trim() === '') {
       alert('채팅을 입력해주세요.')
     } else {
-      socket.emit('chat', { id: 'JMH', message: chatting, room: streamerId })
+      socket.emit('chat', { nickname: 'JMH', message: chatting, room: id })
     }
 
     setChatting('')
@@ -110,7 +110,7 @@ const BroadcastPage = () => {
   }
 
   useEffect(() => {
-    socket.emit('join', { room: streamerId })
+    socket.emit('join', { room: id })
 
     socket.on('chat', (chatting: ChattingProps) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
@@ -134,7 +134,7 @@ const BroadcastPage = () => {
       <styles.Chatting currentTheme={theme}>
         <styles.ChattingList>
           {chattingList.map((chatting, index) => (
-            <Chatting id={chatting.id} message={chatting.message} onId={onId} key={index} />
+            <Chatting nickname={chatting.nickname} message={chatting.message} onNickname={onNickname} key={index} />
           ))}
         </styles.ChattingList>
         <styles.Input currentTheme={theme}>
@@ -146,14 +146,14 @@ const BroadcastPage = () => {
       </styles.Chatting>
       <styles.Info currentTheme={theme}>
         <styles.Title>{title}</styles.Title>
-        <styles.Viewer>{streamerId}</styles.Viewer>
-        <styles.Id>시청자 {viewer}명</styles.Id>
+        <styles.Nickname>{nickname}</styles.Nickname>
+        <styles.Viewer>시청자 {viewer}명</styles.Viewer>
       </styles.Info>
       {registerModal ? <RegisterModal onCancle={onBackdrop} onConfirm={onBackdrop} currentTheme={theme} /> : null}
       {loginModal ? <LoginModal onCancle={onBackdrop} currentTheme={theme} /> : null}
       {viewerModal ? (
         <ViewerModal
-          id={viewerModalInfo.id}
+          nickname={viewerModalInfo.nickname}
           authority={viewerModalInfo.authority}
           target={viewerModalInfo.target}
           top={viewerModalInfo.top}

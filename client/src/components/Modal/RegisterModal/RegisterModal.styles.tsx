@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
-import { CurrentTheme } from '@/types/theme'
+
+import { ThemeInterface } from '@/types/theme'
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -20,7 +21,7 @@ export const Modal = styled(Backdrop)`
   text-align: center;
 `
 
-export const ModalView = styled.div<CurrentTheme>`
+export const ModalView = styled.div<ThemeInterface>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -61,7 +62,7 @@ export const InputBox = styled.div`
   line-height: 2.25rem;
 `
 
-export const Input = styled.input<CurrentTheme>`
+export const Input = styled.input<ThemeInterface>`
   ${TYPO.LIGHT_M}
   padding-right: 1rem;
   padding-left: 1rem;
@@ -74,7 +75,7 @@ export const Input = styled.input<CurrentTheme>`
   border-radius: 0.625rem;
 `
 
-export const ButtonContainer = styled.div<CurrentTheme>`
+export const ButtonContainer = styled.div<ThemeInterface>`
   display: flex;
   align-items: center;
   justify-content: center;
