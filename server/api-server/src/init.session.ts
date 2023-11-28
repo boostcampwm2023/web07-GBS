@@ -3,13 +3,16 @@ import * as session from 'express-session';
 import RedisStore from 'connect-redis';
 import * as passport from 'passport';
 import { createClient } from 'redis';
+import { Logger } from '@nestjs/common';
 
 export function setUpSession(app: INestApplication): void {
+  const logger = new Logger(setUpSession.name);
+
   const url = process.env.REDIS_URL || 'redis://localhost:6379';
   const redisClient = createClient({
     url,
   });
-  redisClient.connect().catch(console.error);
+  redisClient.connect().catch(logger.error);
 
   const redisStore = new RedisStore({
     client: redisClient,
