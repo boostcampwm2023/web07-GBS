@@ -13,14 +13,14 @@ export const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `
 
-export const Modal = styled(Backdrop)`
+export const ModalContainer = styled(Backdrop)`
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 `
 
-export const ModalView = styled.div<ThemeInterface>`
+export const Modal = styled.div<ThemeInterface>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -38,7 +38,7 @@ export const ModalView = styled.div<ThemeInterface>`
   border-radius: 0.625rem;
 `
 
-export const Container = styled.div`
+export const RegisterContainer = styled.div`
   padding: 0.9375rem 1.875rem 0.9375rem 1.875rem;
 `
 

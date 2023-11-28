@@ -18,6 +18,10 @@ export const Backdrop = styled.div`
   height: 100%;
 `
 
+export const ModalContainer = styled(Backdrop)`
+  display: flex;
+`
+
 const pxToRem = (px: number): string => {
   const width = window.innerWidth
 
