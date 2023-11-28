@@ -43,7 +43,7 @@ const BroadcastPage = () => {
   const [chatting, setChatting] = useState<string>('')
   const theme = useRecoilValue(themeState)
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
-  const socket = io('http://localhost:3000', { withCredentials: true })
+  const [socket, _] = useState<any>(() => io('http://localhost:3000', { withCredentials: true }))
 
   const onRegister = () => {
     setRegisterModal(true)
@@ -96,7 +96,7 @@ const BroadcastPage = () => {
     if (chatting.trim() === '') {
       alert('채팅을 입력해주세요.')
     } else {
-      socket.emit('chat', { nickname: 'JMH', message: chatting, room: id })
+      socket.emit('chat', { message: chatting })
     }
 
     setChatting('')
