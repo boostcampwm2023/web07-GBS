@@ -8,6 +8,7 @@ import { VideoInfoProvider } from './provider/video-info.provider';
 import { ReadStreamDetailDto } from './dto/read-stream-detail.dto';
 import { ReadStreamDto } from './dto/read-stream.dto';
 import { PageDto } from 'src/common/dto/page.dto';
+import { ChatGateway } from 'src/chat/chat.gateway';
 
 @Injectable()
 export class StreamsService {
@@ -17,6 +18,7 @@ export class StreamsService {
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
     private readonly videoInfoProvider: VideoInfoProvider,
+    private readonly chatGateway: ChatGateway,
   ) {}
 
   async findAll(page: number, size: number): Promise<PageDto<ReadStreamDto>> {
@@ -36,6 +38,7 @@ export class StreamsService {
         title: user.stream.title,
         category: user.stream.category,
         ...videoInfos.find((info) => info.streamKey === user.stream.streamKey),
+        viewer: this.chatGateway.getViewers(user.userId),
       })),
       pageInfo: {
         page,
@@ -66,6 +69,7 @@ export class StreamsService {
       category: user.stream.category,
       desc: user.stream.desc,
       ...videoInfo,
+      viewer: this.chatGateway.getViewers(userId),
     };
   }
 
