@@ -31,11 +31,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private readonly logger = new Logger(ChatGateway.name);
 
   async handleConnection(client: Socket) {
-    const id = client.handshake['session'].userId
+    const id = client.handshake['session'].userId || ''
 
-    const [user] = await this.userService.findOne(id);
-    client.data.userId = user.userId || 'anonymous';
-    client.data.nickname = user.nickname || '익명';
+    const user = await this.userService.findOne(id);
+    client.data.userId = user?.userId || 'anonymous';
+    client.data.nickname = user?.nickname || '익명';
 
     this.logger.debug('Socket Connected: ' + client.data.userId);
   }
@@ -60,7 +60,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
   ): Promise<ChatPayload> {
     this.logger.debug('Chat payload: ', payload);
-
+    
     this.server.to(client.data.room).emit('chat', {
       id: client.data.userId,
       nickname: client.data.nickname,

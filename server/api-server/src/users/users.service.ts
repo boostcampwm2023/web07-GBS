@@ -33,14 +33,15 @@ export class UsersService {
       where: { oauthId: oauthId },
     });
   }
+
   async findOne(id: string) {
-    return await this.userRepo.find({
+    return await this.userRepo.findOne({
       where: { id },
     });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const [user] = await this.findOne(id);
+    const user = await this.findOne(id);
     if (!user) {
       throw new Error(`User with id: ${id} not found`);
     }
