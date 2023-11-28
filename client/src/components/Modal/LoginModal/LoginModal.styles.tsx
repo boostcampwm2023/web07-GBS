@@ -70,5 +70,14 @@ export const ButtonContainer = styled.div<ThemeInterface>`
   bottom: 0rem;
   width: 100%;
   height: 4.6875rem;
+`
+
+export const Button = styled.div`
+  ${TYPO.MEDIUM_M}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 `

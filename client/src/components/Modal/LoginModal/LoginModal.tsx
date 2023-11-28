@@ -25,8 +25,8 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
               }}
             />
           </styles.LoginContainer>
-          <styles.ButtonContainer onClick={onCancle} currentTheme={currentTheme}>
-            취소
+          <styles.ButtonContainer currentTheme={currentTheme}>
+            <styles.Button onClick={onCancle}>취소</styles.Button>
           </styles.ButtonContainer>
         </styles.Modal>
       </styles.ModalContainer>
