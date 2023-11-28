@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
-
 import { ThemeInterface } from '@/types/theme'
 
 export const Backdrop = styled.div`
@@ -27,7 +26,7 @@ export const Modal = styled.div<ThemeInterface>`
     else return '0.0625rem solid #ffffff'
   }};
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
-  width: 32rem;
+  width: 22.5rem;
   height: max-content;
   background-color: ${(props) => {
     if (props.currentTheme === ThemeFlag.dark) return '#999'
@@ -47,8 +46,7 @@ export const HeaderText = styled.div`
 `
 
 export const LoginImage = styled.img`
-  width: 100%;
-  height: 5.625rem;
+  height: 4rem;
   margin-bottom: 0.9375rem;
   cursor: pointer;
 `
