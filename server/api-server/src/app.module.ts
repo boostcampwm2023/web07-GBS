@@ -10,7 +10,9 @@ import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ 
+      envFilePath: `${process.cwd()}/config/env/.env.${process.env.NODE_ENV}`
+   }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
