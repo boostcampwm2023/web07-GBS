@@ -5,6 +5,6 @@ import { UsersModule } from 'src/users/users.module';
 @Module({
   imports: [UsersModule],
   providers: [ChatGateway],
-  exports: [ChatGateway]
+  exports: [ChatGateway],
 })
 export class ChatModule {}

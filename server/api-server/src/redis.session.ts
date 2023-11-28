@@ -17,14 +17,14 @@ export function getSession() {
   });
 
   return session({
-      secret: process.env.SESSION_SECRET,
-      saveUninitialized: false,
-      resave: false,
-      store: redisStore,
-      cookie: {
-        httpOnly: false,
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-      },
-    })
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false,
+    store: redisStore,
+    cookie: {
+      httpOnly: false,
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+  });
 }

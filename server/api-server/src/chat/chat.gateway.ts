@@ -12,26 +12,24 @@ import { JoinPayload } from './dto/join-payload.dto';
 import { ChatPayload } from './dto/chat-payload';
 import { Logger } from '@nestjs/common';
 
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 import { UsersService } from 'src/users/users.service';
-dotenv.config()
+dotenv.config();
 
 @WebSocketGateway({
   cors: {
     origin: process.env.CLIENT_ORIGIN,
-    credentials: true
+    credentials: true,
   },
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  constructor(
-    private readonly userService: UsersService
-  ) {}
+  constructor(private readonly userService: UsersService) {}
 
-  @WebSocketServer() server: Server = new Server({cookie: true});
+  @WebSocketServer() server: Server = new Server({ cookie: true });
   private readonly logger = new Logger(ChatGateway.name);
 
   async handleConnection(client: Socket) {
-    const id = client.handshake['session'].userId || ''
+    const id = client.handshake['session'].userId || '';
 
     const user = await this.userService.findOne(id);
     client.data.userId = user?.userId || 'anonymous';
@@ -60,11 +58,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
   ): Promise<ChatPayload> {
     this.logger.debug('Chat payload: ', payload);
-    
+
     this.server.to(client.data.room).emit('chat', {
       id: client.data.userId,
       nickname: client.data.nickname,
-      message: payload.message
+      message: payload.message,
     });
     return payload;
   }

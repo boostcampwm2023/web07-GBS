@@ -4,15 +4,15 @@ import { createAdapter } from '@socket.io/redis-adapter';
 import { createClient } from 'redis';
 import { INestApplicationContext } from '@nestjs/common';
 import { RequestHandler } from '@nestjs/common/interfaces';
-import * as sharedSession from 'express-socket.io-session'
+import * as sharedSession from 'express-socket.io-session';
 
 export class RedisIoAdapter extends IoAdapter {
   private adapterConstructor: ReturnType<typeof createAdapter>;
   private readonly session: RequestHandler;
 
   constructor(app: INestApplicationContext | any, session: RequestHandler) {
-    super(app)
-    this.session = session
+    super(app);
+    this.session = session;
   }
 
   async connectToRedis(): Promise<void> {
@@ -27,9 +27,11 @@ export class RedisIoAdapter extends IoAdapter {
   createIOServer(port: number, options?: ServerOptions): any {
     const server = super.createIOServer(port, options);
     server.adapter(this.adapterConstructor);
-    server.use(sharedSession(this.session, {
-      autoSave: true
-    }))
+    server.use(
+      sharedSession(this.session, {
+        autoSave: true,
+      }),
+    );
 
     return server;
   }

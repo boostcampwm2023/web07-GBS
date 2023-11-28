@@ -8,7 +8,11 @@ import { VideoInfoProvider } from './provider/video-info.provider';
 import { ChatModule } from 'src/chat/chat.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Stream]), forwardRef(() => UsersModule), ChatModule],
+  imports: [
+    TypeOrmModule.forFeature([Stream]),
+    forwardRef(() => UsersModule),
+    ChatModule,
+  ],
   controllers: [StreamsController],
   providers: [StreamsService, VideoInfoProvider],
   exports: [StreamsService, TypeOrmModule],

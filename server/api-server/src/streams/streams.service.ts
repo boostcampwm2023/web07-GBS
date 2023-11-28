@@ -18,7 +18,7 @@ export class StreamsService {
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
     private readonly videoInfoProvider: VideoInfoProvider,
-    private readonly chatGateway: ChatGateway
+    private readonly chatGateway: ChatGateway,
   ) {}
 
   async findAll(page: number, size: number): Promise<PageDto<ReadStreamDto>> {
@@ -38,7 +38,7 @@ export class StreamsService {
         title: user.stream.title,
         category: user.stream.category,
         ...videoInfos.find((info) => info.streamKey === user.stream.streamKey),
-        viewer: this.chatGateway.getViewers(user.userId)
+        viewer: this.chatGateway.getViewers(user.userId),
       })),
       pageInfo: {
         page,
@@ -69,7 +69,7 @@ export class StreamsService {
       category: user.stream.category,
       desc: user.stream.desc,
       ...videoInfo,
-      viewer: this.chatGateway.getViewers(userId)
+      viewer: this.chatGateway.getViewers(userId),
     };
   }
 

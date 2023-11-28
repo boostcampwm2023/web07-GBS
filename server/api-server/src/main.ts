@@ -7,8 +7,8 @@ import * as passport from 'passport';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const session = getSession()
-  app.use(session)
+  const session = getSession();
+  app.use(session);
   app.use(passport.initialize());
   app.use(passport.session());
 
