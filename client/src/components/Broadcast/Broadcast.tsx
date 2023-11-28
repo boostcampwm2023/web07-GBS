@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil'
 import * as styles from './Broadcast.styles'
-import { themeState } from '@/state/theme'
+import { themeState } from '@/states/theme'
 
 interface BroadcastProps {
   title: string

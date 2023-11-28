@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import * as styles from './LoginModal.styles'
-import { ThemeFlag } from '@/state/theme'
+import { ThemeFlag } from '@/states/theme'
 
 interface LoginModalProps {
   onCancle: () => void

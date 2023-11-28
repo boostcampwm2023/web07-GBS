@@ -8,7 +8,7 @@ import RegisterModal from '@components/Modal/RegisterModal/RegisterModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 import ThemeSwitch from '@components/ThemeSwitch/ThemeSwitch'
 import { useRecoilValue } from 'recoil'
-import { themeState } from '@/state/theme'
+import { themeState } from '@/states/theme'
 
 interface BroadcastProps {
   title: string
