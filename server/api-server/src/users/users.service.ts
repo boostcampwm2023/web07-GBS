@@ -35,7 +35,7 @@ export class UsersService {
   }
   async findOne(id: string) {
     return await this.userRepo.find({
-      where: { id: id },
+      where: { id },
     });
   }
 

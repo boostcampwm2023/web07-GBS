@@ -1,14 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { setUpSession } from './init.session';
+import { getSession } from './init.session';
 import { RedisIoAdapter } from './redis.adapter';
+import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  setUpSession(app);
-
-  const redisIoAdapter = new RedisIoAdapter(app);
+  const session = getSession()
+  app.use(session)
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
+  const redisIoAdapter = new RedisIoAdapter(app, session);
   await redisIoAdapter.connectToRedis();
   app.useWebSocketAdapter(redisIoAdapter);
 

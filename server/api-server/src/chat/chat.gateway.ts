@@ -12,21 +12,32 @@ import { JoinPayload } from './dto/join-payload.dto';
 import { ChatPayload } from './dto/chat-payload';
 import { Logger } from '@nestjs/common';
 
+import * as dotenv from 'dotenv'
+import { UsersService } from 'src/users/users.service';
+dotenv.config()
+
 @WebSocketGateway({
   cors: {
     origin: process.env.CLIENT_ORIGIN,
+    credentials: true
   },
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  @WebSocketServer() server: Server = new Server();
+  constructor(
+    private readonly userService: UsersService
+  ) {}
+
+  @WebSocketServer() server: Server = new Server({cookie: true});
   private readonly logger = new Logger(ChatGateway.name);
 
-  handleConnection(client: Socket) {
-    // TODO: 세션 정보 가져오기
-    client.data.userId = 'kkg';
-    client.data.nickname = '김경근';
+  async handleConnection(client: Socket) {
+    const id = client.handshake['session'].userId
 
-    this.logger.debug('Socket Connected');
+    const [user] = await this.userService.findOne(id);
+    client.data.userId = user.userId || 'anonymous';
+    client.data.nickname = user.nickname || '익명';
+
+    this.logger.debug('Socket Connected: ' + client.data.userId);
   }
 
   handleDisconnect(client: Socket) {
@@ -39,7 +50,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
   ) {
     this.logger.debug('Join payload: ', payload);
-
     client.data.room = payload.room;
     this.server.socketsJoin(payload.room);
   }
@@ -51,7 +61,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   ): Promise<ChatPayload> {
     this.logger.debug('Chat payload: ', payload);
 
-    this.server.to(client.data.room).emit('chat', payload);
+    this.server.to(client.data.room).emit('chat', {
+      id: client.data.userId,
+      nickname: client.data.nickname,
+      message: payload.message
+    });
     return payload;
   }
 
