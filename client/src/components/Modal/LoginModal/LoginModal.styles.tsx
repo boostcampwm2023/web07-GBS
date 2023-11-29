@@ -17,13 +17,6 @@ export const Backdrop = styled.div`
   text-align: center;
 `
 
-export const ModalContainer = styled(Backdrop)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-`
-
 export const Modal = styled.div<ThemeInterface>`
   display: flex;
   justify-content: space-between;
