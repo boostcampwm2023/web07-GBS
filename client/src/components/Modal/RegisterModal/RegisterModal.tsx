@@ -15,56 +15,54 @@ const RegisterModal = ({ onCancle, onConfirm, currentTheme }: RegisterModalProps
 
   return (
     <styles.Backdrop onClick={onCancle}>
-      <styles.Modal>
-        <styles.ModalView
-          currentTheme={currentTheme}
-          onClick={(e) => {
-            e.stopPropagation()
+      <styles.ModalContainer>
+        <styles.Modal
+          onClick={(event) => {
+            event.stopPropagation()
           }}
+          currentTheme={currentTheme}
         >
-          <styles.Container>
+          <styles.RegisterContainer>
             <styles.HeaderText>회원가입</styles.HeaderText>
             <styles.InputBox>
               <styles.BodyText>ID</styles.BodyText>
               <styles.Input
-                currentTheme={currentTheme}
                 value={id}
-                onChange={(e) => {
-                  setId(e.target.value)
+                onChange={(event) => {
+                  setId(event.target.value)
                 }}
+                currentTheme={currentTheme}
               />
             </styles.InputBox>
             <styles.InputBox>
               <styles.BodyText>비밀번호</styles.BodyText>
               <styles.Input
-                currentTheme={currentTheme}
                 value={password}
                 type="password"
-                onChange={(e) => {
-                  setPassword(e.target.value)
+                onChange={(event) => {
+                  setPassword(event.target.value)
                 }}
+                currentTheme={currentTheme}
               />
             </styles.InputBox>
             <styles.InputBox>
               <styles.BodyText>비밀번호 확인</styles.BodyText>
               <styles.Input
-                currentTheme={currentTheme}
                 value={confirmPassword}
                 type="password"
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value)
+                onChange={(event) => {
+                  setConfirmPassword(event.target.value)
                 }}
+                currentTheme={currentTheme}
               />
             </styles.InputBox>
-          </styles.Container>
+          </styles.RegisterContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
-            <styles.Button onClick={onConfirm} style={{ borderRight: '0.0625rem solid #000000' }}>
-              확인
-            </styles.Button>
+            <styles.Button onClick={onConfirm}>확인</styles.Button>
             <styles.Button onClick={onCancle}>취소</styles.Button>
           </styles.ButtonContainer>
-        </styles.ModalView>
-      </styles.Modal>
+        </styles.Modal>
+      </styles.ModalContainer>
     </styles.Backdrop>
   )
 }

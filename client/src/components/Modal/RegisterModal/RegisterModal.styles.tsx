@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
-
 import { ThemeInterface } from '@/types/theme'
 
 export const Backdrop = styled.div`
@@ -14,14 +13,14 @@ export const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `
 
-export const Modal = styled(Backdrop)`
+export const ModalContainer = styled(Backdrop)`
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 `
 
-export const ModalView = styled.div<ThemeInterface>`
+export const Modal = styled.div<ThemeInterface>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -31,7 +30,7 @@ export const ModalView = styled.div<ThemeInterface>`
   }};
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
   width: 32rem;
-  height: 25.125rem;
+  height: max-content;
   background-color: ${(props) => {
     if (props.currentTheme === ThemeFlag.dark) return '#999'
     else return 'white'
@@ -39,7 +38,7 @@ export const ModalView = styled.div<ThemeInterface>`
   border-radius: 0.625rem;
 `
 
-export const Container = styled.div`
+export const RegisterContainer = styled.div`
   padding: 0.9375rem 1.875rem 0.9375rem 1.875rem;
 `
 

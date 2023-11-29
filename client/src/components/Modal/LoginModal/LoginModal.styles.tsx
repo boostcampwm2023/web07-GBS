@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag } from '@/states/theme'
-
 import { ThemeInterface } from '@/types/theme'
 
 export const Backdrop = styled.div`
@@ -18,6 +17,13 @@ export const Backdrop = styled.div`
   text-align: center;
 `
 
+export const ModalContainer = styled(Backdrop)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`
+
 export const Modal = styled.div<ThemeInterface>`
   display: flex;
   justify-content: space-between;
@@ -27,7 +33,7 @@ export const Modal = styled.div<ThemeInterface>`
     else return '0.0625rem solid #ffffff'
   }};
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
-  width: 32rem;
+  width: 22.5rem;
   height: max-content;
   background-color: ${(props) => {
     if (props.currentTheme === ThemeFlag.dark) return '#999'
@@ -47,8 +53,7 @@ export const HeaderText = styled.div`
 `
 
 export const LoginImage = styled.img`
-  width: 100%;
-  height: 5.625rem;
+  height: 4rem;
   margin-bottom: 0.9375rem;
   cursor: pointer;
 `
@@ -65,5 +70,14 @@ export const ButtonContainer = styled.div<ThemeInterface>`
   bottom: 0rem;
   width: 100%;
   height: 4.6875rem;
+`
+
+export const Button = styled.div`
+  ${TYPO.MEDIUM_M}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 `
