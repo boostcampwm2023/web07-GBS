@@ -21,7 +21,7 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
             <styles.LoginImage
               src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1"
               onClick={() => {
-                window.open('http://115.85.181.101/oauth/login/naver/callback', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
+                window.open('http://115.85.181.101/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
               }}
             />
           </styles.LoginContainer>

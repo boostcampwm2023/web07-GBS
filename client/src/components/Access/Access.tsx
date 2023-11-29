@@ -10,7 +10,7 @@ interface AccessProps {
 const Access = ({ leftButton, rightButton, onLeftButton, onRightButton }: AccessProps) => {
   return (
     <styles.Access>
-      <styles.Button onClick={()=>{{window.open("http://localhost:3000/oauth/login/naver", "_blank")}}}>{leftButton}</styles.Button>
+      <styles.Button onClick={onLeftButton}>{leftButton}</styles.Button>
       <styles.Button onClick={onRightButton}>{rightButton}</styles.Button>
     </styles.Access>
   )
