@@ -12,6 +12,7 @@ import { NaverAuthGuard } from './guard/naver-auth.guard';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { LoggedInGuard } from './guard/logged-in.guard';
 
 @Controller('oauth')
 export class AuthController {
@@ -36,9 +37,15 @@ export class AuthController {
     @Req() req,
     @Res() res: Response,
   ): Promise<any> {
-  session.userId = req.user.userId;
-  
-  const sessionId = session.id; 
-  res.json({ sessionId });
+    session.userId = req.user.userId;
+    res.cookie('sessionId', session.id);
+    res.json({ success: true, message: 'user login successful' });
+    res.end();
+  }
+
+  @UseGuards(LoggedInGuard)
+  @Get('test')
+  async test() {
+    return 'test';
   }
 }
