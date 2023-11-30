@@ -6,6 +6,7 @@ import { Stream } from './entities/stream.entity';
 import { UsersModule } from 'src/users/users.module';
 import { VideoInfoProvider } from './provider/video-info.provider';
 import { ChatModule } from 'src/chat/chat.module';
+import { StreamKeysController } from './stream-keys.controller';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { ChatModule } from 'src/chat/chat.module';
     forwardRef(() => UsersModule),
     ChatModule,
   ],
-  controllers: [StreamsController],
+  controllers: [StreamsController, StreamKeysController],
   providers: [StreamsService, VideoInfoProvider],
   exports: [StreamsService, TypeOrmModule],
 })

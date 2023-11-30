@@ -88,4 +88,17 @@ export class StreamsService {
 
     return this.streamRepo.save(stream);
   }
+
+  async getStreamURL(streamKey: string) {
+    const stream = await this.streamRepo.findOne({
+      where: { streamKey },
+      relations: ['user'],
+    });
+
+    if (!stream) {
+      throw new HttpException('Stream not found', HttpStatus.NOT_FOUND);
+    }
+
+    return process.env.ENCODING_URL + '/' + stream.user.userId;
+  }
 }
