@@ -8,7 +8,10 @@ export class StreamKeysController {
   constructor(private readonly streamsService: StreamsService) {}
 
   @Post()
-  async getVerifiedRedirect(@Body() body: VerifyStreamKeyDto, @Res() res: Response) {
+  async getVerifiedRedirect(
+    @Body() body: VerifyStreamKeyDto,
+    @Res() res: Response,
+  ) {
     const streamURL = await this.streamsService.getStreamURL(body.name);
     return res.redirect(streamURL);
   }
