@@ -32,7 +32,7 @@ export const Modal = styled.div<ThemeInterface>`
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
     else return '0.0625rem solid #ffffff'
   }};
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.25rem 0.25rem 0.1875rem rgba(0, 0, 0, 0.1);
   width: 22.5rem;
   height: max-content;
   background-color: ${(props) => {
@@ -42,7 +42,7 @@ export const Modal = styled.div<ThemeInterface>`
   border-radius: 0.625rem;
 `
 
-export const LoginContainer = styled.div`
+export const BodyContainer = styled.div`
   padding: 0.9375rem 1.875rem 0.9375rem 1.875rem;
 `
 

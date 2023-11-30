@@ -45,7 +45,7 @@ export const Modal = styled.div<ViewerModalProps>`
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
     else return '0.0625rem solid #ffffff'
   }};
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.25rem 0.25rem 0.1875rem rgba(0, 0, 0, 0.1);
   position: absolute;
   top: ${(props) => pxToRem(props.top)};
   left: ${(props) => pxToRem(props.left)};

@@ -4,9 +4,8 @@ import * as styles from './MainPage.styles'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
 import Broadcast from '@components/Broadcast/Broadcast'
-import RegisterModal from '@components/Modal/RegisterModal/RegisterModal'
+import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
-import ThemeSwitch from '@components/ThemeSwitch/ThemeSwitch'
 import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
 
@@ -18,13 +17,13 @@ interface BroadcastProps {
 }
 
 const MainPage = () => {
-  const [registerModal, setRegisterModal] = useState<boolean>(false)
+  const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [broadcastList, setBroadcastList] = useState<Array<BroadcastProps>>([])
   const theme = useRecoilValue(themeState)
 
-  const onRegister = () => {
-    setRegisterModal(() => !registerModal)
+  const onSetting = () => {
+    setSettingModal(() => !settingModal)
   }
 
   const onLogin = () => {
@@ -45,9 +44,8 @@ const MainPage = () => {
           <Logo logo="box" currentTheme={theme} />
         </Link>
       </styles.Logo>
-      <ThemeSwitch />
       <styles.Access>
-        <Access leftButton="회원가입" rightButton="로그인" onLeftButton={onRegister} onRightButton={onLogin} />
+        <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
       </styles.Access>
       <styles.List currentTheme={theme}>
         {broadcastList.map((broadcast, index) => (
@@ -58,8 +56,8 @@ const MainPage = () => {
           </div>
         ))}
       </styles.List>
-      {registerModal ? <RegisterModal currentTheme={theme} onCancle={onRegister} onConfirm={onRegister} /> : null}
-      {loginModal ? <LoginModal currentTheme={theme} onCancle={onLogin} /> : null}
+      {settingModal ? <SettingModal onConfirm={onSetting} /> : null}
+      {loginModal ? <LoginModal onCancle={onLogin} currentTheme={theme} /> : null}
     </styles.Container>
   )
 }
