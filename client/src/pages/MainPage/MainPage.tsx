@@ -50,7 +50,7 @@ const MainPage = () => {
       <styles.List currentTheme={theme}>
         {broadcastList.map((broadcast, index) => (
           <div>
-            <Link to={`/${broadcast.id}`} state={{ title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
+            <Link to={`/${broadcast.id}`} state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
               <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
             </Link>
           </div>
