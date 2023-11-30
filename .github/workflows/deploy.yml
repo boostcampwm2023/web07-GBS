@@ -118,25 +118,25 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/front
           cache-to: type=inline
 
-  docker_pull_front:
-    name: Connect server ssh and pull frontend from container registry
-    needs: docker_push_front
-    runs-on: ubuntu-latest
-    steps:
-      - name: connect ssh
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.FRONT_HOST }}
-          username: ${{ secrets.FRONT_USERNAME }}
-          password: ${{ secrets.FRONT_PASSWORD }}
-          port: ${{ secrets.FRONT_PORT }}
-          script: |
-            docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
-            docker stop $(docker ps -a -q)
-            docker rm $(docker ps -a -q)
-            docker run -d -p 80:80 -p 443:443 --name front ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
-            docker image prune -f
-            docker cp /etc/letsencrypt/archive/gbs-live.site/fullchain1.pem front:/
-            docker cp /etc/letsencrypt/archive/gbs-live.site/privkey1.pem front:/
-            docker cp default.conf front:/etc/nginx/conf.d/
-            docker exec front nginx -s reload
+   docker_pull_front:
+      name: Connect server ssh and pull frontend from container registry
+      needs: docker_push_front
+      runs-on: ubuntu-latest
+      steps:
+         - name: connect ssh
+           uses: appleboy/ssh-action@master
+           with:
+              host: ${{ secrets.FRONT_HOST }}
+              username: ${{ secrets.FRONT_USERNAME }}
+              password: ${{ secrets.FRONT_PASSWORD }}
+              port: ${{ secrets.FRONT_PORT }}
+              script: |
+                 docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
+                 docker stop $(docker ps -a -q)
+                 docker rm $(docker ps -a -q)
+                 docker run -d -p 80:80 -p 443:443 --name front ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
+                 docker image prune -f
+                 docker cp /etc/letsencrypt/archive/gbs-live.site/fullchain1.pem front:/
+                 docker cp /etc/letsencrypt/archive/gbs-live.site/privkey1.pem front:/
+                 docker cp default.conf front:/etc/nginx/conf.d/
+                 docker exec front nginx -s reload
