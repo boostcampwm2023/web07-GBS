@@ -112,8 +112,8 @@ export const ToggleContainer = styled.div<{ isDarkMode: boolean }>`
   padding: 0.2rem;
   display: flex;
   align-items: center;
-  width: 5rem; // rem 단위 사용
-  height: 2.25rem; // rem 단위 사용
+  width: 5rem;
+  height: 2.25rem;
   position: relative;
   transition: background-color 0.2s ease;
   border: ${({ isDarkMode }) => (isDarkMode ? '0.0625rem solid #555' : '0.0625rem solid #aaa')};
@@ -122,8 +122,8 @@ export const ToggleContainer = styled.div<{ isDarkMode: boolean }>`
 export const ToggleKnob = styled.div<{ isDarkMode: boolean }>`
   background-color: white;
   border-radius: 50%;
-  width: 1.8rem; // rem 단위 사용
-  height: 1.8rem; // rem 단위 사용
+  width: 1.8rem;
+  height: 1.8rem;
   position: absolute;
   transition: transform 0.2s ease;
   ${({ isDarkMode }) => isDarkMode && `transform: translateX(2.7rem);`}
