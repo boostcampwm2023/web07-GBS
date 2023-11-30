@@ -28,7 +28,7 @@ export const Modal = styled.div<ThemeInterface>`
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
     else return '0.0625rem solid #ffffff'
   }};
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.25rem 0.25rem 0.1875rem rgba(0, 0, 0, 0.1);
   width: 32rem;
   height: max-content;
   background-color: ${(props) => {
@@ -38,7 +38,7 @@ export const Modal = styled.div<ThemeInterface>`
   border-radius: 0.625rem;
 `
 
-export const RegisterContainer = styled.div`
+export const BodyContainer = styled.div`
   padding: 0.9375rem 1.875rem 0.9375rem 1.875rem;
 `
 
@@ -54,17 +54,16 @@ export const BodyText = styled.div`
   line-height: 2.25rem;
 `
 
-export const InputBox = styled.div`
+export const InputContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-bottom: 0.9375rem;
-  line-height: 2.25rem;
+  justify-content: space-between;
+  width: 100%;
+  height: 2.25rem;
+  margin-bottom: 0.625rem;
 `
 
 export const Input = styled.input<ThemeInterface>`
   ${TYPO.LIGHT_M}
-  padding-right: 1rem;
-  padding-left: 1rem;
   border: none;
   height: 2.25rem;
   background-color: ${(props) => {
@@ -72,6 +71,62 @@ export const Input = styled.input<ThemeInterface>`
     else return '#808080'
   }};
   border-radius: 0.625rem;
+  padding: 0rem 0.625rem 0rem 0.625rem;
+`
+
+export const InputButton = styled.div<ThemeInterface>`
+  ${TYPO.LIGHT_M}
+  width: max-content;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  background-color: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '#e6e6e6'
+    else return '#808080'
+  }};
+  border: ${(props) => {
+    if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
+    else return '0.0625rem solid #ffffff'
+  }};
+  border-radius: 0.625rem;
+  padding: 0rem 0.625rem 0rem 0.625rem;
+  cursor: pointer;
+`
+
+export const Gap = styled.div`
+  width: 100%;
+  height: 1rem;
+`
+
+export const SettingContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 2.25rem;
+  margin-bottom: 0.9375rem;
+`
+
+export const ToggleContainer = styled.div<{ isDarkMode: boolean }>`
+  cursor: pointer;
+  background-color: ${({ isDarkMode }) => (isDarkMode ? '#333' : '#ddd')};
+  border-radius: 1rem;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  width: 5rem;
+  height: 2.25rem;
+  position: relative;
+  transition: background-color 0.2s ease;
+  border: ${({ isDarkMode }) => (isDarkMode ? '0.0625rem solid #555' : '0.0625rem solid #aaa')};
+`
+
+export const ToggleKnob = styled.div<{ isDarkMode: boolean }>`
+  background-color: white;
+  border-radius: 50%;
+  width: 1.8rem;
+  height: 1.8rem;
+  position: absolute;
+  transition: transform 0.2s ease;
+  ${({ isDarkMode }) => isDarkMode && `transform: translateX(2.7rem);`}
 `
 
 export const ButtonContainer = styled.div<ThemeInterface>`

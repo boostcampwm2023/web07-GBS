@@ -4,11 +4,10 @@ import io from 'socket.io-client'
 import * as styles from './BroadcastPage.styles'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
-import RegisterModal from '@components/Modal/RegisterModal/RegisterModal'
+import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 import ViewerModal from '@components/Modal/ViewerModal/ViewerModal'
 import Chatting from '@components/Chatting/Chatting'
-import ToggleSwitch from '@components/ThemeSwitch/ThemeSwitch'
 import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
 
@@ -35,7 +34,7 @@ const BroadcastPage = () => {
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
   const { title, nickname, viewer }: BroadcastProps = location.state
-  const [registerModal, setRegisterModal] = useState<boolean>(false)
+  const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
   const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ nickname: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
@@ -45,12 +44,16 @@ const BroadcastPage = () => {
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
   const [socket, _] = useState<any>(() => io('http://localhost:3000', { withCredentials: true }))
 
-  const onRegister = () => {
-    setRegisterModal(true)
+  const onSetting = () => {
+    setSettingModal(() => !settingModal)
   }
 
   const onLogin = () => {
-    setLoginModal(true)
+    setLoginModal(() => !loginModal)
+  }
+
+  const onViewer = () => {
+    setViewerModal(() => !viewerModal)
   }
 
   const getTarget = (viewerNickname: string): 'viewer' | 'manager' | 'streamer' => {
@@ -71,13 +74,7 @@ const BroadcastPage = () => {
     const left = event.pageX
 
     setViewerModalInfo({ nickname: viewerNickname, authority: authority, target: target, top: top, left: left })
-    setViewerModal(true)
-  }
-
-  const onBackdrop = () => {
-    setRegisterModal(false)
-    setLoginModal(false)
-    setViewerModal(false)
+    onViewer()
   }
 
   const onManager = (viewerNickname: string) => {
@@ -89,7 +86,7 @@ const BroadcastPage = () => {
       setManager(manager.filter((manager) => manager !== viewerNickname))
     }
 
-    setViewerModal(false)
+    onViewer()
   }
 
   const onSend = () => {
@@ -124,11 +121,8 @@ const BroadcastPage = () => {
           <Logo logo="wide" currentTheme={theme} />
         </Link>
       </styles.Logo>
-      <styles.Switch>
-        <ToggleSwitch />
-      </styles.Switch>
       <styles.Access>
-        <Access leftButton="회원가입" rightButton="로그인" onLeftButton={onRegister} onRightButton={onLogin} />
+        <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
       </styles.Access>
       <styles.Broadcast></styles.Broadcast>
       <styles.Chatting currentTheme={theme}>
@@ -149,8 +143,8 @@ const BroadcastPage = () => {
         <styles.Nickname>{nickname}</styles.Nickname>
         <styles.Viewer>시청자 {viewer}명</styles.Viewer>
       </styles.Info>
-      {registerModal ? <RegisterModal onCancle={onBackdrop} onConfirm={onBackdrop} currentTheme={theme} /> : null}
-      {loginModal ? <LoginModal onCancle={onBackdrop} currentTheme={theme} /> : null}
+      {settingModal ? <SettingModal onConfirm={onSetting} /> : null}
+      {loginModal ? <LoginModal onCancle={onLogin} currentTheme={theme} /> : null}
       {viewerModal ? (
         <ViewerModal
           nickname={viewerModalInfo.nickname}
@@ -158,9 +152,9 @@ const BroadcastPage = () => {
           target={viewerModalInfo.target}
           top={viewerModalInfo.top}
           left={viewerModalInfo.left}
-          onCancle={onBackdrop}
+          onCancle={onViewer}
           onManager={onManager}
-          onKick={onBackdrop}
+          onKick={onViewer}
           currentTheme={theme}
         />
       ) : null}

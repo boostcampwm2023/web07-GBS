@@ -14,12 +14,6 @@ export const Logo = styled.div`
   left: 1.875rem;
 `
 
-export const Switch = styled.div`
-  position: absolute;
-  top: 1.5rem;
-  left: 15rem;
-`
-
 export const Access = styled.div`
   position: absolute;
   top: 2.375rem;
@@ -108,7 +102,7 @@ export const Send = styled.div<ThemeInterface>`
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
     else return '0.0625rem solid #ffffff'
   }};
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.25rem 0.25rem 0.1875rem rgba(0, 0, 0, 0.1);
   position: absolute;
   right: 0.9375rem;
   bottom: 0.9375rem;
