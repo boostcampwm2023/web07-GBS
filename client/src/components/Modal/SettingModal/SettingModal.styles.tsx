@@ -33,7 +33,7 @@ export const Modal = styled.div<ThemeInterface>`
   height: max-content;
   background-color: ${(props) => {
     if (props.currentTheme === ThemeFlag.dark) return '#999'
-    else return 'white'
+    else return '#ffffff'
   }};
   border-radius: 0.625rem;
 `
@@ -79,13 +79,14 @@ export const InputButton = styled.div<ThemeInterface>`
   width: max-content;
   height: 2.25rem;
   line-height: 2.25rem;
-  background-color: ${(props) => {
-    if (props.currentTheme === ThemeFlag.light) return '#e6e6e6'
-    else return '#808080'
-  }};
   border: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'
     else return '0.0625rem solid #ffffff'
+  }};
+  box-shadow: 0.25rem 0.25rem 0.1875rem rgba(0, 0, 0, 0.1);
+  background-color: ${(props) => {
+    if (props.currentTheme === ThemeFlag.dark) return '#999'
+    else return '#ffffff'
   }};
   border-radius: 0.625rem;
   padding: 0rem 0.625rem 0rem 0.625rem;
@@ -120,7 +121,7 @@ export const ToggleContainer = styled.div<{ isDarkMode: boolean }>`
 `
 
 export const ToggleKnob = styled.div<{ isDarkMode: boolean }>`
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 50%;
   width: 1.8rem;
   height: 1.8rem;
