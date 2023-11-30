@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { getSession } from './redis.session';
-import { RedisIoAdapter } from './redis.adapter';
+import { getSession } from './common/redis.session';
+import { RedisIoAdapter } from './common/redis.adapter';
 import * as passport from 'passport';
 
 async function bootstrap() {
