@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import io from 'socket.io-client'
 import * as styles from './BroadcastPage.styles'
 import Logo from '@components/Logo/Logo'
@@ -12,6 +12,7 @@ import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
 
 interface BroadcastProps {
+  id: string
   title: string
   nickname: string
   viewer: string
@@ -31,9 +32,8 @@ interface ChattingProps {
 }
 
 const BroadcastPage = () => {
-  const { id } = useParams<{ id: string }>()
   const location = useLocation()
-  const { title, nickname, viewer }: BroadcastProps = location.state
+  const { id, title, nickname, viewer }: BroadcastProps = location.state
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
