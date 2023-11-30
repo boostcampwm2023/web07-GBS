@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,8 +24,8 @@ export class UsersService {
     return newUser;
   }
 
-  findAll(): Promise<User[]> {
-    return this.userRepo.find();
+  async findAll() {
+    return await this.userRepo.find();
   }
 
   async findByOAuthId(oauthId: string) {
@@ -35,15 +35,19 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    return await this.userRepo.findOne({
+    const user = await this.userRepo.findOne({
       where: { id },
     });
+    if (!user || !id) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.findOne(id);
     if (!user) {
-      throw new Error(`User with id: ${id} not found`);
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
     for (const key in updateUserDto) {
@@ -57,7 +61,12 @@ export class UsersService {
     return updatedUser;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const result = await this.userRepo.softDelete(id);
+    if (!result.affected)
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    else {
+      return result;
+    }
   }
 }

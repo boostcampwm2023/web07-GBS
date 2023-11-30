@@ -7,7 +7,6 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 
-
 @Module({
   imports: [
     forwardRef(() => UsersModule),
@@ -20,10 +19,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    NaverStrategy,
-    AuthService
-  ],
+  providers: [NaverStrategy, AuthService],
   exports: [PassportModule, JwtModule, AuthService],
 })
 export class AuthModule {}

@@ -7,10 +7,14 @@ import {
   Param,
   Delete,
   Req,
+  UseGuards,
+  Session,
+  HttpException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoggedInGuard } from '../auth/guard/logged-in.guard';
 
 @Controller('users')
 export class UsersController {
@@ -19,6 +23,18 @@ export class UsersController {
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+  @UseGuards(LoggedInGuard)
+  @Get('me')
+  async getUserBySessionId(@Session() session: Record<string, any>) {
+    // console.log(session.userId);
+    if (!session.id) {
+      throw new HttpException('Unauthorized', 401);
+    }
+
+    const user = await this.usersService.findOne(session.userId);
+
+    return { userId: user.userId, nickname: user.nickname };
   }
 
   @Get()

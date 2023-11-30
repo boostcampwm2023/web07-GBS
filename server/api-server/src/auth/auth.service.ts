@@ -5,9 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private usersService: UsersService
-  ) {}
+  constructor(private usersService: UsersService) {}
   async validateUser(oauthId: string, oauthType: string): Promise<any> {
     let user = await this.usersService.findByOAuthId(oauthId);
 
@@ -27,10 +25,4 @@ export class AuthService {
   async signup(createUserDto: CreateUserDto): Promise<any> {
     return await this.usersService.create(createUserDto);
   }
-
-  // async getfromRedis() {
-  //   return await this.redisRepositoryOutboundPort.get({
-  //     key: 'test',
-  //   });
-  // }
 }

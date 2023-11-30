@@ -6,7 +6,7 @@ import { Logger } from '@nestjs/common';
 export function getSession() {
   const logger = new Logger(getSession.name);
   const url = process.env.REDIS_URL;
-  console.log("Session REDIS_URL::  ", url);
+  console.log('Session REDIS_URL::  ', url);
   const redisClient = createClient({
     url,
   });
@@ -21,9 +21,11 @@ export function getSession() {
     saveUninitialized: false,
     resave: false,
     store: redisStore,
+    proxy: true,
     cookie: {
-      httpOnly: false,
-      secure: false,
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   });
