@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import io from 'socket.io-client'
 import * as styles from './BroadcastPage.styles'
@@ -40,9 +40,9 @@ const BroadcastPage = () => {
   const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ nickname: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
-  const theme = useRecoilValue(themeState)
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
-  const [socket, _] = useState<any>(() => io('http://localhost:3000', { withCredentials: true }))
+  const socket = useRef<any>(null)
+  const theme = useRecoilValue(themeState)
 
   const onSetting = () => {
     setSettingModal(() => !settingModal)
@@ -93,7 +93,7 @@ const BroadcastPage = () => {
     if (chatting.trim() === '') {
       alert('채팅을 입력해주세요.')
     } else {
-      socket.emit('chat', { message: chatting })
+      socket.current.emit('chat', { message: chatting })
     }
 
     setChatting('')
@@ -107,11 +107,19 @@ const BroadcastPage = () => {
   }
 
   useEffect(() => {
-    socket.emit('join', { room: id })
+    socket.current = io('http://localhost:3000', { withCredentials: true })
 
-    socket.on('chat', (chatting: ChattingProps) => {
+    socket.current.emit('join', { room: id })
+
+    socket.current.on('chat', (chatting: ChattingProps) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
     })
+
+    return () => {
+      if (socket.current) {
+        socket.current.disconnect()
+      }
+    }
   }, [])
 
   return (
