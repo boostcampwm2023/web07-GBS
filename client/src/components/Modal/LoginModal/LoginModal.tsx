@@ -16,15 +16,15 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
           }}
           currentTheme={currentTheme}
         >
-          <styles.LoginContainer>
+          <styles.BodyContainer>
             <styles.HeaderText>로그인</styles.HeaderText>
             <styles.LoginImage
               src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1"
               onClick={() => {
-                window.open('http://115.85.181.101/oauth/login/naver/callback', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
+                window.open('http://115.85.181.101/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
               }}
             />
-          </styles.LoginContainer>
+          </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
             <styles.Button onClick={onCancle}>취소</styles.Button>
           </styles.ButtonContainer>

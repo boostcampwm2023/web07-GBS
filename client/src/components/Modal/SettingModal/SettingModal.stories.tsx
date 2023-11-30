@@ -1,10 +1,9 @@
 import type { StoryObj } from '@storybook/react'
-import RegisterModal from './RegisterModal'
-import { ThemeFlag } from '@/states/theme'
+import SettingModal from './SettingModal'
 
 const meta = {
-  title: 'Modal/Register',
-  component: RegisterModal,
+  title: 'Modal/Setting',
+  component: SettingModal,
   tags: ['autodocs'],
 }
 
@@ -15,7 +14,5 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     onConfirm: () => {},
-    onCancle: () => {},
-    currentTheme: ThemeFlag.light,
   },
 }
