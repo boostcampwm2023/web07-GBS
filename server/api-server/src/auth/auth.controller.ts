@@ -38,14 +38,32 @@ export class AuthController {
     @Res() res: Response,
   ): Promise<any> {
     session.userId = req.user.userId;
-    res.cookie('sessionId', session.id);
-    res.json({ success: true, message: 'user login successful' });
-    res.end();
+    const sessionId = session.id;
+    res.json({ success: true, message: 'user login successful', sessionId });
+    // res.redirect(process.env.CLIENT_ORIGIN);
   }
 
   @UseGuards(LoggedInGuard)
   @Get('test')
   async test() {
     return 'test';
+  }
+
+
+
+
+  @Get('sessionId')
+  async getSessionId(@Session() session: Record<string, any>) {
+    if (!session.id) {
+      return { session: 'login required' };
+    }
+    return { session: session.id };
+  }
+  @Get('user')
+  async getUserBySessionId(@Session() session: Record<string, any>) {
+    if (!session.id) {
+      return { session: 'login required' };
+    }
+    return { session: session.id, userId: session.userId };
   }
 }

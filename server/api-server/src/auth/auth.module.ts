@@ -6,9 +6,7 @@ import { NaverStrategy } from './strategy/naver.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { RedisModule } from '../redis/redis.module';
-import { REDIS_REPOSITORY_OUTBOUND_PORT } from '../redis/redis-repository.outbound-port';
-import { RedisRepository } from '../redis/redis.repository';
+
 
 @Module({
   imports: [
@@ -20,16 +18,11 @@ import { RedisRepository } from '../redis/redis.repository';
     JwtModule.register({
       secret: process.env.JWT_SECRET,
     }),
-    RedisModule,
   ],
   controllers: [AuthController],
   providers: [
     NaverStrategy,
-    AuthService,
-    {
-      provide: REDIS_REPOSITORY_OUTBOUND_PORT,
-      useClass: RedisRepository,
-    },
+    AuthService
   ],
   exports: [PassportModule, JwtModule, AuthService],
 })

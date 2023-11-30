@@ -30,7 +30,9 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     ChatModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

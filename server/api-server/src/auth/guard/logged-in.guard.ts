@@ -1,34 +1,39 @@
-import { CanActivate, ExecutionContext, Injectable, Session} from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  Session,
+} from '@nestjs/common';
 import { Request } from 'express';
-import { Observable } from 'rxjs';
-import {AuthService} from "../auth.service";
-
 
 @Injectable()
 export class LoggedInGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
-  async canActivate(
-    context: ExecutionContext,
-  ){
+  constructor() {}
+  async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest() as Request;
-    const sid = this.getSidFromCookie(request.headers.cookie);
-    const redistest = await this.authService.getfromRedis();
-    console.log(redistest)
-    // TODO token이 유효한지 확인하는 로직이 필요함
-    if (sid ) {
-      // If the session ID from the cookie matches the current session, user is considered logged in
+    const cookieSid = this.parseSessionIdFromCookie(
+      request.cookies['connect.sid'],
+    );
+    const sid = request.session.id;
+    console.log(`cookieSid: ${cookieSid}, sid: ${sid}`);
+    console.log(sid === cookieSid);
+    if (sid == cookieSid) {
+      if (new Date() > new Date(request.session.cookie.expires)) {
+        return false;
+      }
+      // Update the session's 'expires' property
+      request.session.cookie.expires = new Date(
+        Date.now() + 1000 * 60 * 60 * 24 * 7,
+      );
       return true;
     }
     return false;
   }
 
-  getSidFromCookie(cookieString) {
-    const cookies = cookieString.split('; ').reduce((acc, cookie) => {
-      const [key, value] = cookie.split('=');
-      acc[key] = value;
-      return acc;
-    }, {});
-
-    return cookies['sessionId'];
+  parseSessionIdFromCookie(cookieValue) {
+    // Extract the part before the dot, if it exists
+    const sessionId = cookieValue.split('.')[0];
+    // Remove the 's:' prefix, if it exists
+    return sessionId.startsWith('s:') ? sessionId.slice(2) : sessionId;
   }
 }
