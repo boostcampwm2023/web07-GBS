@@ -134,7 +134,7 @@ jobs:
                  docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
                  docker stop $(docker ps -a -q)
                  docker rm $(docker ps -a -q)
-                 docker run -d -p 80:80 --name front ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
+                 docker run -d -p 80:80 -p 443:443 --name front ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
                  docker image prune -f
                  docker cp /etc/letsencrypt/archive/gbs-live.site/fullchain1.pem front:/
                  docker cp /etc/letsencrypt/archive/gbs-live.site/privkey1.pem front:/
