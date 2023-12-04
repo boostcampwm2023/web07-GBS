@@ -9,7 +9,7 @@ import { StreamsModule } from '../streams/streams.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    forwardRef(() => AuthModule),
+    // forwardRef(() => AuthModule),
     forwardRef(() => StreamsModule),
   ],
   controllers: [UsersController],

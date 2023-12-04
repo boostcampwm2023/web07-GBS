@@ -18,7 +18,7 @@ async function bootstrap() {
   app.use(session);
   app.use(passport.initialize());
   app.use(passport.session());
-  app.useGlobalGuards(new LoggedInGuard());
+
   const redisIoAdapter = new RedisIoAdapter(app, session);
   await redisIoAdapter.connectToRedis();
   app.useWebSocketAdapter(redisIoAdapter);
