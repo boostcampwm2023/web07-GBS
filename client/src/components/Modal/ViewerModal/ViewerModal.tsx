@@ -1,5 +1,5 @@
 import * as styles from './ViewerModal.styles'
-import { ThemeFlag } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
 
 interface ViewerModalProps {
   nickname: string

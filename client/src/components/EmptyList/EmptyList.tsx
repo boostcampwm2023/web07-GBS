@@ -1,6 +1,5 @@
 import * as styles from './EmptyList.styles'
-import { ThemeFlag } from '@/states/theme'
-import { ThemeInterface } from '@/types/theme'
+import { ThemeFlag, ThemeInterface } from '@/types/theme'
 
 const EmptyList = ({ currentTheme }: ThemeInterface) => {
   const src = currentTheme === ThemeFlag.light ? '/images/empty-list-light.svg' : '/images/empty-list-dark.svg'

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
-import { ThemeFlag } from '@/states/theme'
-import { ThemeInterface } from '@/types/theme'
+import { ThemeFlag, ThemeInterface } from '@/types/theme'
 
 export const Backdrop = styled.div`
   position: fixed;

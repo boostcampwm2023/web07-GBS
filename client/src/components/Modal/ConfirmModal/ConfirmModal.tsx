@@ -1,5 +1,5 @@
 import * as styles from './ConfirmModal.styles'
-import { ThemeFlag } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
 
 interface ConfirmModalProps {
   text: string

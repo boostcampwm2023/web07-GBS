@@ -1,4 +1,4 @@
-import { ThemeFlag } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
 import styled from 'styled-components'
 
 export const Container = styled.div`

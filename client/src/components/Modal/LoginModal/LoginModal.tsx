@@ -1,5 +1,5 @@
 import * as styles from './LoginModal.styles'
-import { ThemeFlag } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
 
 interface LoginModalProps {
   onCancle: () => void
