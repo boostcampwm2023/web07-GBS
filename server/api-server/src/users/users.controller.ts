@@ -29,7 +29,7 @@ export class UsersController {
   @UseGuards(LoggedInGuard)
   @Get('me')
   async getUserBySessionId(@Session() session: Record<string, any>) {
-    if (!session.id) {
+    if (!session.userId) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
