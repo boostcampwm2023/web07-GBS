@@ -2,13 +2,14 @@ import * as styles from './ConfirmModal.styles'
 import { ThemeFlag } from '@/states/theme'
 
 interface ConfirmModalProps {
-  onCancle: () => void
+  onConfrim: () => void
   currentTheme: ThemeFlag
+  text: string
 }
 
-const ConfirmModal = ({ onCancle, currentTheme }: ConfirmModalProps) => {
+const ConfirmModal = ({ onConfrim, currentTheme, text }: ConfirmModalProps) => {
   return (
-    <styles.Backdrop onClick={onCancle}>
+    <styles.Backdrop onClick={onConfrim}>
       <styles.ModalContainer>
         <styles.Modal
           onClick={(event) => {
@@ -17,10 +18,10 @@ const ConfirmModal = ({ onCancle, currentTheme }: ConfirmModalProps) => {
           currentTheme={currentTheme}
         >
           <styles.BodyContainer>
-            <styles.HeaderText>채팅을 입력하시려면 로그인을 먼저 해주세요!</styles.HeaderText>
+            <styles.HeaderText>{text}</styles.HeaderText>
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
-            <styles.Button onClick={onCancle}>확인</styles.Button>
+            <styles.Button onClick={onConfrim}>확인</styles.Button>
           </styles.ButtonContainer>
         </styles.Modal>
       </styles.ModalContainer>
