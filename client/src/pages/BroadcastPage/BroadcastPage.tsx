@@ -44,6 +44,7 @@ const BroadcastPage = () => {
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
   const [isLoginCheckModal, setIsLoginCheckModal] = useState<boolean>(false)
+  const [isEmptyChat, setIsEmptyChat] = useState<boolean>(false)
   const socket = useRef<any>(null)
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
@@ -95,7 +96,7 @@ const BroadcastPage = () => {
 
   const onSend = () => {
     if (chatting.trim() === '') {
-      alert('채팅을 입력해주세요.')
+      setIsEmptyChat(true)
     } else {
       socket.current.emit('chat', { message: chatting })
     }
@@ -171,8 +172,18 @@ const BroadcastPage = () => {
       {isLoginCheckModal && (
         <ConfirmModal
           currentTheme={theme}
-          onCancle={() => {
+          text="채팅을 입력하시려면 로그인을 먼저 해주세요"
+          onConfrim={() => {
             setIsLoginCheckModal(false)
+          }}
+        />
+      )}
+      {isEmptyChat && (
+        <ConfirmModal
+          currentTheme={theme}
+          text="채팅을 입력해주세요"
+          onConfrim={() => {
+            setIsEmptyChat(false)
           }}
         />
       )}
