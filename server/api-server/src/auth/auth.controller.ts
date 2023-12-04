@@ -42,12 +42,6 @@ export class AuthController {
     res.send(`<script>window.close();</script>`);
   }
 
-  @UseGuards(LoggedInGuard)
-  @Get('test')
-  async test() {
-    return 'test';
-  }
-
   @Get('sessionId')
   async getSessionId(@Session() session: Record<string, any>) {
     if (!session.id) {

@@ -23,7 +23,6 @@ export function getSession() {
     proxy: true,
     cookie: {
       httpOnly: true,
-      sameSite: 'none',
       secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
