@@ -23,7 +23,7 @@ export class LoggedInGuard implements CanActivate {
     if (isAuthenticated) {
       this.logger.debug(`Authenticated: ${session?.userId}`);
     } else {
-      this.logger.debug(`not Authenticated`);
+      this.logger.debug(`Unauthenticated`);
     }
 
     return isAuthenticated;
