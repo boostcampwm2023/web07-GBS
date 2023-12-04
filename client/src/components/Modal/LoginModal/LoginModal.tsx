@@ -7,6 +7,23 @@ interface LoginModalProps {
 }
 
 const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
+  const onLoginImage = () => {
+    const popup = window.open('http://localhost:3000/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
+    const popupEvent = () => {
+      if (popup !== null && popup.closed == true) {
+        fetch('http://localhost:3000/users/me/', { method: 'GET', credentials: 'include' })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res)
+            window.removeEventListener('focus', popupEvent)
+            window.location.reload()
+          })
+      }
+    }
+
+    window.addEventListener('focus', popupEvent)
+  }
+
   return (
     <styles.Backdrop onClick={onCancle}>
       <styles.ModalContainer>
@@ -18,12 +35,7 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
         >
           <styles.BodyContainer>
             <styles.HeaderText>로그인</styles.HeaderText>
-            <styles.LoginImage
-              src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1"
-              onClick={() => {
-                window.open('http://115.85.181.101/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
-              }}
-            />
+            <styles.LoginImage src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" onClick={onLoginImage} />
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
             <styles.Button onClick={onCancle}>취소</styles.Button>
@@ -33,4 +45,5 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
     </styles.Backdrop>
   )
 }
+
 export default LoginModal

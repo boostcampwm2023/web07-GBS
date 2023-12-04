@@ -51,8 +51,12 @@ const MainPage = () => {
       <styles.List currentTheme={theme} length={broadcastList.length}>
         {broadcastList.length !== 0 ? (
           broadcastList.map((broadcast, index) => (
-            <Link to={`/${broadcast.id}`} state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
-              <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
+            <Link
+              to={`/${broadcast.id}`}
+              state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}
+              key={index}
+            >
+              <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} />
             </Link>
           ))
         ) : (
