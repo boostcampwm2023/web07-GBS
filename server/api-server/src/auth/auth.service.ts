@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService) {}
+
   async validateUser(oauthId: string, oauthType: string): Promise<any> {
     let user = await this.usersService.findByOAuthId(oauthId);
 

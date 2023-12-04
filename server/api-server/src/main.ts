@@ -4,7 +4,7 @@ import { getSession } from './common/redis.session';
 import { RedisIoAdapter } from './common/redis.adapter';
 import * as passport from 'passport';
 import { LoggedInGuard } from './auth/guard/logged-in.guard';
-import * as process from "process";
+import * as process from 'process';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

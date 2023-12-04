@@ -9,7 +9,8 @@ import {
   Req,
   UseGuards,
   Session,
-  HttpException, HttpStatus,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
