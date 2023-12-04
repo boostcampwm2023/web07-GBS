@@ -38,7 +38,9 @@ export class AuthController {
     @Res() res: Response,
   ): Promise<any> {
     session.userId = req.user.userId;
+    res.redirect(process.env.CLIENT_ORIGIN);
     res.send(`<script>window.close();</script>`);
+    res.end();
   }
 
   @Get('sessionId')
