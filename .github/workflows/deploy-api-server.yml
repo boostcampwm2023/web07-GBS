@@ -1,0 +1,50 @@
+name: auto deploy api server
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  docker_push_api_server:
+    name: Push API Server to ncp container registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to NCP Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.NCP_CONTAINER_REGISTRY }}
+          username: ${{ secrets.NCP_ACCESS_KEY }}
+          password: ${{ secrets.NCP_SECRET_KEY }}
+      - name: build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: ./server/api-server
+          file: ./server/api-server/Dockerfile
+          push: true
+          tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server:latest
+          cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server:latest
+          cache-to: type=inline
+
+  docker_pull_api_server:
+    name: Connect server ssh and pull api server from container registry
+    needs: docker_push_api_server
+    runs-on: ubuntu-latest
+    steps:
+      - name: connect ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.API_SERVER_HOST }}
+          username: ${{ secrets.API_SERVER_USERNAME }}
+          password: ${{ secrets.API_SERVER_PASSWORD }}
+          port: ${{ secrets.API_SERVER_PORT }}
+          script: |
+            docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q)
+            docker run -d -p 80:3000 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
+            docker image prune -f

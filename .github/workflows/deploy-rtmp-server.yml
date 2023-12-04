@@ -1,0 +1,50 @@
+name: auto deploy rtmp server
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  docker_push_rtmp_server:
+    name: Push RTMP Server to ncp container registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to NCP Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.NCP_CONTAINER_REGISTRY }}
+          username: ${{ secrets.NCP_ACCESS_KEY }}
+          password: ${{ secrets.NCP_SECRET_KEY }}
+      - name: build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: ./server/rtmp-server
+          file: ./server/rtmp-server/Dockerfile
+          push: true
+          tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server:latest
+          cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server:latest
+          cache-to: type=inline
+
+  docker_pull_rtmp_server:
+    name: Connect server ssh and pull rtmp server from container registry
+    needs: docker_push_rtmp_server
+    runs-on: ubuntu-latest
+    steps:
+      - name: connect ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.RTMP_SERVER_HOST }}
+          username: ${{ secrets.RTMP_SERVER_USERNAME }}
+          password: ${{ secrets.RTMP_SERVER_PASSWORD }}
+          port: ${{ secrets.RTMP_SERVER_PORT }}
+          script: |
+            docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q)
+            docker run -d -p 1935:1935 -p 80:80 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/rtmp-server
+            docker image prune -f
