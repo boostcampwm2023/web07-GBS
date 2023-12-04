@@ -42,9 +42,7 @@ export class AuthController {
     }
 
     session.userId = req.user.userId;
-
     res.send(`<script>window.close();</script>`);
-    res.end();
   }
 
   @Get('sessionId')
