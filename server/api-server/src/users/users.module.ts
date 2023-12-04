@@ -6,10 +6,7 @@ import { User } from './entities/user.entity';
 import { StreamsModule } from '../streams/streams.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    forwardRef(() => StreamsModule),
-  ],
+  imports: [TypeOrmModule.forFeature([User]), forwardRef(() => StreamsModule)],
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService, TypeOrmModule],

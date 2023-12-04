@@ -8,8 +8,6 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
-import { LoggedInGuard } from './auth/guard/logged-in.guard';
-import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [

@@ -22,13 +22,7 @@ export class AuthService {
 
     return user;
   }
-  async validateUserId(userId: string) {
-    const user = await this.usersService.findOne(userId);
-    if (!user) {
-      return false;
-    }
-    return true;
-  }
+
   async signup(createUserDto: CreateUserDto): Promise<any> {
     return await this.usersService.create(createUserDto);
   }

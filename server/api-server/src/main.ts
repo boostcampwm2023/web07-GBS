@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { getSession } from './common/redis.session';
 import { RedisIoAdapter } from './common/redis.adapter';
 import * as passport from 'passport';
-import { LoggedInGuard } from './auth/guard/logged-in.guard';
 import * as process from 'process';
 
 async function bootstrap() {
