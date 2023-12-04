@@ -1,0 +1,87 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    env_file: .env
+    networks:
+      - custom_network
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PW}
+    volumes:
+      - ./server/api-server/sql:/docker-entrypoint-initdb.d
+  
+  redis:
+    image: redis
+    env_file: .env
+    networks:
+      - custom_network
+    ports:
+      - 6379:6379
+
+  api-server:
+    depends_on:
+      - db
+      - redis
+    build: ./server/api-server
+    env_file: ./server/api-server/.env
+    networks:
+      - custom_network
+    ports:
+      - 3000:3000
+    environment:
+      DB_HOST: db
+      DB_PORT: ${DB_PORT}
+      DB_ID: root
+      DB_PW: ${DB_PW}
+      DB_NAME: ${DB_NAME}
+      VIDEO_STAT_URL: http://host.docker.internal:802/stat
+      REDIS_URL: redis://redis:6379
+      NAVER_CLIENT_ID: ${NAVER_CLIENT_ID}
+      NAVER_CLIENT_SECRET: ${NAVER_CLIENT_SECRET}
+      NAVER_CALLBACK_URL: ${NAVER_CALLBACK_URL}
+      SESSION_SECRET: ${SESSION_SECRET}
+      CLIENT_ORIGIN: ${CLIENT_ORIGIN}
+      ENCODING_URL: rtmp://172.20.0.10/stream
+
+  rtmp-server:
+    build: ./server/rtmp-server
+    networks:
+      - custom_network
+    ports:
+      - 1935:1935
+      - 802:80
+    environment:
+      STREAM_KEY_CHECK_URL: http://host.docker.internal:3000/stream-keys
+
+  encoding-server:
+    image: efriandika/streaming-server
+    privileged: true
+    env_file: .env
+    networks:
+      custom_network:
+        ipv4_address: 172.20.0.10
+    ports:
+      - 19350:1935
+      - 803:80
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_S3_BUCKET_NAME: ${AWS_S3_BUCKET_NAME}
+      AWS_S3_REGION: ${AWS_S3_REGION}
+      AWS_S3_URL: ${AWS_S3_URL}
+
+  front:
+    build: ./client
+    networks:
+      - custom_network
+    ports:
+      - 80:80
+
+networks:
+  custom_network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
