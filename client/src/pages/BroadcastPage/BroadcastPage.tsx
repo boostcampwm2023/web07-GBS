@@ -43,7 +43,7 @@ const BroadcastPage = () => {
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
-  const [isLoginCheckModal, setIsLoginCheckModal] = useState<boolean>(true)
+  const [isLoginCheckModal, setIsLoginCheckModal] = useState<boolean>(false)
   const socket = useRef<any>(null)
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
