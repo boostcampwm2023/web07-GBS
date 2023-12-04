@@ -10,6 +10,8 @@ import ViewerModal from '@components/Modal/ViewerModal/ViewerModal'
 import Chatting from '@components/Chatting/Chatting'
 import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
+import { userState } from '@/states/user'
+import ConfirmModal from '@components/Modal/ConfirmModal/ConfirmModal'
 
 interface BroadcastProps {
   id: string
@@ -41,8 +43,10 @@ const BroadcastPage = () => {
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
+  const [isLoginCheckModal, setIsLoginCheckModal] = useState<boolean>(true)
   const socket = useRef<any>(null)
   const theme = useRecoilValue(themeState)
+  const user = useRecoilValue(userState)
 
   const onSetting = () => {
     setSettingModal(() => !settingModal)
@@ -140,7 +144,18 @@ const BroadcastPage = () => {
           ))}
         </styles.ChattingList>
         <styles.Input currentTheme={theme}>
-          <styles.Text currentTheme={theme} value={chatting} onChange={(event) => setChatting(event.target.value)} onKeyDown={onEnter}></styles.Text>
+          <styles.Text
+            currentTheme={theme}
+            value={chatting}
+            onChange={(event) => {
+              if (user.id === '') {
+                setIsLoginCheckModal(true)
+                return
+              }
+              return setChatting(event.target.value)
+            }}
+            onKeyDown={onEnter}
+          ></styles.Text>
           <styles.Send currentTheme={theme} onClick={onSend}>
             등록하기
           </styles.Send>
@@ -153,6 +168,14 @@ const BroadcastPage = () => {
       </styles.Info>
       {settingModal ? <SettingModal onConfirm={onSetting} /> : null}
       {loginModal ? <LoginModal onCancle={onLogin} currentTheme={theme} /> : null}
+      {isLoginCheckModal && (
+        <ConfirmModal
+          currentTheme={theme}
+          onCancle={() => {
+            setIsLoginCheckModal(false)
+          }}
+        />
+      )}
       {viewerModal ? (
         <ViewerModal
           nickname={viewerModalInfo.nickname}
