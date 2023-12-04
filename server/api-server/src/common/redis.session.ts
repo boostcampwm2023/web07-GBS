@@ -6,7 +6,6 @@ import { Logger } from '@nestjs/common';
 export function getSession() {
   const logger = new Logger(getSession.name);
   const url = process.env.REDIS_URL;
-  console.log('Session REDIS_URL::  ', url);
   const redisClient = createClient({
     url,
   });
