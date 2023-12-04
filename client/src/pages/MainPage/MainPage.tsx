@@ -8,6 +8,7 @@ import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
+import EmptyList from '@components/EmptyList/EmptyList'
 
 interface BroadcastProps {
   id: string
@@ -39,22 +40,28 @@ const MainPage = () => {
 
   return (
     <styles.Container>
-      <styles.Logo>
-        <Link to="/">
-          <Logo logo="box" currentTheme={theme} />
-        </Link>
-      </styles.Logo>
-      <styles.Access>
-        <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
-      </styles.Access>
-      <styles.List currentTheme={theme}>
-        {broadcastList.map((broadcast, index) => (
-          <div>
-            <Link to={`/${broadcast.id}`} state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
-              <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
-            </Link>
-          </div>
-        ))}
+      <styles.Header>
+        <styles.Logo>
+          <Link to="/">
+            <Logo logo="box" currentTheme={theme} />
+          </Link>
+        </styles.Logo>
+        <styles.Access>
+          <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
+        </styles.Access>
+      </styles.Header>
+      <styles.List currentTheme={theme} length={broadcastList.length}>
+        {broadcastList.length !== 0 ? (
+          broadcastList.map((broadcast, index) => (
+            <div>
+              <Link to={`/${broadcast.id}`} state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
+                <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
+              </Link>
+            </div>
+          ))
+        ) : (
+          <EmptyList currentTheme={theme} />
+        )}
       </styles.List>
       {settingModal ? <SettingModal onConfirm={onSetting} /> : null}
       {loginModal ? <LoginModal onCancle={onLogin} currentTheme={theme} /> : null}
