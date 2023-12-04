@@ -3,16 +3,30 @@ import { AppModule } from './app.module';
 import { getSession } from './common/redis.session';
 import { RedisIoAdapter } from './common/redis.adapter';
 import * as passport from 'passport';
+import * as fs from 'fs';
+import * as http from 'http';
+import * as https from 'https';
+import * as express from 'express';
+import { ExpressAdapter } from '@nestjs/platform-express';
 import * as process from 'process';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const keyPath =
+    process.env.NODE_ENV === 'production'
+      ? '/privkey1.pem'
+      : '../../privkey1.pem';
+  const certPath =
+    process.env.NODE_ENV === 'production'
+      ? '/fullchain1.pem'
+      : '../../fullchain1.pem';
 
-  app.enableCors({
-    origin: process.env.CLIENT_ORIGIN,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-  });
+  const httpsOptions = {
+    key: fs.readFileSync(keyPath),
+    cert: fs.readFileSync(certPath),
+  };
+  const server = express();
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+
   const session = getSession();
   app.use(session);
   app.use(passport.initialize());
@@ -22,6 +36,10 @@ async function bootstrap() {
   await redisIoAdapter.connectToRedis();
   app.useWebSocketAdapter(redisIoAdapter);
 
-  await app.listen(3000);
+  const httpServer = http.createServer(server).listen(3000);
+  const httpsServer = https.createServer(httpsOptions, server).listen(443);
+
+  await app.init();
 }
+
 bootstrap();

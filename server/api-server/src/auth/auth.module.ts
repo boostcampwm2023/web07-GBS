@@ -1,5 +1,5 @@
 import { PassportModule } from '@nestjs/passport';
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { UsersModule } from 'src/users/users.module';
 
 import { NaverStrategy } from './strategy/naver.strategy';
@@ -9,7 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    forwardRef(() => UsersModule),
+    UsersModule,
     PassportModule.register({
       defaultStrategy: 'jwt',
       session: true,

@@ -19,6 +19,9 @@ export class NaverStrategy extends PassportStrategy(Strategy) {
   ): Promise<any> {
     const oauthId = profile.id;
     const user = await this.authService.validateUser(oauthId, 'naver');
+    if (!user) {
+      throw new Error('Unauthorized');
+    }
     return { userId: user.id };
   }
 }

@@ -9,7 +9,6 @@ export class AuthService {
 
   async validateUser(oauthId: string, oauthType: string): Promise<any> {
     let user = await this.usersService.findByOAuthId(oauthId);
-
     if (!user) {
       const createUserDto: CreateUserDto = {
         oauthId,
