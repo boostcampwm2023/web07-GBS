@@ -25,7 +25,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./client
           file: ./client/Dockerfile
           push: true
           tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
