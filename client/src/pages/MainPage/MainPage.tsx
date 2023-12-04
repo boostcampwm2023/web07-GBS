@@ -41,11 +41,9 @@ const MainPage = () => {
   return (
     <styles.Container>
       <styles.Header>
-        <styles.Logo>
-          <Link to="/">
-            <Logo logo="box" currentTheme={theme} />
-          </Link>
-        </styles.Logo>
+        <Link to="/">
+          <Logo logo="box" currentTheme={theme} />
+        </Link>
         <styles.Access>
           <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
         </styles.Access>
@@ -53,18 +51,16 @@ const MainPage = () => {
       <styles.List currentTheme={theme} length={broadcastList.length}>
         {broadcastList.length !== 0 ? (
           broadcastList.map((broadcast, index) => (
-            <div>
-              <Link to={`/${broadcast.id}`} state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
-                <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
-              </Link>
-            </div>
+            <Link to={`/${broadcast.id}`} state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
+              <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
+            </Link>
           ))
         ) : (
           <EmptyList currentTheme={theme} />
         )}
       </styles.List>
-      {settingModal ? <SettingModal onConfirm={onSetting} /> : null}
-      {loginModal ? <LoginModal onCancle={onLogin} currentTheme={theme} /> : null}
+      {settingModal && <SettingModal onConfirm={onSetting} />}
+      {loginModal && <LoginModal onCancle={onLogin} currentTheme={theme} />}
     </styles.Container>
   )
 }
