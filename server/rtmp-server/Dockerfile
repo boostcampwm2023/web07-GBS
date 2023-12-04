@@ -1,4 +1,4 @@
-FROM alpine:3.13.4 as builder
+FROM --platform=linux/amd64 alpine:3.13.4 as builder
 
 RUN apk add --update build-base git bash gcc make g++ zlib-dev linux-headers pcre-dev openssl-dev
 RUN git clone https://github.com/winshining/nginx-http-flv-module.git && \
@@ -7,7 +7,7 @@ RUN cd nginx && ./auto/configure --add-module=../nginx-http-flv-module && make &
 
 COPY ./nginx.conf /usr/local/nginx/conf/nginx.conf
 
-FROM alpine:3.13.4 as nginx
+FROM --platform=linux/amd64 alpine:3.13.4 as nginx
 
 RUN apk add --update pcre ffmpeg
 COPY --from=builder /usr/local/nginx /usr/local/nginx
