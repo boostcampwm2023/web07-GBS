@@ -5,7 +5,6 @@ import { UpdateStreamDto } from './dto/update-stream.dto';
 @Controller('streams')
 export class StreamsController {
   constructor(private readonly streamsService: StreamsService) {}
-
   @Get()
   findAll(@Query('page') page = '1', @Query('size') size = '5') {
     return this.streamsService.findAll(+page, +size);

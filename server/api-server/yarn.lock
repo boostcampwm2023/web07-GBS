@@ -705,6 +705,11 @@
   resolved "https://registry.npmjs.org/@nestjs/axios/-/axios-3.0.1.tgz"
   integrity sha512-VlOZhAGDmOoFdsmewn8AyClAdGpKXQQaY1+3PGB+g6ceurGIdTxZgRX3VXc1T6Zs60PedWjg3A82TDOB05mrzQ==
 
+"@nestjs/cache-manager@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/cache-manager/-/cache-manager-2.1.1.tgz#abc042c6ac83400c64fd293b48ddb2dec99f6096"
+  integrity sha512-oYfRys4Ng0zp2HTUPNjH7gizf4vvG3PQZZ+3yGemb3xrF+p3JxDSK0cDq9NTjHzD5UmhjiyAftB9GkuL+t3r9g==
+
 "@nestjs/cli@^10.0.0":
   version "10.2.1"
   resolved "https://registry.npmjs.org/@nestjs/cli/-/cli-10.2.1.tgz"
@@ -1029,6 +1034,13 @@
   integrity sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==
   dependencies:
     "@types/node" "*"
+
+"@types/cookie-parser@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@types/cookie-parser/-/cookie-parser-1.4.6.tgz#002643c514cccf883a65cbe044dbdc38c0b92ade"
+  integrity sha512-KoooCrD56qlLskXPLGUiJxOMnv5l/8m7cQD2OxJ73NPMhuSz9PmvwRD6EpjDyKBVrdJDdQ4bQK7JFNHnNmax0w==
+  dependencies:
+    "@types/express" "*"
 
 "@types/cookie@^0.4.1":
   version "0.4.1"

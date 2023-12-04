@@ -7,6 +7,7 @@ import {
   Session,
   Post,
   Body,
+  HttpException,
 } from '@nestjs/common';
 import { NaverAuthGuard } from './guard/naver-auth.guard';
 import { AuthService } from './auth.service';
@@ -36,9 +37,17 @@ export class AuthController {
     @Req() req,
     @Res() res: Response,
   ): Promise<any> {
-  session.userId = req.user.userId;
-  
-  const sessionId = session.id; 
-  res.json({ sessionId });
+    session.userId = req.user.userId;
+    res.redirect(process.env.CLIENT_ORIGIN);
+    res.send(`<script>window.close();</script>`);
+    res.end();
+  }
+
+  @Get('sessionId')
+  async getSessionId(@Session() session: Record<string, any>) {
+    if (!session.id) {
+      throw new HttpException('Unauthorized', 401);
+    }
+    return { session: session.id };
   }
 }

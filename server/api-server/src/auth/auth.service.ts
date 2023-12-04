@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { v4 as uuid } from 'uuid';
+
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService) {}

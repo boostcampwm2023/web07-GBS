@@ -1,25 +1,31 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import { Request } from 'express';
-import { Observable } from 'rxjs';
+
+interface LoggedInSession {
+  cookie: any;
+  userId: string | undefined;
+}
 
 @Injectable()
 export class LoggedInGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  private readonly logger = new Logger(LoggedInGuard.name);
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest() as Request;
-    const sid = this.getSidFromCookie(request.headers.cookie);
-    // TODO token이 유효한지 확인하는 로직이 필요함
-    return sid !== null;
-  }
+    const session = request.session as unknown as LoggedInSession;
+    const isAuthenticated = session?.userId ? true : false;
 
-  getSidFromCookie(cookieString) {
-    const cookies = cookieString.split('; ').reduce((acc, cookie) => {
-      const [key, value] = cookie.split('=');
-      acc[key] = value;
-      return acc;
-    }, {});
+    if (isAuthenticated) {
+      this.logger.debug(`Authenticated: ${session?.userId}`);
+    } else {
+      this.logger.debug(`Unauthenticated`);
+    }
 
-    return cookies['connect.sid'];
+    return isAuthenticated;
   }
 }

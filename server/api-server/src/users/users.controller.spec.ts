@@ -15,7 +15,7 @@ describe('UsersController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        ConfigModule.forRoot({isGlobal: true}),
+        ConfigModule.forRoot({ isGlobal: true }),
         TypeOrmModule.forRoot({
           type: 'mysql',
           host: process.env.DB_HOST,
@@ -32,7 +32,7 @@ describe('UsersController', () => {
       ],
       controllers: [UsersController],
       providers: [UsersService],
-      exports: [UsersService, TypeOrmModule]
+      exports: [UsersService, TypeOrmModule],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);
@@ -57,16 +57,16 @@ describe('UsersController', () => {
       // Arrange
       const expectedResult = [
         {
-          "id": "3cdce141-d9de-4f7b-b95c-e42acb602167",
-          "userId": "ddd",
-          "oauthId": "iNGxLq4KTWs7A6YCAMkdj76nNbWoW2Q1CO9kPbxbOqg",
-          "oauthType": "naver",
-          "nickname": "jmh",
-          "createdAt": "2023-11-27T14:37:35.955Z",
-          "updatedAt": "2023-11-27T14:45:14.795Z",
-          "deletedAt": null,
-          "stream": null // Add the stream property here
-        }
+          id: '3cdce141-d9de-4f7b-b95c-e42acb602167',
+          userId: 'ddd',
+          oauthId: 'iNGxLq4KTWs7A6YCAMkdj76nNbWoW2Q1CO9kPbxbOqg',
+          oauthType: 'naver',
+          nickname: 'jmh',
+          createdAt: '2023-11-27T14:37:35.955Z',
+          updatedAt: '2023-11-27T14:45:14.795Z',
+          deletedAt: null,
+          stream: null, // Add the stream property here
+        },
       ];
 
       jest.spyOn(service, 'findAll').mockResolvedValue(expectedResult);
