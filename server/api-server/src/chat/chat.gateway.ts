@@ -13,9 +13,6 @@ import { ChatPayload } from './dto/chat-payload';
 import { Logger } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 
-import * as dotenv from 'dotenv';
-dotenv.config();
-
 @WebSocketGateway({
   cors: {
     origin: process.env.CLIENT_ORIGIN,
