@@ -33,7 +33,7 @@ export class UsersController {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
-    const user = await this.usersService.findOne(session.userId);
+    const user = await this.usersService.findByUserId(session.userId);
 
     return { userId: user.userId, nickname: user.nickname };
   }

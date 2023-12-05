@@ -1,4 +1,4 @@
-import { ThemeFlag } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -12,15 +12,14 @@ export const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 57rem;
   position: relative;
+  margin: 1.5rem auto;
 `
-
-export const Logo = styled.div``
 
 export const Access = styled.div`
   position: absolute;
-  left: 50%;
-  transform: translateX(80%);
+  right: 0rem;
 `
 
 interface ListProps {
@@ -38,5 +37,5 @@ export const List = styled.div<ListProps>`
   }};
   justify-content: center;
   align-items: center;
-  margin: 10rem auto;
+  margin: 2.5rem auto;
 `

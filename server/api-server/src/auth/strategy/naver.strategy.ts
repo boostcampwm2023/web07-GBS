@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-naver-v2';
 import { PassportStrategy } from '@nestjs/passport';
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AuthService } from '../auth.service';
 
 @Injectable()
@@ -19,6 +19,6 @@ export class NaverStrategy extends PassportStrategy(Strategy) {
   ): Promise<any> {
     const oauthId = profile.id;
     const user = await this.authService.validateUser(oauthId, 'naver');
-    return { userId: user.id };
+    return { userId: user.userId };
   }
 }

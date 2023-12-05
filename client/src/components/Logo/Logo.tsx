@@ -1,5 +1,5 @@
 import * as styles from './Logo.styles'
-import { ThemeFlag } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
 
 interface LogoProps {
   logo: 'wide' | 'box'
@@ -16,7 +16,7 @@ const Logo = ({ logo, currentTheme }: LogoProps) => {
       ? '/images/box-logo-light.svg'
       : '/images/box-logo-dark.svg'
 
-  return <styles.Logo src={src} logo={logo} />
+  return <styles.Logo src={src} alt="logo" logo={logo} />
 }
 
 export default Logo

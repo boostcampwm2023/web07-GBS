@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 import * as styles from './SettingModal.styles'
-import { themeState, ThemeFlag } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
+import { themeState } from '@/states/theme'
 
 interface SettingModalProps {
   onConfirm: () => void

@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
 import io from 'socket.io-client'
 import * as styles from './BroadcastPage.styles'
 import Logo from '@components/Logo/Logo'
@@ -7,11 +8,10 @@ import Access from '@components/Access/Access'
 import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 import ViewerModal from '@components/Modal/ViewerModal/ViewerModal'
+import ConfirmModal from '@components/Modal/ConfirmModal/ConfirmModal'
 import Chatting from '@components/Chatting/Chatting'
-import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
-import ConfirmModal from '@components/Modal/ConfirmModal/ConfirmModal'
 import useApi from '@/hooks/useApi'
 
 interface ViewerModalProps {
@@ -39,8 +39,8 @@ const BroadcastPage = () => {
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
-  const [isLoginCheckModal, setIsLoginCheckModal] = useState<boolean>(false)
-  const [isEmptyChat, setIsEmptyChat] = useState<boolean>(false)
+  const [loginCheckModal, setLoginCheckModal] = useState<boolean>(false)
+  const [emptyChattingModal, setEmptyChattingModal] = useState<boolean>(false)
   const socket = useRef<any>(null)
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
@@ -51,6 +51,11 @@ const BroadcastPage = () => {
 
   const onLogin = () => {
     setLoginModal(() => !loginModal)
+  }
+
+  const onLogout = () => {
+    localStorage.removeItem('user')
+    window.location.reload()
   }
 
   const onViewer = () => {
@@ -91,8 +96,10 @@ const BroadcastPage = () => {
   }
 
   const onSend = () => {
-    if (chatting.trim() === '') {
-      setIsEmptyChat(true)
+    if (user.id === '') {
+      setLoginCheckModal(true)
+    } else if (chatting.trim() === '') {
+      setEmptyChattingModal(true)
     } else {
       socket.current.emit('chat', { message: chatting })
     }
@@ -103,14 +110,14 @@ const BroadcastPage = () => {
   const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault()
+
       onSend()
     }
   }
 
   useEffect(() => {
     fetchApi('GET', `/streams/${id}`)
-
-    socket.current = io('http://localhost:3000', { withCredentials: true })
+    socket.current = io('https://api.gbs-live.site', { withCredentials: true })
 
     socket.current.emit('join', { room: id })
 
