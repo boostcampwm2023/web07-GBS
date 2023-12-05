@@ -42,7 +42,7 @@ async function bootstrap() {
   await redisIoAdapter.connectToRedis();
   app.useWebSocketAdapter(redisIoAdapter);
 
-  if (process.env.NOD_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production') {
     await app.init();
     http.createServer(server).listen(3000);
   }
