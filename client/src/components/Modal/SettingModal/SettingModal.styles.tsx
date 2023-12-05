@@ -41,6 +41,14 @@ export const BodyContainer = styled.div`
   padding: 0.9375rem 1.875rem 0.9375rem 1.875rem;
 `
 
+export const BlockContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: max-content;
+  margin-bottom: 0.9375rem;
+`
+
 export const HeaderText = styled.div`
   ${TYPO.BOLD_M}
   margin-bottom: 0.9375rem;
@@ -51,14 +59,6 @@ export const BodyText = styled.div`
   ${TYPO.MEDIUM_M}
   display: flex;
   line-height: 2.25rem;
-`
-
-export const MyPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: max-content;
-  margin-bottom: 0.9375rem;
 `
 
 export const InputContainer = styled.div`
@@ -105,7 +105,6 @@ export const SettingContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 2.25rem;
-  margin-bottom: 0.9375rem;
 `
 
 export const ToggleContainer = styled.div<{ isDarkMode: boolean }>`

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import * as styles from './SettingModal.styles'
 import { ThemeFlag } from '@/types/theme'
@@ -15,6 +15,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [user, setUser] = useRecoilState(userState)
   const [id, setId] = useState<string>(user.id)
   const [nickname, setNickname] = useState<string>(user.nickname)
+  const [streamKey, setStreamKey] = useState<string>('')
 
   const onToggleContainer = () => {
     setTheme(isDarkMode ? ThemeFlag.light : ThemeFlag.dark)
@@ -33,7 +34,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
       return
     }
 
-    fetch('http://localhost:3000/users/', {
+    fetch('https://api.gbs-live.site/users/', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
       return
     }
 
-    fetch('http://localhost:3000/users/', {
+    fetch('https://api.gbs-live.site/users/', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -97,6 +98,27 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
       .catch((err) => console.error(err))
   }
 
+  const onKeyInputButton = () => {
+    navigator.clipboard.writeText(streamKey).then(() => {
+      alert('방송 비밀 키가 클립보드에 복사되었습니다.')
+    })
+  }
+
+  useEffect(() => {
+    fetch('https://api.gbs-live.site/stream-keys/me/', { method: 'GET', credentials: 'include' })
+      .then((res) => {
+        if (res.ok === true) {
+          return res.json()
+        } else {
+          throw new Error('Get Failed')
+        }
+      })
+      .then((res) => {
+        setStreamKey(res.streamKey)
+      })
+      .catch((err) => console.error(err))
+  }, [])
+
   return (
     <styles.Backdrop onClick={onConfirm}>
       <styles.ModalContainer>
@@ -108,7 +130,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         >
           <styles.BodyContainer>
             {user.id !== '' && (
-              <styles.MyPageContainer>
+              <styles.BlockContainer>
                 <styles.HeaderText>마이페이지</styles.HeaderText>
                 <styles.BodyText>ID</styles.BodyText>
                 <styles.InputContainer>
@@ -138,18 +160,22 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
                 </styles.InputContainer>
                 <styles.BodyText>방송 비밀 키</styles.BodyText>
                 <styles.InputContainer>
-                  <styles.Input value={'*****************************'} type="password" readOnly={true} currentTheme={currentTheme} />
-                  <styles.InputButton currentTheme={currentTheme}>복사하기</styles.InputButton>
+                  <styles.Input value={streamKey} type="password" readOnly={true} currentTheme={currentTheme} />
+                  <styles.InputButton onClick={onKeyInputButton} currentTheme={currentTheme}>
+                    복사하기
+                  </styles.InputButton>
                 </styles.InputContainer>
-              </styles.MyPageContainer>
+              </styles.BlockContainer>
             )}
-            <styles.HeaderText>환경설정</styles.HeaderText>
-            <styles.SettingContainer>
-              <styles.BodyText>다크모드</styles.BodyText>
-              <styles.ToggleContainer isDarkMode={isDarkMode} onClick={onToggleContainer}>
-                <styles.ToggleKnob isDarkMode={isDarkMode} />
-              </styles.ToggleContainer>
-            </styles.SettingContainer>
+            <styles.BlockContainer>
+              <styles.HeaderText>환경설정</styles.HeaderText>
+              <styles.SettingContainer>
+                <styles.BodyText>다크모드</styles.BodyText>
+                <styles.ToggleContainer isDarkMode={isDarkMode} onClick={onToggleContainer}>
+                  <styles.ToggleKnob isDarkMode={isDarkMode} />
+                </styles.ToggleContainer>
+              </styles.SettingContainer>
+            </styles.BlockContainer>
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
             <styles.Button onClick={onConfirm}>확인</styles.Button>

@@ -8,11 +8,11 @@ interface LoginModalProps {
 
 const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
   const onLoginImage = () => {
-    const popup = window.open('http://localhost:3000/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
+    const popup = window.open('https://api.gbs-live.site/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
 
     const popupEvent = () => {
       if (popup !== null && popup.closed == true) {
-        fetch('http://localhost:3000/users/me/', { method: 'GET', credentials: 'include' })
+        fetch('https://api.gbs-live.site/users/me/', { method: 'GET', credentials: 'include' })
           .then((res) => {
             if (res.ok === true) {
               return res.json()

@@ -121,9 +121,7 @@ const BroadcastPage = () => {
 
   useEffect(() => {
     socket.current = io('https://api.gbs-live.site', { withCredentials: true })
-
     socket.current.emit('join', { room: id })
-
     socket.current.on('chat', (chatting: ChattingProps) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
     })
