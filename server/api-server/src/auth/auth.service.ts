@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { v4 as uuid } from 'uuid';
@@ -9,7 +9,6 @@ export class AuthService {
 
   async validateUser(oauthId: string, oauthType: string): Promise<any> {
     let user = await this.usersService.findByOAuthId(oauthId);
-
     if (!user) {
       const createUserDto: CreateUserDto = {
         oauthId,
@@ -18,6 +17,10 @@ export class AuthService {
         userId: uuid(),
       };
       user = await this.usersService.create(createUserDto);
+    }
+
+    if (!user) {
+      throw new HttpException('Internal server error', 500);
     }
 
     return user;

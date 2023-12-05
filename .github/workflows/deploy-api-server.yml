@@ -46,5 +46,6 @@ jobs:
             docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
-            docker run -d -p 80:3000 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
-            docker image prune -f
+            docker run -v /etc/letsencrypt/archive/api.gbs-live.site/fullchain1.pem:/fullchain1.pem -v /etc/letsencrypt/archive/api.gbs-live.site/privkey1.pem:/privkey1.pem -d -p 80:3000 -p 443:443 --env-file ${{ secrets.ENV_PATH }} ${{ secrets.NCP_CONTAINER_REGISTRY }}/api-server
+            docker image prune -f 
+
