@@ -62,7 +62,7 @@ export class StreamsService {
     }
 
     const videoInfos = await this.videoInfoProvider.getVideoInfo();
-    const videoInfo = videoInfos.find(
+    const {streamKey, ...videoInfo} = videoInfos.find(
       (info) => info.streamKey === user.stream.streamKey,
     );
 
