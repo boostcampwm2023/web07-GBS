@@ -12,16 +12,22 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
     const popupEvent = () => {
       if (popup !== null && popup.closed == true) {
         fetch('http://localhost:3000/users/me/', { method: 'GET', credentials: 'include' })
-          .then((res) => res.json())
-          .then((res) => {
-            const id = res.userId
-            const nickname = res.nickname
+          .then((req) => {
+            if (req.ok === true) {
+              return req.json()
+            } else {
+              throw new Error('Login Failed')
+            }
+          })
+          .then((req) => {
+            const id = req.userId
+            const nickname = req.nickname
 
             localStorage.setItem('user', JSON.stringify({ id: id, nickname: nickname }))
-            window.removeEventListener('focus', popupEvent)
             window.location.reload()
           })
-          .catch((err) => console.log(err))
+          .catch((err) => console.error(err))
+          .finally(() => window.removeEventListener('focus', popupEvent))
       }
     }
 
