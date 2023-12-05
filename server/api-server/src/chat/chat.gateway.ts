@@ -11,10 +11,7 @@ import { Server, Socket } from 'socket.io';
 import { JoinPayload } from './dto/join-payload.dto';
 import { ChatPayload } from './dto/chat-payload';
 import { Logger } from '@nestjs/common';
-
-import * as dotenv from 'dotenv';
 import { UsersService } from 'src/users/users.service';
-dotenv.config();
 
 @WebSocketGateway({
   cors: {
