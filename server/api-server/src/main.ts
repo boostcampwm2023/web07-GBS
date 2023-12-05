@@ -8,22 +8,24 @@ import * as http from 'http';
 import * as express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as process from 'process';
+import { INestApplication } from '@nestjs/common';
 
 async function bootstrap() {
-  const httpsOptions = {
-    key: fs.readFileSync(process.env.KEY_PATH),
-    cert: fs.readFileSync(process.env.CERT_PATH),
-  };
+  let app: INestApplication<any>;
   const server = express();
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server), {
-    httpsOptions,
-  });
 
-  app.enableCors({
-    origin: process.env.CLIENT_ORIGIN,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-  });
+  if (process.env.NODE_ENV === 'production') {
+    const httpsOptions = {
+      key: fs.readFileSync(process.env.KEY_PATH),
+      cert: fs.readFileSync(process.env.CERT_PATH),
+    };
+
+    app = await NestFactory.create(AppModule, new ExpressAdapter(server), {
+      httpsOptions,
+    });
+  } else {
+    app = await NestFactory.create(AppModule);
+  }
 
   app.enableCors({
     origin: process.env.CLIENT_ORIGIN,
@@ -40,10 +42,12 @@ async function bootstrap() {
   await redisIoAdapter.connectToRedis();
   app.useWebSocketAdapter(redisIoAdapter);
 
-  await app.init();
+  if (process.env.NOD_ENV === 'production') {
+    await app.init();
+    http.createServer(server).listen(3000);
+  }
 
-  app.listen(443);
-  http.createServer(server).listen(3000);
+  app.listen(process.env.PORT);
 }
 
 bootstrap();
