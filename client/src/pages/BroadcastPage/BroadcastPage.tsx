@@ -185,7 +185,7 @@ const BroadcastPage = () => {
       )}
       {loginCheckModal && (
         <ConfirmModal
-          text="로그인을 해주세요"
+          text="채팅을 입력하기 전에 로그인을 해주세요"
           onConfrim={() => {
             setLoginCheckModal(false)
           }}
@@ -194,7 +194,7 @@ const BroadcastPage = () => {
       )}
       {emptyChattingModal && (
         <ConfirmModal
-          text="채팅을 입력해주세요"
+          text="올바른 채팅을 입력해주세요"
           onConfrim={() => {
             setEmptyChattingModal(false)
           }}

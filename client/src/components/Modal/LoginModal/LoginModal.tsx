@@ -9,21 +9,22 @@ interface LoginModalProps {
 const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
   const onLoginImage = () => {
     const popup = window.open('http://localhost:3000/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
+
     const popupEvent = () => {
       if (popup !== null && popup.closed == true) {
         fetch('http://localhost:3000/users/me/', { method: 'GET', credentials: 'include' })
-          .then((req) => {
-            if (req.ok === true) {
-              return req.json()
+          .then((res) => {
+            if (res.ok === true) {
+              return res.json()
             } else {
               throw new Error('Login Failed')
             }
           })
-          .then((req) => {
-            const id = req.userId
-            const nickname = req.nickname
+          .then((res) => {
+            const userId = res.userId
+            const userNickname = res.nickname
 
-            localStorage.setItem('user', JSON.stringify({ id: id, nickname: nickname }))
+            localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
             window.location.reload()
           })
           .catch((err) => console.error(err))
