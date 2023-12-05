@@ -111,7 +111,6 @@ export class StreamsService {
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-    console.log(user)
     return user.stream.streamKey;
   }
 }
