@@ -13,7 +13,6 @@ import {
 import { StreamsService } from './streams.service';
 import { UpdateStreamDto } from './dto/update-stream.dto';
 import { LoggedInGuard } from '../auth/guard/logged-in.guard';
-import { UsersService } from '../users/users.service';
 
 @Controller('streams')
 export class StreamsController {
