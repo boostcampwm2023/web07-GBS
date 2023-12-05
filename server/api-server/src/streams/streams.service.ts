@@ -101,4 +101,17 @@ export class StreamsService {
 
     return process.env.ENCODING_URL + '/' + stream.user.userId;
   }
+
+  async getStreamKey(userId: string) {
+    const user = await this.userRepo.findOne({
+      where: { userId },
+      relations: ['stream'],
+    });
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    console.log(user)
+    return user.stream.streamKey;
+  }
 }
