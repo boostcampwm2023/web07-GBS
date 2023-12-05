@@ -33,13 +33,16 @@ export class StreamsService {
     });
 
     return {
-      data: users.map((user) => ({
+      data: users.map((user) => {
+        const {streamKey, ...videoInfo} = videoInfos.find((info) => info.streamKey === user.stream.streamKey);
+
+        return {
         userId: user.userId,
         title: user.stream.title,
         category: user.stream.category,
-        ...videoInfos.find((info) => info.streamKey === user.stream.streamKey),
+        ...videoInfo,
         viewer: this.chatGateway.getViewers(user.userId),
-      })),
+      }}),
       pageInfo: {
         page,
         size,
