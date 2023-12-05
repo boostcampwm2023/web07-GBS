@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-naver-v2';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { AuthService } from '../auth.service';
 
 @Injectable()

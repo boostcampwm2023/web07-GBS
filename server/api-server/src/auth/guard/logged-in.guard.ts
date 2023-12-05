@@ -4,6 +4,7 @@ import {
   Injectable,
   Logger,
 } from '@nestjs/common';
+
 import { Request } from 'express';
 
 interface LoggedInSession {
@@ -18,7 +19,7 @@ export class LoggedInGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest() as Request;
     const session = request.session as unknown as LoggedInSession;
-    const isAuthenticated = session?.userId ? true : false;
+    const isAuthenticated = !!session?.userId;
 
     if (isAuthenticated) {
       this.logger.debug(`Authenticated: ${session?.userId}`);
