@@ -8,14 +8,15 @@ import * as process from 'process';
 import { INestApplication } from '@nestjs/common';
 
 async function bootstrap() {
-  const httpsOptions = {
-    key: fs.readFileSync(process.env.KEY_PATH),
-    cert: fs.readFileSync(process.env.CERT_PATH),
-  };
-
   let app: INestApplication<any>;
+
   if (process.env.NODE_ENV === 'production') {
-    app = await NestFactory.create(AppModule, { httpsOptions });
+    app = await NestFactory.create(AppModule, {
+      httpsOptions: {
+        key: fs.readFileSync(process.env.KEY_PATH),
+        cert: fs.readFileSync(process.env.CERT_PATH),
+      },
+    });
   } else {
     app = await NestFactory.create(AppModule);
   }
@@ -29,7 +30,7 @@ async function bootstrap() {
   await redisIoAdapter.connectToRedis();
   app.useWebSocketAdapter(redisIoAdapter);
 
-  await app.listen(process.env.PORT)
+  await app.listen(process.env.PORT);
 }
 
 bootstrap();
