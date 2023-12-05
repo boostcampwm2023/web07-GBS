@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import io from 'socket.io-client'
 import * as styles from './BroadcastPage.styles'
 import Logo from '@components/Logo/Logo'
@@ -12,13 +12,7 @@ import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
 import ConfirmModal from '@components/Modal/ConfirmModal/ConfirmModal'
-
-interface BroadcastProps {
-  id: string
-  title: string
-  nickname: string
-  viewer: string
-}
+import useApi from '@/hooks/useApi'
 
 interface ViewerModalProps {
   nickname: string
@@ -34,8 +28,10 @@ interface ChattingProps {
 }
 
 const BroadcastPage = () => {
-  const location = useLocation()
-  const { id, title, nickname, viewer }: BroadcastProps = location.state
+  const [response, fetchApi] = useApi()
+  const { id } = useParams()
+  const nickname = '222' // TODO : 닉네임 response에 추가되면 삭제
+
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
@@ -112,6 +108,8 @@ const BroadcastPage = () => {
   }
 
   useEffect(() => {
+    fetchApi('GET', `/streams/${id}`)
+
     socket.current = io('http://localhost:3000', { withCredentials: true })
 
     socket.current.emit('join', { room: id })
@@ -127,81 +125,82 @@ const BroadcastPage = () => {
     }
   }, [])
 
-  return (
-    <styles.Container>
-      <styles.Logo>
-        <Link to="/">
-          <Logo logo="wide" currentTheme={theme} />
-        </Link>
-      </styles.Logo>
-      <styles.Access>
-        <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
-      </styles.Access>
-      <styles.Broadcast></styles.Broadcast>
-      <styles.Chatting currentTheme={theme}>
-        <styles.ChattingList>
-          {chattingList.map((chatting, index) => (
-            <Chatting nickname={chatting.nickname} message={chatting.message} onNickname={onNickname} key={index} />
-          ))}
-        </styles.ChattingList>
-        <styles.Input currentTheme={theme}>
-          <styles.Text
+  if (response.data)
+    return (
+      <styles.Container>
+        <styles.Logo>
+          <Link to="/">
+            <Logo logo="wide" currentTheme={theme} />
+          </Link>
+        </styles.Logo>
+        <styles.Access>
+          <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
+        </styles.Access>
+        <styles.Broadcast></styles.Broadcast>
+        <styles.Chatting currentTheme={theme}>
+          <styles.ChattingList>
+            {chattingList.map((chatting, index) => (
+              <Chatting nickname={chatting.nickname} message={chatting.message} onNickname={onNickname} key={index} />
+            ))}
+          </styles.ChattingList>
+          <styles.Input currentTheme={theme}>
+            <styles.Text
+              currentTheme={theme}
+              value={chatting}
+              onChange={(event) => {
+                if (user.id === '') {
+                  setIsLoginCheckModal(true)
+                  return
+                }
+                return setChatting(event.target.value)
+              }}
+              onKeyDown={onEnter}
+            ></styles.Text>
+            <styles.Send currentTheme={theme} onClick={onSend}>
+              등록하기
+            </styles.Send>
+          </styles.Input>
+        </styles.Chatting>
+        <styles.Info currentTheme={theme}>
+          <styles.Title>{response.data.title}</styles.Title>
+          <styles.Nickname>{response.data.category}</styles.Nickname>
+          <styles.Viewer>시청자 {response.data.viewer}명</styles.Viewer>
+        </styles.Info>
+        {settingModal ? <SettingModal onConfirm={onSetting} /> : null}
+        {loginModal ? <LoginModal onCancle={onLogin} currentTheme={theme} /> : null}
+        {isLoginCheckModal && (
+          <ConfirmModal
             currentTheme={theme}
-            value={chatting}
-            onChange={(event) => {
-              if (user.id === '') {
-                setIsLoginCheckModal(true)
-                return
-              }
-              return setChatting(event.target.value)
+            text="채팅을 입력하시려면 로그인을 먼저 해주세요"
+            onConfrim={() => {
+              setIsLoginCheckModal(false)
             }}
-            onKeyDown={onEnter}
-          ></styles.Text>
-          <styles.Send currentTheme={theme} onClick={onSend}>
-            등록하기
-          </styles.Send>
-        </styles.Input>
-      </styles.Chatting>
-      <styles.Info currentTheme={theme}>
-        <styles.Title>{title}</styles.Title>
-        <styles.Nickname>{nickname}</styles.Nickname>
-        <styles.Viewer>시청자 {viewer}명</styles.Viewer>
-      </styles.Info>
-      {settingModal ? <SettingModal onConfirm={onSetting} /> : null}
-      {loginModal ? <LoginModal onCancle={onLogin} currentTheme={theme} /> : null}
-      {isLoginCheckModal && (
-        <ConfirmModal
-          currentTheme={theme}
-          text="채팅을 입력하시려면 로그인을 먼저 해주세요"
-          onConfrim={() => {
-            setIsLoginCheckModal(false)
-          }}
-        />
-      )}
-      {isEmptyChat && (
-        <ConfirmModal
-          currentTheme={theme}
-          text="채팅을 입력해주세요"
-          onConfrim={() => {
-            setIsEmptyChat(false)
-          }}
-        />
-      )}
-      {viewerModal ? (
-        <ViewerModal
-          nickname={viewerModalInfo.nickname}
-          authority={viewerModalInfo.authority}
-          target={viewerModalInfo.target}
-          top={viewerModalInfo.top}
-          left={viewerModalInfo.left}
-          onCancle={onViewer}
-          onManager={onManager}
-          onKick={onViewer}
-          currentTheme={theme}
-        />
-      ) : null}
-    </styles.Container>
-  )
+          />
+        )}
+        {isEmptyChat && (
+          <ConfirmModal
+            currentTheme={theme}
+            text="채팅을 입력해주세요"
+            onConfrim={() => {
+              setIsEmptyChat(false)
+            }}
+          />
+        )}
+        {viewerModal ? (
+          <ViewerModal
+            nickname={viewerModalInfo.nickname}
+            authority={viewerModalInfo.authority}
+            target={viewerModalInfo.target}
+            top={viewerModalInfo.top}
+            left={viewerModalInfo.left}
+            onCancle={onViewer}
+            onManager={onManager}
+            onKick={onViewer}
+            currentTheme={theme}
+          />
+        ) : null}
+      </styles.Container>
+    )
 }
 
 export default BroadcastPage
