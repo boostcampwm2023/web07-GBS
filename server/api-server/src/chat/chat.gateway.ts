@@ -11,7 +11,9 @@ import { Server, Socket } from 'socket.io';
 import { JoinPayload } from './dto/join-payload.dto';
 import { ChatPayload } from './dto/chat-payload';
 import { Logger } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { User } from 'src/users/entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @WebSocketGateway({
   cors: {
@@ -20,15 +22,21 @@ import { UsersService } from 'src/users/users.service';
   },
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  constructor(private readonly userService: UsersService) {}
+  constructor(@InjectRepository(User) private userRepo: Repository<User>) {}
 
   @WebSocketServer() server: Server = new Server({ cookie: true });
   private readonly logger = new Logger(ChatGateway.name);
 
   async handleConnection(client: Socket) {
-    const id = client.handshake['session'].userId || '';
+    const userId = client.handshake['session'].userId || '';
 
-    const user = await this.userService.findOne(id);
+    let user: User;
+    try {
+      user = await this.userRepo.findOne({ where: { userId } });
+    } catch (e) {
+      this.logger.error(e);
+    }
+
     client.data.userId = user?.userId || 'anonymous';
     client.data.nickname = user?.nickname || '익명';
 

@@ -45,6 +45,8 @@ services:
       SESSION_SECRET: ${SESSION_SECRET}
       CLIENT_ORIGIN: ${CLIENT_ORIGIN}
       ENCODING_URL: rtmp://172.20.0.10/stream
+      PORT: 3000
+      NODE_ENV: development
 
   rtmp-server:
     build: ./server/rtmp-server

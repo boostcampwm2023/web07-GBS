@@ -4,18 +4,24 @@ import { getSession } from './common/redis.session';
 import { RedisIoAdapter } from './common/redis.adapter';
 import * as passport from 'passport';
 import * as fs from 'fs';
+import * as http from 'http';
+import * as express from 'express';
+import { ExpressAdapter } from '@nestjs/platform-express';
 import * as process from 'process';
 import { INestApplication } from '@nestjs/common';
 
 async function bootstrap() {
   let app: INestApplication<any>;
+  const server = express();
 
   if (process.env.NODE_ENV === 'production') {
-    app = await NestFactory.create(AppModule, {
-      httpsOptions: {
-        key: fs.readFileSync(process.env.KEY_PATH),
-        cert: fs.readFileSync(process.env.CERT_PATH),
-      },
+    const httpsOptions = {
+      key: fs.readFileSync(process.env.KEY_PATH),
+      cert: fs.readFileSync(process.env.CERT_PATH),
+    };
+
+    app = await NestFactory.create(AppModule, new ExpressAdapter(server), {
+      httpsOptions,
     });
   } else {
     app = await NestFactory.create(AppModule);
@@ -36,7 +42,12 @@ async function bootstrap() {
   await redisIoAdapter.connectToRedis();
   app.useWebSocketAdapter(redisIoAdapter);
 
-  await app.listen(process.env.PORT);
+  if (process.env.NOD_ENV === 'production') {
+    await app.init();
+    http.createServer(server).listen(3000);
+  }
+
+  app.listen(process.env.PORT);
 }
 
 bootstrap();
