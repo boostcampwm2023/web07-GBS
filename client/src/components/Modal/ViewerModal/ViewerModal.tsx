@@ -1,5 +1,5 @@
 import * as styles from './ViewerModal.styles'
-import { ThemeFlag } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
 
 interface ViewerModalProps {
   nickname: string
@@ -14,7 +14,7 @@ interface ViewerModalProps {
 }
 
 const ViewerModal = ({ nickname, authority, target, top, left, onCancle, onManager, onKick, currentTheme }: ViewerModalProps) => {
-  const getViewerModal = (): JSX.Element => {
+  const getViewerModal = () => {
     if (authority === 'manager' && target === 'viewer') {
       return (
         <styles.Modal

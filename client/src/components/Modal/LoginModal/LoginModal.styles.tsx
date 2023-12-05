@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
-import { ThemeFlag } from '@/states/theme'
-import { ThemeInterface } from '@/types/theme'
+import { ThemeFlag, ThemeInterface } from '@/types/theme'
 
 export const Backdrop = styled.div`
   display: flex;
@@ -69,7 +68,7 @@ export const ButtonContainer = styled.div<ThemeInterface>`
   }};
   bottom: 0rem;
   width: 100%;
-  height: 4.6875rem;
+  height: 3.5rem;
 `
 
 export const Button = styled.div`

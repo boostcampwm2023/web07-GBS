@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
 import * as styles from './MainPage.styles'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
 import Broadcast from '@components/Broadcast/Broadcast'
 import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
-import { useRecoilValue } from 'recoil'
-import { themeState } from '@/states/theme'
 import EmptyList from '@components/EmptyList/EmptyList'
+import { themeState } from '@/states/theme'
+import { userState } from '@/states/user'
 
 interface BroadcastProps {
   id: string
@@ -22,6 +23,7 @@ const MainPage = () => {
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [broadcastList, setBroadcastList] = useState<Array<BroadcastProps>>([])
   const theme = useRecoilValue(themeState)
+  const user = useRecoilValue(userState)
 
   const onSetting = () => {
     setSettingModal(() => !settingModal)
@@ -29,6 +31,11 @@ const MainPage = () => {
 
   const onLogin = () => {
     setLoginModal(() => !loginModal)
+  }
+
+  const onLogout = () => {
+    localStorage.removeItem('user')
+    window.location.reload()
   }
 
   useEffect(() => {
@@ -41,30 +48,34 @@ const MainPage = () => {
   return (
     <styles.Container>
       <styles.Header>
-        <styles.Logo>
-          <Link to="/">
-            <Logo logo="box" currentTheme={theme} />
-          </Link>
-        </styles.Logo>
+        <Link to="/">
+          <Logo logo="box" currentTheme={theme} />
+        </Link>
         <styles.Access>
-          <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
+          {user.id === '' ? (
+            <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
+          ) : (
+            <Access leftButton="환경설정" rightButton="로그아웃" onLeftButton={onSetting} onRightButton={onLogout} />
+          )}
         </styles.Access>
       </styles.Header>
       <styles.List currentTheme={theme} length={broadcastList.length}>
         {broadcastList.length !== 0 ? (
           broadcastList.map((broadcast, index) => (
-            <div>
-              <Link to={`/${broadcast.id}`} state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
-                <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
-              </Link>
-            </div>
+            <Link
+              to={`/${broadcast.id}`}
+              state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}
+              key={index}
+            >
+              <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} />
+            </Link>
           ))
         ) : (
           <EmptyList currentTheme={theme} />
         )}
       </styles.List>
-      {settingModal ? <SettingModal onConfirm={onSetting} /> : null}
-      {loginModal ? <LoginModal onCancle={onLogin} currentTheme={theme} /> : null}
+      {settingModal && <SettingModal onConfirm={onSetting} />}
+      {loginModal && <LoginModal onCancle={onLogin} currentTheme={theme} />}
     </styles.Container>
   )
 }

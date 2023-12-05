@@ -1,4 +1,5 @@
-import { ThemeFlag, themeState } from '@/states/theme'
+import { ThemeFlag } from '@/types/theme'
+import { themeState } from '@/states/theme'
 import { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 

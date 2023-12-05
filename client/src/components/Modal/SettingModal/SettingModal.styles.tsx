@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
-import { ThemeFlag } from '@/states/theme'
-import { ThemeInterface } from '@/types/theme'
+import { ThemeFlag, ThemeInterface } from '@/types/theme'
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -65,6 +64,7 @@ export const InputContainer = styled.div`
 export const Input = styled.input<ThemeInterface>`
   ${TYPO.LIGHT_M}
   border: none;
+  width: 21.0625rem;
   height: 2.25rem;
   background-color: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '#e6e6e6'
@@ -76,7 +76,7 @@ export const Input = styled.input<ThemeInterface>`
 
 export const InputButton = styled.div<ThemeInterface>`
   ${TYPO.LIGHT_M}
-  width: max-content;
+  width: 6.25rem;
   height: 2.25rem;
   line-height: 2.25rem;
   border: ${(props) => {
@@ -89,7 +89,6 @@ export const InputButton = styled.div<ThemeInterface>`
     else return '#ffffff'
   }};
   border-radius: 0.625rem;
-  padding: 0rem 0.625rem 0rem 0.625rem;
   cursor: pointer;
 `
 
@@ -140,7 +139,7 @@ export const ButtonContainer = styled.div<ThemeInterface>`
   }};
   bottom: 0rem;
   width: 100%;
-  height: 4.6875rem;
+  height: 3.5rem;
 `
 
 export const Button = styled.div`
