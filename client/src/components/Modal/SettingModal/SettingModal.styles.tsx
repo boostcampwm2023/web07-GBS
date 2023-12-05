@@ -53,6 +53,14 @@ export const BodyText = styled.div`
   line-height: 2.25rem;
 `
 
+export const MyPageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: max-content;
+  margin-bottom: 0.9375rem;
+`
+
 export const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -90,11 +98,6 @@ export const InputButton = styled.div<ThemeInterface>`
   }};
   border-radius: 0.625rem;
   cursor: pointer;
-`
-
-export const Gap = styled.div`
-  width: 100%;
-  height: 1rem;
 `
 
 export const SettingContainer = styled.div`

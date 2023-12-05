@@ -107,39 +107,42 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
           currentTheme={currentTheme}
         >
           <styles.BodyContainer>
-            <styles.HeaderText>마이페이지</styles.HeaderText>
-            <styles.BodyText>ID</styles.BodyText>
-            <styles.InputContainer>
-              <styles.Input
-                value={id}
-                onChange={(event) => {
-                  setId(event.target.value)
-                }}
-                currentTheme={currentTheme}
-              />
-              <styles.InputButton onClick={onIdInputButton} currentTheme={currentTheme}>
-                저장하기
-              </styles.InputButton>
-            </styles.InputContainer>
-            <styles.BodyText>닉네임</styles.BodyText>
-            <styles.InputContainer>
-              <styles.Input
-                value={nickname}
-                onChange={(event) => {
-                  setNickname(event.target.value)
-                }}
-                currentTheme={currentTheme}
-              />
-              <styles.InputButton onClick={onNicknameInputButton} currentTheme={currentTheme}>
-                저장하기
-              </styles.InputButton>
-            </styles.InputContainer>
-            <styles.BodyText>방송 비밀 키</styles.BodyText>
-            <styles.InputContainer>
-              <styles.Input value={'*****************************'} type="password" readOnly={true} currentTheme={currentTheme} />
-              <styles.InputButton currentTheme={currentTheme}>복사하기</styles.InputButton>
-            </styles.InputContainer>
-            <styles.Gap />
+            {user.id !== '' && (
+              <styles.MyPageContainer>
+                <styles.HeaderText>마이페이지</styles.HeaderText>
+                <styles.BodyText>ID</styles.BodyText>
+                <styles.InputContainer>
+                  <styles.Input
+                    value={id}
+                    onChange={(event) => {
+                      setId(event.target.value)
+                    }}
+                    currentTheme={currentTheme}
+                  />
+                  <styles.InputButton onClick={onIdInputButton} currentTheme={currentTheme}>
+                    저장하기
+                  </styles.InputButton>
+                </styles.InputContainer>
+                <styles.BodyText>닉네임</styles.BodyText>
+                <styles.InputContainer>
+                  <styles.Input
+                    value={nickname}
+                    onChange={(event) => {
+                      setNickname(event.target.value)
+                    }}
+                    currentTheme={currentTheme}
+                  />
+                  <styles.InputButton onClick={onNicknameInputButton} currentTheme={currentTheme}>
+                    저장하기
+                  </styles.InputButton>
+                </styles.InputContainer>
+                <styles.BodyText>방송 비밀 키</styles.BodyText>
+                <styles.InputContainer>
+                  <styles.Input value={'*****************************'} type="password" readOnly={true} currentTheme={currentTheme} />
+                  <styles.InputButton currentTheme={currentTheme}>복사하기</styles.InputButton>
+                </styles.InputContainer>
+              </styles.MyPageContainer>
+            )}
             <styles.HeaderText>환경설정</styles.HeaderText>
             <styles.SettingContainer>
               <styles.BodyText>다크모드</styles.BodyText>
