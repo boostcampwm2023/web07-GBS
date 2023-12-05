@@ -17,6 +17,7 @@ import { LoggedInGuard } from '../auth/guard/logged-in.guard';
 @Controller('stream-keys')
 export class StreamKeysController {
   constructor(private readonly streamsService: StreamsService) {}
+
   @UseGuards(LoggedInGuard)
   @Get('me')
   async getStreamKey(@Session() session: Record<string, any>) {
