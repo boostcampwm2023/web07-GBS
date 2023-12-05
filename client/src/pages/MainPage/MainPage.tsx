@@ -9,15 +9,24 @@ import LoginModal from '@components/Modal/LoginModal/LoginModal'
 import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
 import EmptyList from '@components/EmptyList/EmptyList'
+import useApi from '@/hooks/useApi'
 
 interface BroadcastProps {
-  id: string
+  userId: string
   title: string
-  nickname: string
+  category: string
+  desc: string
+  streamKey: string
   viewer: string
+  thumbnail: string
+  startedAt: string
+  resolution: string
+  frameRate: number
 }
 
 const MainPage = () => {
+  const [response, fetchApi] = useApi()
+
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [broadcastList, setBroadcastList] = useState<Array<BroadcastProps>>([])
@@ -32,10 +41,12 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    setBroadcastList([
-      { id: 'qwer1234', title: 'JMH의 방송', nickname: 'BJ_JMH', viewer: '1,557' },
-      { id: '11dnjfqhdks', title: '그냥 방송', nickname: 'BJ_그냥', viewer: '1,601' },
-    ])
+    if (!response.data) return
+    setBroadcastList(response.data.data)
+  }, [response])
+
+  useEffect(() => {
+    fetchApi('GET', '/streams').then(() => {})
   }, [])
 
   return (
@@ -54,8 +65,8 @@ const MainPage = () => {
         {broadcastList.length !== 0 ? (
           broadcastList.map((broadcast, index) => (
             <div>
-              <Link to={`/${broadcast.id}`} state={{ id: broadcast.id, title: broadcast.title, nickname: broadcast.nickname, viewer: broadcast.viewer }}>
-                <Broadcast title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} key={index} />
+              <Link to={`/${broadcast.userId}`}>
+                <Broadcast title={broadcast.title} nickname={''} viewer={broadcast.viewer} index={index} key={index} />
               </Link>
             </div>
           ))
