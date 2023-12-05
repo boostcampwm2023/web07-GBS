@@ -6,9 +6,10 @@ import Access from '@components/Access/Access'
 import Broadcast from '@components/Broadcast/Broadcast'
 import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
+import EmptyList from '@components/EmptyList/EmptyList'
 import { useRecoilValue } from 'recoil'
 import { themeState } from '@/states/theme'
-import EmptyList from '@components/EmptyList/EmptyList'
+import { userState } from '@/states/user'
 
 interface BroadcastProps {
   id: string
@@ -22,6 +23,7 @@ const MainPage = () => {
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [broadcastList, setBroadcastList] = useState<Array<BroadcastProps>>([])
   const theme = useRecoilValue(themeState)
+  const user = useRecoilValue(userState)
 
   const onSetting = () => {
     setSettingModal(() => !settingModal)
@@ -29,6 +31,11 @@ const MainPage = () => {
 
   const onLogin = () => {
     setLoginModal(() => !loginModal)
+  }
+
+  const onLogout = () => {
+    localStorage.removeItem('user')
+    window.location.reload()
   }
 
   useEffect(() => {
@@ -45,7 +52,11 @@ const MainPage = () => {
           <Logo logo="box" currentTheme={theme} />
         </Link>
         <styles.Access>
-          <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
+          {user.id === '' ? (
+            <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
+          ) : (
+            <Access leftButton="환경설정" rightButton="로그아웃" onLeftButton={onSetting} onRightButton={onLogout} />
+          )}
         </styles.Access>
       </styles.Header>
       <styles.List currentTheme={theme} length={broadcastList.length}>

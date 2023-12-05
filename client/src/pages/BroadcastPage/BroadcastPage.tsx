@@ -57,6 +57,11 @@ const BroadcastPage = () => {
     setLoginModal(() => !loginModal)
   }
 
+  const onLogout = () => {
+    localStorage.removeItem('user')
+    window.location.reload()
+  }
+
   const onViewer = () => {
     setViewerModal(() => !viewerModal)
   }
@@ -138,7 +143,11 @@ const BroadcastPage = () => {
         </Link>
       </styles.Logo>
       <styles.Access>
-        <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
+        {user.id === '' ? (
+          <Access leftButton="환경설정" rightButton="로그인" onLeftButton={onSetting} onRightButton={onLogin} />
+        ) : (
+          <Access leftButton="환경설정" rightButton="로그아웃" onLeftButton={onSetting} onRightButton={onLogout} />
+        )}
       </styles.Access>
       <styles.Broadcast></styles.Broadcast>
       <styles.Chatting currentTheme={theme}>

@@ -14,10 +14,14 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
         fetch('http://localhost:3000/users/me/', { method: 'GET', credentials: 'include' })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res)
+            const id = res.userId
+            const nickname = res.nickname
+
+            localStorage.setItem('user', JSON.stringify({ id: id, nickname: nickname }))
             window.removeEventListener('focus', popupEvent)
             window.location.reload()
           })
+          .catch((err) => console.log(err))
       }
     }
 
