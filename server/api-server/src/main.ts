@@ -31,7 +31,6 @@ async function bootstrap() {
 
   const httpServer = http.createServer(server).listen(3000);
   const httpsServer = https.createServer(httpsOptions, server).listen(443);
-
 }
 
 bootstrap();

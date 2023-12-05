@@ -38,7 +38,7 @@ export class AuthController {
     @Res() res: Response,
   ): Promise<any> {
     if (!req.user) {
-      return res.status(401).send('Unauthorized');
+      return res.sendStatus(401);
     }
 
     session.userId = req.user.userId;
