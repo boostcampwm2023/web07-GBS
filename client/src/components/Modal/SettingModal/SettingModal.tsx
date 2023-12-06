@@ -4,7 +4,6 @@ import * as styles from './SettingModal.styles'
 import { ThemeFlag } from '@/types/theme'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
-import useApi from '@/hooks/useApi'
 
 interface SettingModalProps {
   onConfirm: () => void
@@ -12,19 +11,18 @@ interface SettingModalProps {
 
 const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [currentTheme, setTheme] = useRecoilState(themeState)
-  const isDarkMode = currentTheme === ThemeFlag.dark
   const [user, setUser] = useRecoilState(userState)
   const [id, setId] = useState<string>(user.id)
   const [nickname, setNickname] = useState<string>(user.nickname)
   const [streamKey, setStreamKey] = useState<string>('')
-  const [response, fetchApi] = useApi()
+  const isDarkMode = currentTheme === ThemeFlag.dark
 
   const onToggleContainer = () => {
     setTheme(isDarkMode ? ThemeFlag.light : ThemeFlag.dark)
     localStorage.setItem('theme', `${currentTheme}`)
   }
 
-  const onIdInputButton = async () => {
+  const onIdInputButton = () => {
     if (id.trim() === '') {
       alert('올바른 ID를 입력해주세요.')
       setId(user.id)
@@ -35,19 +33,34 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
 
       return
     }
-    await fetchApi('PATCH', '/users/', { nickname: user.nickname, userId: id.trim() })
 
-    if (response.data) {
-      const { userId, nickname } = response.data
-      alert('ID가 저장되었습니다.')
-      setUser({ id: userId, nickname: nickname })
-      localStorage.setItem('user', JSON.stringify({ id: userId, nickname: nickname }))
-    } else {
-      console.log(response.error)
-    }
+    fetch(`${import.meta.env.VITE_API_URL}` + '/users', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ nickname: user.nickname, userId: id.trim() }),
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (res.ok === true) {
+          return res.json()
+        } else {
+          throw new Error('ID Save Failed')
+        }
+      })
+      .then((res) => {
+        const userId = res.userId
+        const userNickname = res.nickname
+
+        alert('ID가 저장되었습니다.')
+        setUser({ id: userId, nickname: userNickname })
+        localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
+      })
+      .catch((err) => console.error(err))
   }
 
-  const onNicknameInputButton = async () => {
+  const onNicknameInputButton = () => {
     if (nickname.trim() === '') {
       alert('올바른 닉네임을 입력해주세요.')
       setNickname(user.nickname)
@@ -58,32 +71,52 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
 
       return
     }
-    await fetchApi('PATCH', '/users/', { nickname: nickname.trim(), userId: user.id })
 
-    if (response.data) {
-      const { userId, nickname } = response.data
-      alert('닉네임이 저장되었습니다.')
-      setUser({ id: userId, nickname: nickname })
-      localStorage.setItem('user', JSON.stringify({ id: userId, nickname: nickname }))
-    } else {
-      console.log(response.error)
-    }
+    fetch(`${import.meta.env.VITE_API_URL}` + '/users', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ nickname: nickname.trim(), userId: user.id }),
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (res.ok === true) {
+          return res.json()
+        } else {
+          throw new Error('Nickname Save Failed')
+        }
+      })
+      .then((res) => {
+        const userId = res.userId
+        const userNickname = res.nickname
+
+        alert('닉네임이 저장되었습니다.')
+        setUser({ id: userId, nickname: userNickname })
+        localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
+      })
+      .catch((err) => console.error(err))
   }
 
-  const onKeyInputButton = async () => {
-    await fetchApi('GET', '/stream-keys/me/')
-
-    if (response.data) {
-      const { streamKey } = response.data
-      setStreamKey(streamKey)
-      navigator.clipboard.writeText(streamKey).then(() => {
-        alert('방송 비밀 키가 클립보드에 복사되었습니다.')
-      })
-    }
+  const onKeyInputButton = () => {
+    navigator.clipboard.writeText(streamKey).then(() => {
+      alert('방송 비밀 키가 클립보드에 복사되었습니다.')
+    })
   }
 
   useEffect(() => {
-    onKeyInputButton()
+    fetch(`${import.meta.env.VITE_API_URL}` + '/stream-keys/me', { method: 'GET', credentials: 'include' })
+      .then((res) => {
+        if (res.ok === true) {
+          return res.json()
+        } else {
+          throw new Error('Get Stream Keys Failed')
+        }
+      })
+      .then((res) => {
+        setStreamKey(res.streamKey)
+      })
+      .catch((err) => console.error(err))
   }, [])
 
   return (

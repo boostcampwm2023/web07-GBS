@@ -22,7 +22,7 @@ export const Broadcast = styled.div<BroadcastProps>`
   height: 15rem;
 `
 
-export const Thumbnail = styled.div`
+export const Thumbnail = styled.img`
   border: 0.0625rem solid #000000;
   position: absolute;
   top: 1.875rem;

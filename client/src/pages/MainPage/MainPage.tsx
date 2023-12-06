@@ -8,29 +8,21 @@ import Broadcast from '@components/Broadcast/Broadcast'
 import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 import EmptyList from '@components/EmptyList/EmptyList'
-import useApi from '@/hooks/useApi'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
 
-interface BroadcastProps {
+interface BroadcastInterface {
   userId: string
+  nickname: string
   title: string
-  category: string
-  desc: string
-  streamKey: string
-  viewer: string
+  viewer: number
   thumbnail: string
-  startedAt: string
-  resolution: string
-  frameRate: number
 }
 
 const MainPage = () => {
-  const [response, fetchApi] = useApi()
-
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
-  const [broadcastList, setBroadcastList] = useState<Array<BroadcastProps>>([])
+  const [broadcastList, setBroadcastList] = useState<Array<BroadcastInterface>>([])
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
 
@@ -48,12 +40,22 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    if (!response.data) return
-    setBroadcastList(response.data.data)
-  }, [response])
-
-  useEffect(() => {
-    fetchApi('GET', '/streams').then(() => {})
+    fetch(`${import.meta.env.VITE_API_URL}` + '/streams', { method: 'GET', credentials: 'include' })
+      .then((res) => {
+        if (res.ok === true) {
+          return res.json()
+        } else {
+          throw new Error('Get Streamers Data Failed')
+        }
+      })
+      .then((res) => {
+        setBroadcastList(
+          res.data.map((broadcast: any): BroadcastInterface => {
+            return { userId: broadcast.userId, nickname: broadcast.nickname, title: broadcast.title, viewer: broadcast.viewer, thumbnail: broadcast.thumbnail }
+          }),
+        )
+      })
+      .catch((err) => console.error(err))
   }, [])
 
   return (
@@ -73,11 +75,9 @@ const MainPage = () => {
       <styles.List currentTheme={theme} length={broadcastList.length}>
         {broadcastList.length !== 0 ? (
           broadcastList.map((broadcast, index) => (
-            <div>
-              <Link to={`/${broadcast.userId}`}>
-                <Broadcast title={broadcast.title} nickname={''} viewer={broadcast.viewer} index={index} key={index} />
-              </Link>
-            </div>
+            <Link to={`/${broadcast.userId}`} key={index}>
+              <Broadcast thumbnail={broadcast.thumbnail} title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} />
+            </Link>
           ))
         ) : (
           <EmptyList currentTheme={theme} />
