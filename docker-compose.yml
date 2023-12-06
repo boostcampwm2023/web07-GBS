@@ -63,7 +63,7 @@ services:
       STREAM_KEY_CHECK_URL: http://host.docker.internal:3000/stream-keys
 
   encoding-server:
-    image: efriandika/streaming-server
+    image: jmhee3410/gbs:2.0
     platform: linux/amd64
     privileged: true
     env_file: .env
@@ -80,13 +80,15 @@ services:
       AWS_S3_REGION: ${AWS_S3_REGION}
       AWS_S3_URL: ${AWS_S3_URL}
 
-  front:
-    platform: linux/amd64
-    build: ./client
-    networks:
-      - custom_network
-    ports:
-      - 80:80
+
+
+  # front:
+  #   platform: linux/amd64
+  #   build: ./client
+  #   networks:
+  #     - custom_network
+  #   ports:
+  #     - 80:80
 
 networks:
   custom_network:
