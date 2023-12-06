@@ -40,7 +40,6 @@ export class StreamsService {
 
         return {
           userId: user.userId,
-          nickname: user.nickname,
           title: user.stream.title,
           category: user.stream.category,
           ...videoInfo,
@@ -72,7 +71,6 @@ export class StreamsService {
 
     return {
       userId,
-      nickname: user.nickname,
       title: user.stream.title,
       category: user.stream.category,
       desc: user.stream.desc,
