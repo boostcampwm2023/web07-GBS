@@ -11,7 +11,7 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
   const [response, fetchApi] = useApi<{ userId: string; nickname: string }>()
 
   const onLoginImage = () => {
-    const popup = window.open('/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
+    const popup = window.open(`${import.meta.env.VITE_API_URL}` + '/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
 
     const popupEvent = async () => {
       if (popup !== null && popup.closed === true) {
