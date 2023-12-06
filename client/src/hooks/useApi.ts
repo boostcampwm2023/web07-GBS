@@ -30,6 +30,7 @@ function useApi<T = any>(): [ApiResponse<T>, (method: string, url: string, reque
         method: method,
         headers: headers,
         body: requestBody ? JSON.stringify(requestBody) : null,
+        credentials: 'include',
       })
 
       if (!response.ok) {
