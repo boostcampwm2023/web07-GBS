@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import * as styles from './MainPage.styles'
-import useApi from '@/hooks/useApi'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
 import Broadcast from '@components/Broadcast/Broadcast'
@@ -12,11 +11,10 @@ import EmptyList from '@components/EmptyList/EmptyList'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
 
-interface BroadcastProps {
+interface BroadcastInterface {
   userId: string
   nickname: string
   title: string
-  category: string
   viewer: number
   thumbnail: string
 }
@@ -24,8 +22,7 @@ interface BroadcastProps {
 const MainPage = () => {
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
-  const [broadcastList, setBroadcastList] = useState<Array<BroadcastProps>>([])
-  const [response, fetchApi] = useApi()
+  const [broadcastList, setBroadcastList] = useState<Array<BroadcastInterface>>([])
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
 
@@ -43,14 +40,22 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    if (!response.data) {
-      return
-    }
-    setBroadcastList(response.data.data)
-  }, [response])
-
-  useEffect(() => {
-    fetchApi('GET', '/streams').then(() => {})
+    fetch(`${import.meta.env.VITE_API_URL}` + '/streams', { method: 'GET', credentials: 'include' })
+      .then((res) => {
+        if (res.ok === true) {
+          return res.json()
+        } else {
+          throw new Error('Get Streamers Data Failed')
+        }
+      })
+      .then((res) => {
+        setBroadcastList(
+          res.data.map((broadcast: any): BroadcastInterface => {
+            return { userId: broadcast.userId, nickname: broadcast.nickname, title: broadcast.title, viewer: broadcast.viewer, thumbnail: broadcast.thumbnail }
+          }),
+        )
+      })
+      .catch((err) => console.error(err))
   }, [])
 
   return (
