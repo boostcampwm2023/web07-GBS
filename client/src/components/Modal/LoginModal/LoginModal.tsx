@@ -1,3 +1,4 @@
+import useApi from '@/hooks/useApi'
 import * as styles from './LoginModal.styles'
 import { ThemeFlag } from '@/types/theme'
 
@@ -7,28 +8,29 @@ interface LoginModalProps {
 }
 
 const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
+  const [response, fetchApi] = useApi<{ userId: string; nickname: string }>()
+
   const onLoginImage = () => {
-    const popup = window.open('https://api.gbs-live.site/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
+    const popup = window.open(`${import.meta.env.VITE_API_URL}` + '/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
 
-    const popupEvent = () => {
-      if (popup !== null && popup.closed == true) {
-        fetch('https://api.gbs-live.site/users/me/', { method: 'GET', credentials: 'include' })
-          .then((res) => {
-            if (res.ok === true) {
-              return res.json()
-            } else {
-              throw new Error('Login Failed')
-            }
-          })
-          .then((res) => {
-            const userId = res.userId
-            const userNickname = res.nickname
+    const popupEvent = async () => {
+      if (popup !== null && popup.closed === true) {
+        try {
+          await fetchApi('GET', '/users/me/', undefined, { credentials: 'include' })
 
-            localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
+          if (response.data) {
+            const { userId, nickname } = response.data
+
+            localStorage.setItem('user', JSON.stringify({ id: userId, nickname: nickname }))
             window.location.reload()
-          })
-          .catch((err) => console.error(err))
-          .finally(() => window.removeEventListener('focus', popupEvent))
+          } else {
+            throw new Error('Login Failed')
+          }
+        } catch (error) {
+          console.error(response.error || error)
+        } finally {
+          window.removeEventListener('focus', popupEvent)
+        }
       }
     }
 
