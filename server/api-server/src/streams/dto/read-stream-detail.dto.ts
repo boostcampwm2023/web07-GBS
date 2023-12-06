@@ -1,5 +1,6 @@
 export class ReadStreamDetailDto {
   readonly userId: string;
+  readonly nickname: string;
   readonly title: string;
   readonly category: string;
   readonly viewer: number;
