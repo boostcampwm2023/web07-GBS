@@ -105,18 +105,20 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   }
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}` + '/stream-keys/me', { method: 'GET', credentials: 'include' })
-      .then((res) => {
-        if (res.ok === true) {
-          return res.json()
-        } else {
-          throw new Error('Get Stream Keys Failed')
-        }
-      })
-      .then((res) => {
-        setStreamKey(res.streamKey)
-      })
-      .catch((err) => console.error(err))
+    if (user.id !== '') {
+      fetch(`${import.meta.env.VITE_API_URL}` + '/stream-keys/me', { method: 'GET', credentials: 'include' })
+        .then((res) => {
+          if (res.ok === true) {
+            return res.json()
+          } else {
+            throw new Error('Get Stream Keys Failed')
+          }
+        })
+        .then((res) => {
+          setStreamKey(res.streamKey)
+        })
+        .catch((err) => console.error(err))
+    }
   }, [])
 
   return (
