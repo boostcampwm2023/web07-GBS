@@ -31,6 +31,7 @@ jobs:
               tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
               cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/front
               cache-to: type=inline
+              build-args: VITE_API_URL=${{ secrets.VITE_API_URL }}
 
    docker_pull_front:
       name: Connect server ssh and pull frontend from container registry
@@ -48,7 +49,7 @@ jobs:
                  docker pull ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
                  docker stop $(docker ps -a -q)
                  docker rm $(docker ps -a -q)
-                 docker run -d -p 80:80 -p 443:443 --env-file ${{ secrets.ENV_PATH }} --name front ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
+                 docker run -d -p 80:80 -p 443:443 --name front ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
                  docker image prune -f
                  docker cp /etc/letsencrypt/archive/gbs-live.site/fullchain1.pem front:/
                  docker cp /etc/letsencrypt/archive/gbs-live.site/privkey1.pem front:/
