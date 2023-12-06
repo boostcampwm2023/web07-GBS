@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import * as styles from './SettingModal.styles'
+import useApi from '@/hooks/useApi'
 import { ThemeFlag } from '@/types/theme'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
-import useApi from '@/hooks/useApi'
 
 interface SettingModalProps {
   onConfirm: () => void
@@ -12,12 +12,12 @@ interface SettingModalProps {
 
 const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [currentTheme, setTheme] = useRecoilState(themeState)
-  const isDarkMode = currentTheme === ThemeFlag.dark
   const [user, setUser] = useRecoilState(userState)
   const [id, setId] = useState<string>(user.id)
   const [nickname, setNickname] = useState<string>(user.nickname)
   const [streamKey, setStreamKey] = useState<string>('')
   const [response, fetchApi] = useApi()
+  const isDarkMode = currentTheme === ThemeFlag.dark
 
   const onToggleContainer = () => {
     setTheme(isDarkMode ? ThemeFlag.light : ThemeFlag.dark)

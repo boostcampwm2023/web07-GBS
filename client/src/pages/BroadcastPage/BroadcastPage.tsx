@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import io from 'socket.io-client'
 import * as styles from './BroadcastPage.styles'
+import useApi from '@/hooks/useApi'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
 import SettingModal from '@components/Modal/SettingModal/SettingModal'
@@ -12,7 +13,6 @@ import ConfirmModal from '@components/Modal/ConfirmModal/ConfirmModal'
 import Chatting from '@components/Chatting/Chatting'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
-import useApi from '@/hooks/useApi'
 
 interface ViewerModalProps {
   nickname: string
@@ -28,10 +28,6 @@ interface ChattingProps {
 }
 
 const BroadcastPage = () => {
-  const [response, fetchApi] = useApi()
-  const { id } = useParams()
-  const nickname = '222' // TODO : 닉네임 response에 추가되면 삭제
-
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
@@ -41,6 +37,8 @@ const BroadcastPage = () => {
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
   const [loginCheckModal, setLoginCheckModal] = useState<boolean>(false)
   const [emptyChattingModal, setEmptyChattingModal] = useState<boolean>(false)
+  const [response, fetchApi] = useApi()
+  const { id } = useParams()
   const socket = useRef<any>(null)
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
@@ -63,7 +61,7 @@ const BroadcastPage = () => {
   }
 
   const getTarget = (viewerNickname: string): 'viewer' | 'manager' | 'streamer' => {
-    if (viewerNickname === nickname) {
+    if (response.data && viewerNickname === response.data.nickname) {
       return 'streamer'
     } else if (manager.indexOf(viewerNickname) !== -1) {
       return 'manager'
@@ -117,7 +115,7 @@ const BroadcastPage = () => {
 
   useEffect(() => {
     fetchApi('GET', `/streams/${id}`)
-    socket.current = io('https://api.gbs-live.site', { withCredentials: true })
+    socket.current = io(`${import.meta.env.VITE_API_URL}`, { withCredentials: true })
     socket.current.emit('join', { room: id })
     socket.current.on('chat', (chatting: ChattingProps) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
@@ -161,7 +159,7 @@ const BroadcastPage = () => {
         </styles.Chatting>
         <styles.Info currentTheme={theme}>
           <styles.Title>{response.data.title}</styles.Title>
-          <styles.Nickname>{response.data.category}</styles.Nickname>
+          <styles.Nickname>{response.data.nickname}</styles.Nickname>
           <styles.Viewer>시청자 {response.data.viewer}명</styles.Viewer>
         </styles.Info>
         {settingModal && <SettingModal onConfirm={onSetting} />}

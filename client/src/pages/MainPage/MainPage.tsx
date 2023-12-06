@@ -2,35 +2,30 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import * as styles from './MainPage.styles'
+import useApi from '@/hooks/useApi'
 import Logo from '@components/Logo/Logo'
 import Access from '@components/Access/Access'
 import Broadcast from '@components/Broadcast/Broadcast'
 import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
 import EmptyList from '@components/EmptyList/EmptyList'
-import useApi from '@/hooks/useApi'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
 
 interface BroadcastProps {
   userId: string
+  nickname: string
   title: string
   category: string
-  desc: string
-  streamKey: string
-  viewer: string
+  viewer: number
   thumbnail: string
-  startedAt: string
-  resolution: string
-  frameRate: number
 }
 
 const MainPage = () => {
-  const [response, fetchApi] = useApi()
-
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [broadcastList, setBroadcastList] = useState<Array<BroadcastProps>>([])
+  const [response, fetchApi] = useApi()
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
 
@@ -48,7 +43,9 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    if (!response.data) return
+    if (!response.data) {
+      return
+    }
     setBroadcastList(response.data.data)
   }, [response])
 
@@ -73,11 +70,9 @@ const MainPage = () => {
       <styles.List currentTheme={theme} length={broadcastList.length}>
         {broadcastList.length !== 0 ? (
           broadcastList.map((broadcast, index) => (
-            <div>
-              <Link to={`/${broadcast.userId}`}>
-                <Broadcast title={broadcast.title} nickname={''} viewer={broadcast.viewer} index={index} key={index} />
-              </Link>
-            </div>
+            <Link to={`/${broadcast.userId}`} key={index}>
+              <Broadcast thumbnail={broadcast.thumbnail} title={broadcast.title} nickname={broadcast.nickname} viewer={broadcast.viewer} index={index} />
+            </Link>
           ))
         ) : (
           <EmptyList currentTheme={theme} />
