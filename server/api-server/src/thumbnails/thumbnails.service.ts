@@ -3,67 +3,59 @@ import fetch from 'node-fetch';
 import { exec } from 'child_process';
 import { unlink } from 'fs';
 import { join } from 'path';
+import AWS = require('aws-sdk'); 
+import * as fs from 'fs';
 
 @Injectable()
-
 export class ThumbnailsService {
-  async extractTsUrls(streamkey: string) {
+  async extractTsUrls(userId: string) {
     try {
-      console.log('streamkey:::::', streamkey);
-      const prefixURL = 'https://kr.object.ncloudstorage.com/hls-bucket/hls/';
-      let result = '';
-      const m3u8Url = `https://kr.object.ncloudstorage.com/hls-bucket/hls/${streamkey}.m3u8`;
-      console.log('m3u8Url:::::', m3u8Url);
+
+      const prefix = `${process.env.AWS_S3_URL}${process.env.AWS_S3_BUCKET_NAME}`
+      const prefixURL = `${prefix}/hls`;
+
+      const m3u8Url = `${prefixURL}/${userId}.m3u8`;
+
       const response = await fetch(m3u8Url);
-      const body = await response.text();      
-      result = JSON.stringify(body);
+      const body = await response.text();     
       const lines = body.split('\n');
 
       const newM3U8 = lines[3];
-      console.log('newM3U8:::::', newM3U8);
       const newResponse = await fetch(
-        `https://kr.object.ncloudstorage.com/hls-bucket/hls/${newM3U8}`,
+        `${prefixURL}/${newM3U8}`,
       );
       const newBody = await newResponse.text();
       const newLines = newBody.split('\n');
 
       const temp = newM3U8.split('/');
-      const arg = `${prefixURL}${temp[0]}/${newLines[5]}`;
+      const arg = `${prefixURL}/${temp[0]}/${newLines[5]}`;
 
-      console.log('arg:::::', arg);
-      this.executeShellScript(
+      await this.executeShellScript(
         `${process.cwd()}/src/thumbnails/makeThumbnail.sh`,
-        `${arg}`,
-        async () => {
-          console.log('Thumbnail created successfully');
-          // Callback after shell script execution
-          const thumbnailsDir = join(process.cwd(), 'src', 'thumbnails');
-          await this.removeFile(join(thumbnailsDir, 'segment.ts'));
-          await this.removeFile(join(thumbnailsDir, 'segment.mp4'));
-        },
+        `${arg}`
       );
-      return result;
+
     } catch (error) {
       console.error('Error fetching M3U8 file:', error);
     }
   }
 
-  executeShellScript(
-    scriptPath: string,
-    args: string,
-    callback: () => void,
-  ): void {
-    exec(`sh ${scriptPath} ${args}`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Execution error: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.error(`Error: ${stderr}`);
-        return;
-      }
-      console.log(`Output: ${stdout}`);
-      callback(); // Execute the callback after the script completes
+  executeShellScript(scriptPath: string, args: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      exec(`sh ${scriptPath} ${args}`, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Execution error: ${error.message}`);
+          reject(error);
+          return;
+        }
+        if (stderr) {
+          console.error(`Error: ${stderr}`);
+          reject(stderr);
+          return;
+        }
+        console.log(`Output: ${stdout}`);
+        resolve('thumbnail saved'); // Resolve the promise with the output
+      });
     });
   }
 
@@ -80,4 +72,30 @@ export class ThumbnailsService {
       });
     });
   }
+
+  async uploadS3(filePath: string, object_name: string) {
+
+    const endpoint = new AWS.Endpoint(process.env.AWS_S3_URL);
+    const region = process.env.AWS_S3_REGION;
+    const access_key = process.env.AWS_ACCESS_KEY_ID; 
+    const secret_key = process.env.AWS_SECRET_ACCESS_KEY; 
+
+    const S3 = new AWS.S3({
+      endpoint: endpoint,
+      region: region,
+      credentials: {
+          accessKeyId: access_key,
+          secretAccessKey: secret_key
+      }
+    });
+    
+    await S3.putObject({
+        Bucket: process.env.AWS_S3_BUCKET_NAME,
+        Key: object_name,
+        Body: fs.createReadStream(filePath),
+        ACL: 'public-read',
+    }).promise();
+
+  }
+
 }
