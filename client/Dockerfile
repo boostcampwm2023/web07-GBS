@@ -1,6 +1,9 @@
 # 첫 번째 단계: 빌드 환경 구축
 FROM --platform=linux/amd64 node:lts-alpine as build-stage
 
+# 환경변수를 위한 ARG 지시어 추가
+ARG VITE_API_URL
+
 WORKDIR /app
 
 # 의존성 파일 복사 및 설치
@@ -10,7 +13,9 @@ RUN yarn install && yarn global add typescript
 # 소스 코드 복사
 COPY . .
 
-RUN ls -l
+# .env 파일 생성
+RUN echo "VITE_API_URL=$VITE_API_URL" > .env
+
 # 애플리케이션 빌드
 RUN yarn build
 
