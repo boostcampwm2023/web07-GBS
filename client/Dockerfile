@@ -4,7 +4,7 @@ FROM --platform=linux/amd64 node:lts-alpine as build-stage
 WORKDIR /app
 
 # 의존성 파일 복사 및 설치
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .env ./
 RUN yarn install && yarn global add typescript
 
 # 소스 코드 복사
