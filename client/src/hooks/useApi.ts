@@ -7,7 +7,7 @@ interface ApiResponse<T> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function useApi<T = any>(): [ApiResponse<T>, (method: string, url: string, requestBody?: object) => Promise<void>] {
+function useApi<T = any>(): [ApiResponse<T>, (method: string, url: string, requestBody?: object, customHeaders?: HeadersInit) => Promise<void>] {
   const [response, setResponse] = useState<ApiResponse<T>>({
     data: null,
     isLoading: false,
@@ -16,15 +16,19 @@ function useApi<T = any>(): [ApiResponse<T>, (method: string, url: string, reque
 
   const baseURL = `${import.meta.env.VITE_API}`
 
-  const fetchApi = async (method: string, url: string, requestBody?: object): Promise<void> => {
+  const fetchApi = async (method: string, url: string, requestBody?: object, customHeaders?: HeadersInit): Promise<void> => {
     setResponse({ ...response, isLoading: true })
+
+    const defaultHeaders: HeadersInit = {
+      'Content-Type': 'application/json',
+    }
+
+    const headers = customHeaders || defaultHeaders
 
     try {
       const response = await fetch(baseURL + url, {
         method: method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: headers,
         body: requestBody ? JSON.stringify(requestBody) : null,
       })
 
