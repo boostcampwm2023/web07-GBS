@@ -14,7 +14,7 @@ function useApi<T = any>(): [ApiResponse<T>, (method: string, url: string, reque
     error: null,
   })
 
-  const baseURL = `${import.meta.env.VITE_API}`
+  const baseURL = `${import.meta.env.VITE_API_URL}`
 
   const fetchApi = async (method: string, url: string, requestBody?: object, customHeaders?: HeadersInit): Promise<void> => {
     setResponse({ ...response, isLoading: true })
