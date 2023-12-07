@@ -49,11 +49,8 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
         >
           <styles.BodyContainer>
             <styles.HeaderText>로그인</styles.HeaderText>
-            <styles.LoginImage src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" onClick={() => onLoginImage('naver')} />
-            <styles.LoginImage
-              src="https://developers.google.com/static/identity/images/btn_google_signin_dark_normal_web.png?hl=ko"
-              onClick={() => onLoginImage('google')}
-            />
+            <styles.LoginImage src="/images/naver-login.png" onClick={() => onLoginImage('naver')} />
+            <styles.LoginImage src="/images/google-login.png" onClick={() => onLoginImage('google')} />
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
             <styles.Button onClick={onCancle}>취소</styles.Button>

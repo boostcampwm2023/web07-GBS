@@ -52,7 +52,7 @@ export const HeaderText = styled.div`
 `
 
 export const LoginImage = styled.img`
-  height: 4rem;
+  width: 100%;
   margin-bottom: 0.625rem;
   cursor: pointer;
 `
