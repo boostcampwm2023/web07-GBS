@@ -27,6 +27,10 @@ interface ChattingProps {
   message: string
 }
 
+interface KickInterface {
+  nickname: string
+}
+
 interface StreamerInterface {
   title: string
   nickname: string
@@ -67,6 +71,7 @@ const BroadcastPage = () => {
 
   const onKick = (viewerNickname: string) => {
     socket.current.emit('kick', { nickname: viewerNickname })
+    onViewer()
   }
 
   const onNickname = (event: React.MouseEvent<HTMLInputElement>) => {
@@ -162,8 +167,8 @@ const BroadcastPage = () => {
     socket.current.on('chat', (chatting: ChattingProps) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
     })
-    socket.current.on('kick', (nickname: string) => {
-      if (user.nickname === nickname) {
+    socket.current.on('kick', (kickInfo: KickInterface) => {
+      if (user.nickname === kickInfo.nickname) {
         setConfirmModalMessage('방송에서 강퇴되었습니다.')
         setConfirmModal(true)
       }
