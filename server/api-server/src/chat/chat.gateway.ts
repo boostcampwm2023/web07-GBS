@@ -36,7 +36,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     let user: User;
     try {
-      user = await this.userRepo.findOne({ where: { id } });
+      user = await this.userRepo.findOne(id);
     } catch (e) {
       this.logger.error(e);
     }
