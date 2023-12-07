@@ -24,8 +24,8 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
 
   const onIdInputButton = () => {
     if (id.trim() === '') {
-      alert('올바른 ID를 입력해주세요.')
       setId(user.id)
+      alert('올바른 ID를 입력해주세요.')
 
       return
     } else if (id.trim() === user.id) {
@@ -53,20 +53,20 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         const userId = res.userId
         const userNickname = res.nickname
 
-        alert('ID가 저장되었습니다.')
         setUser({ id: userId, nickname: userNickname })
         localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
+        alert('ID가 저장되었습니다.')
       })
       .catch((err) => {
-        alert('ID변경에 실패 했습니다.')
         console.error(err)
+        alert('ID변경에 실패 했습니다.')
       })
   }
 
   const onNicknameInputButton = () => {
     if (nickname.trim() === '') {
-      alert('올바른 닉네임을 입력해주세요.')
       setNickname(user.nickname)
+      alert('올바른 닉네임을 입력해주세요.')
 
       return
     } else if (nickname.trim() === user.nickname) {
@@ -94,13 +94,13 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         const userId = res.userId
         const userNickname = res.nickname
 
-        alert('닉네임이 저장되었습니다.')
         setUser({ id: userId, nickname: userNickname })
         localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
+        alert('닉네임이 저장되었습니다.')
       })
       .catch((err) => {
-        alert('닉네임변경에 실패 했습니다.')
         console.error(err)
+        alert('닉네임변경에 실패 했습니다.')
       })
   }
 
@@ -111,8 +111,8 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         alert('방송 비밀 키가 클립보드에 복사되었습니다.')
       })
       .catch((err) => {
-        alert('방송 비밀키 복사에 실패 했습니다.')
         console.error(err)
+        alert('방송 비밀키 복사에 실패 했습니다.')
       })
   }
 

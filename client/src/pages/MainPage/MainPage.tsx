@@ -7,6 +7,7 @@ import Access from '@components/Access/Access'
 import Broadcast from '@components/Broadcast/Broadcast'
 import SettingModal from '@components/Modal/SettingModal/SettingModal'
 import LoginModal from '@components/Modal/LoginModal/LoginModal'
+import ConfirmModal from '@components/Modal/ConfirmModal/ConfirmModal'
 import EmptyList from '@components/EmptyList/EmptyList'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
@@ -22,6 +23,7 @@ interface BroadcastInterface {
 const MainPage = () => {
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
+  const [confirmModal, setConfirmModal] = useState<boolean>(false)
   const [broadcastList, setBroadcastList] = useState<Array<BroadcastInterface>>([])
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
@@ -36,6 +38,11 @@ const MainPage = () => {
 
   const onLogout = () => {
     localStorage.removeItem('user')
+    window.location.reload()
+  }
+
+  const onConfirm = () => {
+    setConfirmModal(false)
     window.location.reload()
   }
 
@@ -54,7 +61,7 @@ const MainPage = () => {
             return {
               userId: broadcast.userId,
               nickname: broadcast.nickname,
-              title: `${res.title === null ? `${res.nickname}의 방송` : res.title}`,
+              title: `${res.title === undefined ? `${res.nickname}의 방송` : res.title}`,
               viewer: broadcast.viewer,
               thumbnail: broadcast.thumbnail,
             }
@@ -63,7 +70,7 @@ const MainPage = () => {
       })
       .catch((err) => {
         console.error(err)
-        window.location.reload()
+        setConfirmModal(true)
       })
   }, [])
 
@@ -94,6 +101,7 @@ const MainPage = () => {
       </styles.List>
       {settingModal && <SettingModal onConfirm={onSetting} />}
       {loginModal && <LoginModal onCancle={onLogin} currentTheme={theme} />}
+      {confirmModal && <ConfirmModal text="방송 목록을 가져오는데 실패했습니다." onConfrim={onConfirm} currentTheme={theme} />}
     </styles.Container>
   )
 }

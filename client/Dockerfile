@@ -3,6 +3,7 @@ FROM --platform=linux/amd64 node:lts-alpine as build-stage
 
 # 환경변수를 위한 ARG 지시어 추가
 ARG VITE_API_URL
+ARG VITE_HLS_URL
 
 WORKDIR /app
 
