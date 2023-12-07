@@ -7,8 +7,8 @@ interface LoginModalProps {
 }
 
 const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
-  const onLoginImage = () => {
-    const popup = window.open(`${import.meta.env.VITE_API_URL}` + '/oauth/login/naver', '_blank', 'menubar=no, toolbar=no, width=500, height=600')
+  const onLoginImage = (image: 'naver' | 'google') => {
+    const popup = window.open(`${import.meta.env.VITE_API_URL}` + `/oauth/login/${image}`, '_blank', 'menubar=no, toolbar=no, width=500, height=600')
 
     const popupEvent = () => {
       if (popup !== null && popup.closed == true) {
@@ -49,7 +49,11 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
         >
           <styles.BodyContainer>
             <styles.HeaderText>로그인</styles.HeaderText>
-            <styles.LoginImage src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" onClick={onLoginImage} />
+            <styles.LoginImage src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.1" onClick={() => onLoginImage('naver')} />
+            <styles.LoginImage
+              src="https://developers.google.com/static/identity/images/btn_google_signin_dark_normal_web.png?hl=ko"
+              onClick={() => onLoginImage('google')}
+            />
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
             <styles.Button onClick={onCancle}>취소</styles.Button>
