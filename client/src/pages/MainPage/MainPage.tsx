@@ -58,7 +58,7 @@ const MainPage = () => {
       .then((res) => {
         setBroadcastList(
           res.data.map((broadcast: any): BroadcastInterface => {
-            if (broadcast.thumbnamil.contentLength === 0) {
+            if (broadcast.thumbnail.contentLength === 0) {
               throw new Error('Get Thumbnail Failed')
             }
 
