@@ -13,6 +13,7 @@ import { NaverAuthGuard } from './guard/naver-auth.guard';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { GoogleAuthGuard } from './guard/google-auth.guard';
 
 @Controller('oauth')
 export class AuthController {
@@ -32,7 +33,28 @@ export class AuthController {
 
   @UseGuards(NaverAuthGuard)
   @Get('login/naver/callback')
-  async callback(
+  async naveCallback(
+    @Session() session: Record<string, any>,
+    @Req() req,
+    @Res() res: Response,
+  ): Promise<any> {
+    if (!req.user) {
+      return res.sendStatus(401);
+    }
+
+    session.userId = req.user.userId;
+    res.send(`<script>window.close();</script>`);
+  }
+
+  @UseGuards(GoogleAuthGuard)
+  @Get('login/google')
+  async googleLogin() {
+    return;
+  }
+
+  @UseGuards(GoogleAuthGuard)
+  @Get('login/google/callback')
+  async googleCallback(
     @Session() session: Record<string, any>,
     @Req() req,
     @Res() res: Response,

@@ -12,6 +12,7 @@ export class NaverStrategy extends PassportStrategy(Strategy) {
       callbackURL: process.env.NAVER_CALLBACK_URL,
     });
   }
+
   async validate(
     accessToken: string,
     refreshToken: string,
