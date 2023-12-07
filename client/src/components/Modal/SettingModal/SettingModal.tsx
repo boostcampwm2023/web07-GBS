@@ -14,6 +14,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [user, setUser] = useRecoilState(userState)
   const [id, setId] = useState<string>(user.id)
   const [nickname, setNickname] = useState<string>(user.nickname)
+  const [changeUser, setChangeUser] = useState<boolean>(false)
   const [streamKey, setStreamKey] = useState<string>('')
   const isDarkMode = currentTheme === ThemeFlag.dark
 
@@ -58,6 +59,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         const userNickname = res.nickname
 
         setUser({ id: userId, nickname: userNickname })
+        setChangeUser(true)
         localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
         alert('ID가 저장되었습니다.')
       })
@@ -107,6 +109,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         const userNickname = res.nickname
 
         setUser({ id: userId, nickname: userNickname })
+        setChangeUser(true)
         localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
         alert('닉네임이 저장되었습니다.')
       })
@@ -150,7 +153,14 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   }, [])
 
   return (
-    <styles.Backdrop onClick={onConfirm}>
+    <styles.Backdrop
+      onClick={() => {
+        onConfirm()
+        if (changeUser === true) {
+          window.location.reload()
+        }
+      }}
+    >
       <styles.ModalContainer>
         <styles.Modal
           onClick={(event) => {
@@ -208,7 +218,16 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
             </styles.BlockContainer>
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
-            <styles.Button onClick={onConfirm}>확인</styles.Button>
+            <styles.Button
+              onClick={() => {
+                onConfirm()
+                if (changeUser === true) {
+                  window.location.reload()
+                }
+              }}
+            >
+              확인
+            </styles.Button>
           </styles.ButtonContainer>
         </styles.Modal>
       </styles.ModalContainer>
