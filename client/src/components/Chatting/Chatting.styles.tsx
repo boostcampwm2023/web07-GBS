@@ -12,8 +12,12 @@ export const Chatting = styled.div`
 
 export const Nickname = styled.div`
   ${TYPO.BOLD_R}
+  width: min(max-content, 4rem);
   line-height: 2rem;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 export const Text = styled.div`

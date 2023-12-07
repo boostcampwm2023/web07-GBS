@@ -135,6 +135,9 @@ export const Title = styled.div`
   left: 1.875rem;
   width: 45rem;
   height: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 export const Nickname = styled.div`
@@ -147,6 +150,9 @@ export const Nickname = styled.div`
   right: 1.875rem;
   width: 12.5rem;
   height: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 export const Viewer = styled.div`
@@ -160,4 +166,7 @@ export const Viewer = styled.div`
   width: 12.5rem;
   height: 2rem;
   color: #db0000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
