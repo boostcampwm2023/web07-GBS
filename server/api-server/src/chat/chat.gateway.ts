@@ -84,9 +84,13 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @MessageBody() payload: KickPayload,
     @ConnectedSocket() client: Socket,
   ): Promise<KickPayload> {
+    if (client.data.room !== client.data.userId) {
+      return
+    }
+
     this.logger.debug('Kick payload: ', payload);
 
-    this.server.to(client.data.room).emit('chat', {
+    this.server.to(client.data.room).emit('kick', {
       nickname: payload.nickname,
     });
     return payload;
