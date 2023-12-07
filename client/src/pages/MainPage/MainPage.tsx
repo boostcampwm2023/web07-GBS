@@ -61,7 +61,7 @@ const MainPage = () => {
             return {
               userId: broadcast.userId,
               nickname: broadcast.nickname,
-              title: `${res.title === null ? `${res.nickname}의 방송` : res.title}`,
+              title: `${res.title === undefined ? `${res.nickname}의 방송` : res.title}`,
               viewer: broadcast.viewer,
               thumbnail: broadcast.thumbnail,
             }

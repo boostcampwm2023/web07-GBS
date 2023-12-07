@@ -32,7 +32,7 @@ export const Modal = styled.div<ThemeInterface>`
     else return '0.0625rem solid #ffffff'
   }};
   box-shadow: 0.25rem 0.25rem 0.1875rem rgba(0, 0, 0, 0.1);
-  width: 22.5rem;
+  width: max-content;
   height: max-content;
   background-color: ${(props) => {
     if (props.currentTheme === ThemeFlag.dark) return '#999'
