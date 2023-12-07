@@ -47,9 +47,9 @@ export class AuthController {
 
   @Get('sessionId')
   async getSessionId(@Session() session: Record<string, any>) {
-    if (!session.id) {
+    if (!session.userId) {
       throw new HttpException('Unauthorized', 401);
     }
-    return { session: session.id };
+    return { session: session.userId };
   }
 }
