@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
 import AWS = require('aws-sdk');
 import { Logger } from '@nestjs/common';
 
@@ -18,7 +18,7 @@ export class ThumbnailsService {
       });
 
       const objectName = `thumb/${userId}_240p264kbs.png`;
-      const thumbnailUrl = `${process.env.AWS_S3_URL}${process.env.AWS_S3_BUCKET_NAME}/thumb/${userId}_240p264kbs.png`;
+      const thumbnailUrl = `${process.env.AWS_S3_URL}${process.env.AWS_S3_BUCKET_NAME}/${objectName}`;
       const params = {
         Bucket: process.env.AWS_S3_BUCKET_NAME,
         Key: objectName,
@@ -32,7 +32,7 @@ export class ThumbnailsService {
       };
     } catch (err) {
       this.logger.error(err);
-      throw new HttpException('Thumbnail not found', 500);
+      throw new HttpException('Thumbnail not found', HttpStatus.NOT_FOUND);
     }
   }
 }
