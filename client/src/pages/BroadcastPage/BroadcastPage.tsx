@@ -186,7 +186,7 @@ const BroadcastPage = () => {
       <styles.Info currentTheme={theme}>
         <styles.Title>{streamer.title}</styles.Title>
         <styles.Nickname>{streamer.nickname}</styles.Nickname>
-        <styles.Viewer>시청자 {streamer.viewer}명</styles.Viewer>
+        <styles.Viewer>시청자 {streamer.viewer.toLocaleString()}명</styles.Viewer>
       </styles.Info>
       {settingModal && <SettingModal onConfirm={onSetting} />}
       {loginModal && <LoginModal onCancle={onLogin} currentTheme={theme} />}
