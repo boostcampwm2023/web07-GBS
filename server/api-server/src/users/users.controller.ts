@@ -28,12 +28,9 @@ export class UsersController {
 
   @UseGuards(LoggedInGuard)
   @Get('me')
-  async getUserBySessionId(@Session() session: Record<string, any>) {
-    if (!session.userId) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-    }
-
-    const user = await this.usersService.findOne(session.userId);
+  async getUserBySessionId(@Req() req) {
+    const id = req.session.userId;
+    const user = await this.usersService.findOne(id);
 
     return { userId: user.userId, nickname: user.nickname };
   }
