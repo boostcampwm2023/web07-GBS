@@ -23,7 +23,6 @@ export const Broadcast = styled.div<BroadcastProps>`
 `
 
 export const Thumbnail = styled.img`
-  border: 0.0625rem solid #000000;
   position: absolute;
   top: 1.875rem;
   left: 1.875rem;
@@ -34,7 +33,7 @@ export const Thumbnail = styled.img`
 
 export const Title = styled.div`
   ${TYPO.BOLD_L}
-  justify-content: right;
+  text-align: right;
   position: absolute;
   top: 1.875rem;
   right: 1.875rem;
@@ -47,7 +46,7 @@ export const Title = styled.div`
 
 export const Nickname = styled.div`
   ${TYPO.LIGHT_R}
-  justify-content: right;
+  text-align: right;
   position: absolute;
   right: 1.875rem;
   bottom: 4.125rem;
@@ -60,7 +59,7 @@ export const Nickname = styled.div`
 
 export const Viewer = styled.div`
   ${TYPO.LIGHT_R}
-  justify-content: right;
+  text-align: right;
   position: absolute;
   right: 1.875rem;
   bottom: 1.875rem;

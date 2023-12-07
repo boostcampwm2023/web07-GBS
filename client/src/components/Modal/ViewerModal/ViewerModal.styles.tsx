@@ -59,16 +59,18 @@ export const Modal = styled.div<ViewerModalProps>`
 
 export const Nickname = styled.div`
   ${TYPO.BOLD_M}
-  display: flex;
-  justify-content: center;
+  text-align: center;
   width: 100%;
+  padding: 0rem 1rem 0rem 1rem;
   line-height: 3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 export const Content = styled.div<ThemeInterface>`
   ${TYPO.MEDIUM_M}
-  display: flex;
-  justify-content: left;
+  text-align: left;
   padding: 0rem 1rem 0rem 1rem;
   border-top: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'

@@ -10,7 +10,7 @@ const Chatting = ({ nickname, message, onNickname }: ChattingProps) => {
   return (
     <styles.Chatting>
       <styles.Nickname onClick={onNickname}>{nickname}</styles.Nickname>
-      <styles.Text>{message}</styles.Text>
+      <styles.Message>{message}</styles.Message>
     </styles.Chatting>
   )
 }
