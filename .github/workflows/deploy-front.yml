@@ -31,7 +31,9 @@ jobs:
               tags: ${{ secrets.NCP_CONTAINER_REGISTRY }}/front
               cache-from: type=registry,ref=${{ secrets.NCP_CONTAINER_REGISTRY }}/front
               cache-to: type=inline
-              build-args: VITE_API_URL=${{ secrets.VITE_API_URL }}
+              build-args: |
+                 VITE_API_URL=${{ secrets.VITE_API_URL }}
+                 VITE_HLS_URL=${{ secrets.VITE_HLS_URL }}
 
    docker_pull_front:
       name: Connect server ssh and pull frontend from container registry
