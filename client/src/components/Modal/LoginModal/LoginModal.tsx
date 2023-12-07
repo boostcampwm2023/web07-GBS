@@ -28,8 +28,8 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
             window.location.reload()
           })
           .catch((err) => {
-            alert('로그인을 실패 했습니다.')
             console.error(err)
+            alert('로그인에 실패 했습니다.')
           })
           .finally(() => window.removeEventListener('focus', popupEvent))
       }

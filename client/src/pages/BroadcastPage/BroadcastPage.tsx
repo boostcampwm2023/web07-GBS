@@ -41,8 +41,8 @@ const BroadcastPage = () => {
   const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
-  const [loginCheckModal, setLoginCheckModal] = useState<boolean>(false)
-  const [emptyChattingModal, setEmptyChattingModal] = useState<boolean>(false)
+  const [confirmModal, setConfirmModal] = useState<boolean>(false)
+  const [confirmModalMessage, setConfirmModalMessage] = useState<string>('')
   const [streamer, setStreamer] = useState<StreamerInterface>({ title: '', nickname: '', viewer: 0 })
   const socket = useRef<any>(null)
   const theme = useRecoilValue(themeState)
@@ -100,9 +100,11 @@ const BroadcastPage = () => {
 
   const onSend = () => {
     if (user.id === '') {
-      setLoginCheckModal(true)
+      setConfirmModalMessage('로그인을 해주세요.')
+      setConfirmModal(true)
     } else if (chatting.trim() === '') {
-      setEmptyChattingModal(true)
+      setConfirmModalMessage('채팅을 입력해주세요.')
+      setConfirmModal(true)
     } else {
       socket.current.emit('chat', { message: chatting })
     }
@@ -132,8 +134,19 @@ const BroadcastPage = () => {
       })
       .catch((err) => {
         console.error(err)
-        window.location.reload()
+        setConfirmModalMessage('방송 정보를 가져오는데 실패했습니다.')
+        setConfirmModal(true)
       })
+  }
+
+  const onConfirm = () => {
+    setConfirmModal(false)
+
+    if (confirmModalMessage === '로그인을 해주세요.') {
+      onLogin()
+    } else if (confirmModalMessage === '방송 정보를 가져오는데 실패했습니다.') {
+      window.location.reload()
+    }
   }
 
   useEffect(() => {
@@ -206,24 +219,7 @@ const BroadcastPage = () => {
           currentTheme={theme}
         />
       )}
-      {loginCheckModal && (
-        <ConfirmModal
-          text="로그인을 해주세요"
-          onConfrim={() => {
-            setLoginCheckModal(false)
-          }}
-          currentTheme={theme}
-        />
-      )}
-      {emptyChattingModal && (
-        <ConfirmModal
-          text="채팅을 입력해주세요"
-          onConfrim={() => {
-            setEmptyChattingModal(false)
-          }}
-          currentTheme={theme}
-        />
-      )}
+      {confirmModal && <ConfirmModal text={confirmModalMessage} onConfrim={onConfirm} currentTheme={theme} />}
     </styles.Container>
   )
 }
