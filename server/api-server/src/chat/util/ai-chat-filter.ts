@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { AIChatPayload } from '../dto/ai-chat-payload.dto';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const REQUEST_CONFIG = {
   headers: {
@@ -28,12 +28,20 @@ const getRequestData = (message: string) => ({
 
 @Injectable()
 export class AIChatFilter {
+  private readonly logger = new Logger(AIChatFilter.name);
+
   async filter(message: string): Promise<AIChatPayload> {
-    const result = await axios.post(
-      process.env.AI_CHAT_FILTER_URL,
-      getRequestData(message),
-      REQUEST_CONFIG,
-    );
+    let result: AxiosResponse;
+    
+    try {
+      result = await axios.post(
+        process.env.AI_CHAT_FILTER_URL,
+        getRequestData(message),
+        REQUEST_CONFIG,
+      );
+    } catch (e) {
+      this.logger.error(e);
+    }
 
     if (result?.data?.status.code !== '20000') {
       return {
