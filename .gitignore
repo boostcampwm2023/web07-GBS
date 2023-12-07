@@ -3,3 +3,4 @@ node_modules
 /.idea
 server/.DS_Store
 *.pem
+.DS_Store

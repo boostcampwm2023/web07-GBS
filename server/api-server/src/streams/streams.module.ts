@@ -7,6 +7,7 @@ import { UsersModule } from 'src/users/users.module';
 import { VideoInfoProvider } from './provider/video-info.provider';
 import { ChatModule } from 'src/chat/chat.module';
 import { StreamKeysController } from './stream-keys.controller';
+import { ThumbnailsService } from 'src/thumbnails/thumbnails.service';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { StreamKeysController } from './stream-keys.controller';
     ChatModule,
   ],
   controllers: [StreamsController, StreamKeysController],
-  providers: [StreamsService, VideoInfoProvider],
+  providers: [StreamsService, VideoInfoProvider, ThumbnailsService],
   exports: [StreamsService, TypeOrmModule],
 })
 export class StreamsModule {}

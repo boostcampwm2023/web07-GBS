@@ -9,6 +9,7 @@ import { ReadStreamDetailDto } from './dto/read-stream-detail.dto';
 import { ReadStreamDto } from './dto/read-stream.dto';
 import { PageDto } from 'src/common/dto/page.dto';
 import { ChatGateway } from 'src/chat/chat.gateway';
+import { ThumbnailsService } from 'src/thumbnails/thumbnails.service';
 
 @Injectable()
 export class StreamsService {
@@ -19,6 +20,7 @@ export class StreamsService {
     private readonly userRepo: Repository<User>,
     private readonly videoInfoProvider: VideoInfoProvider,
     private readonly chatGateway: ChatGateway,
+    private readonly thumbnailService: ThumbnailsService,
   ) {}
 
   async findAll(page: number, size: number): Promise<PageDto<ReadStreamDto>> {
@@ -32,21 +34,23 @@ export class StreamsService {
       relations: ['stream'],
     });
 
-    return {
-      data: users.map((user) => {
-        const { streamKey, ...videoInfo } = videoInfos.find(
-          (info) => info.streamKey === user.stream.streamKey,
-        );
+    const dataProms = users.map(async (user) => {
+      const { streamKey, ...videoInfo } = videoInfos.find(
+        (info) => info.streamKey === user.stream.streamKey,
+      );
+      return {
+        userId: user.userId,
+        nickname: user.nickname,
+        title: user.stream.title,
+        category: user.stream.category,
+        ...videoInfo,
+        viewer: this.chatGateway.getViewers(user.userId),
+        thumbnail: await this.thumbnailService.getThumbnailUrl(user.userId),
+      };
+    });
 
-        return {
-          userId: user.userId,
-          nickname: user.nickname,
-          title: user.stream.title,
-          category: user.stream.category,
-          ...videoInfo,
-          viewer: this.chatGateway.getViewers(user.userId),
-        };
-      }),
+    return {
+      data: await Promise.all(dataProms),
       pageInfo: {
         page,
         size,
@@ -78,6 +82,7 @@ export class StreamsService {
       desc: user.stream.desc,
       ...videoInfo,
       viewer: this.chatGateway.getViewers(userId),
+      thumbnail: await this.thumbnailService.getThumbnailUrl(user.userId),
     };
   }
 
