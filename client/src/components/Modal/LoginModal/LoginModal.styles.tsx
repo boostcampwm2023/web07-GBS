@@ -32,7 +32,7 @@ export const Modal = styled.div<ThemeInterface>`
     else return '0.0625rem solid #ffffff'
   }};
   box-shadow: 0.25rem 0.25rem 0.1875rem rgba(0, 0, 0, 0.1);
-  width: 22.5rem;
+  width: max-content;
   height: max-content;
   background-color: ${(props) => {
     if (props.currentTheme === ThemeFlag.dark) return '#999'
@@ -51,8 +51,13 @@ export const HeaderText = styled.div`
   line-height: 2.25rem;
 `
 
+export const LoginImageContainer = styled.div`
+  display: flex;
+  gap: 0rem 1rem;
+`
+
 export const LoginImage = styled.img`
-  width: 100%;
+  width: 3rem;
   margin-bottom: 0.625rem;
   cursor: pointer;
 `
