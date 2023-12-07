@@ -85,7 +85,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: Socket,
   ): Promise<KickPayload> {
     if (client.data.room !== client.data.userId) {
-      return
+      return;
     }
 
     this.logger.debug('Kick payload: ', payload);
