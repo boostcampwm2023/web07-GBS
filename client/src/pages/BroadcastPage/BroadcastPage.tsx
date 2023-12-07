@@ -130,7 +130,10 @@ const BroadcastPage = () => {
       .then((res) => {
         setStreamer({ title: `${res.title === null ? `${res.nickname}의 방송` : res.title}`, nickname: res.nickname, viewer: res.viewer })
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err)
+        window.location.reload()
+      })
   }
 
   useEffect(() => {

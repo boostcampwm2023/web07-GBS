@@ -57,7 +57,10 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         setUser({ id: userId, nickname: userNickname })
         localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        alert('ID변경에 실패 했습니다.')
+        console.error(err)
+      })
   }
 
   const onNicknameInputButton = () => {
@@ -95,13 +98,22 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         setUser({ id: userId, nickname: userNickname })
         localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        alert('닉네임변경에 실패 했습니다.')
+        console.error(err)
+      })
   }
 
   const onKeyInputButton = () => {
-    navigator.clipboard.writeText(streamKey).then(() => {
-      alert('방송 비밀 키가 클립보드에 복사되었습니다.')
-    })
+    navigator.clipboard
+      .writeText(streamKey)
+      .then(() => {
+        alert('방송 비밀 키가 클립보드에 복사되었습니다.')
+      })
+      .catch((err) => {
+        alert('방송 비밀키 복사에 실패 했습니다.')
+        console.error(err)
+      })
   }
 
   useEffect(() => {

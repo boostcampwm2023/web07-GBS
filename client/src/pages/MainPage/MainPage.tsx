@@ -61,7 +61,10 @@ const MainPage = () => {
           }),
         )
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err)
+        window.location.reload()
+      })
   }, [])
 
   return (
