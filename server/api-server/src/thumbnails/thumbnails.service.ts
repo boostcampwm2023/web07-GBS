@@ -4,11 +4,10 @@ import { Logger } from '@nestjs/common';
 
 @Injectable()
 export class ThumbnailsService {
-
   private readonly logger = new Logger(ThumbnailsService.name);
 
   async getThumbnailUrl(userId: string) {
-    try{
+    try {
       const S3 = new AWS.S3({
         endpoint: new AWS.Endpoint(process.env.AWS_S3_URL),
         region: process.env.AWS_S3_REGION,
@@ -17,7 +16,7 @@ export class ThumbnailsService {
           secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
         },
       });
-      
+
       const objectName = `thumb/${userId}_240p264kbs.png`;
       const thumbnailUrl = `${process.env.AWS_S3_URL}${process.env.AWS_S3_BUCKET_NAME}/thumb/${userId}_240p264kbs.png`;
       const params = {
@@ -27,13 +26,13 @@ export class ThumbnailsService {
 
       const objectInfo = await S3.getObject(params).promise();
 
-      return {      
+      return {
         contentLength: objectInfo.ContentLength,
         url: thumbnailUrl,
       };
-    } catch(err) {
+    } catch (err) {
       this.logger.error(err);
-      throw new HttpException('Thumbnail not found', 500)
+      throw new HttpException('Thumbnail not found', 500);
     }
   }
 }

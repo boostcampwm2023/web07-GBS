@@ -32,7 +32,7 @@ export class AIChatFilter {
 
   async filter(message: string): Promise<AIChatPayload> {
     let result: AxiosResponse;
-    
+
     try {
       result = await axios.post(
         process.env.AI_CHAT_FILTER_URL,

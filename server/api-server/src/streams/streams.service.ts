@@ -117,7 +117,7 @@ export class StreamsService {
 
   async getStreamKey(userId: string) {
     const user = await this.userRepo.findOne({
-      where: { id:userId },
+      where: { id: userId },
       relations: ['stream'],
     });
 
