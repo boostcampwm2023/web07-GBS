@@ -2,13 +2,11 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { VideoInfoDto } from '../dto/video-info.dto';
 
-
 @Injectable()
 export class VideoInfoProvider {
-
   async getVideoInfo(): Promise<VideoInfoDto[]> {
     const result = await axios.get(process.env.VIDEO_STAT_URL);
-    
+
     if (result.status === 200) {
       return result?.data?.[
         'http-flv'

@@ -80,15 +80,13 @@ services:
       AWS_S3_REGION: ${AWS_S3_REGION}
       AWS_S3_URL: ${AWS_S3_URL}
 
-
-
-  # front:
-  #   platform: linux/amd64
-  #   build: ./client
-  #   networks:
-  #     - custom_network
-  #   ports:
-  #     - 80:80
+  front:
+    platform: linux/amd64
+    build: ./client
+    networks:
+      - custom_network
+    ports:
+      - 80:80
 
 networks:
   custom_network:

@@ -34,11 +34,10 @@ export class StreamsService {
       relations: ['stream'],
     });
 
-    const dataProm = users.map(async (user) => {
+    const dataProms = users.map(async (user) => {
       const { streamKey, ...videoInfo } = videoInfos.find(
         (info) => info.streamKey === user.stream.streamKey,
       );
-      const thumbnail = await this.thumbnailService.getThumbnailUrl(user.userId);
       return {
         userId: user.userId,
         nickname: user.nickname,
@@ -46,13 +45,12 @@ export class StreamsService {
         category: user.stream.category,
         ...videoInfo,
         viewer: this.chatGateway.getViewers(user.userId),
-        thumbnail
+        thumbnail: await this.thumbnailService.getThumbnailUrl(user.userId),
       };
-    })
+    });
 
-    const data = await Promise.all(dataProm);
     return {
-      data,
+      data: await Promise.all(dataProms),
       pageInfo: {
         page,
         size,
@@ -75,7 +73,7 @@ export class StreamsService {
     const { streamKey, ...videoInfo } = videoInfos.find(
       (info) => info.streamKey === user.stream.streamKey,
     );
-    const thumbnail = await this.thumbnailService.getThumbnailUrl(user.userId);
+
     return {
       userId,
       nickname: user.nickname,
@@ -84,7 +82,7 @@ export class StreamsService {
       desc: user.stream.desc,
       ...videoInfo,
       viewer: this.chatGateway.getViewers(userId),
-      thumbnail
+      thumbnail: await this.thumbnailService.getThumbnailUrl(user.userId),
     };
   }
 
@@ -128,5 +126,4 @@ export class StreamsService {
     }
     return user.stream.streamKey;
   }
-
 }

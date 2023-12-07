@@ -4,5 +4,5 @@ export class ReadStreamDto {
   readonly title: string;
   readonly category: string;
   readonly viewer: number;
-  readonly thumbnail: {ContentLength: number, thumbnailUrl: string};
+  readonly thumbnail: { ContentLength: number; thumbnailUrl: string };
 }
