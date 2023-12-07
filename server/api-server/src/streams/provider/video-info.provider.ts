@@ -12,11 +12,8 @@ export class VideoInfoProvider {
         'http-flv'
       ].servers[0].applications[0].live.streams.map((video) => {
         const meta = video.meta.video;
-
         return {
           streamKey: video.name,
-          viewer: 0, // TODO: 시청자 수
-          thumbnail: '', // TODO: 썸네일 URL
           startedAt: new Date(Date.now() - video.clients[0].time).toISOString(),
           resolution: meta.width + 'x' + meta.height,
           frameRate: meta.frame_rate,

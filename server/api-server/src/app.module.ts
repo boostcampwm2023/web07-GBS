@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { ThumbnailsModule } from './thumbnails/thumbnails.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ThumbnailsModule,
     UsersModule,
     StreamsModule,
     AuthModule,
