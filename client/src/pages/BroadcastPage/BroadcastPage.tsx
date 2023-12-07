@@ -107,7 +107,10 @@ const BroadcastPage = () => {
   }
 
   const onSend = () => {
-    if (chatting.trim() === '') {
+    if (user.id === '') {
+      setConfirmModalMessage('로그인을 해주세요.')
+      setConfirmModal(true)
+    } else if (chatting.trim() === '') {
       setConfirmModalMessage('채팅을 입력해주세요.')
       setConfirmModal(true)
     } else {
