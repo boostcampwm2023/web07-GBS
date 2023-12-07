@@ -48,6 +48,7 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @UseGuards(LoggedInGuard)
   @Patch()
   update(@Req() req, @Body() updateUserDto: UpdateUserDto) {
     const id = req.session.userId;
