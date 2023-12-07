@@ -58,7 +58,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   ) {
     this.logger.debug('Join payload: ', payload);
     client.data.room = payload.room;
-    this.server.socketsJoin(payload.room);
+    client.join(payload.room);
   }
 
   @SubscribeMessage('chat')
@@ -79,6 +79,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   getViewers(room: string) {
-    return this.server.of(room).sockets.size;
+    return this.server.sockets.adapter.rooms.get(room).size;
   }
 }
