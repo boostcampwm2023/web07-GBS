@@ -79,6 +79,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   getViewers(room: string) {
-    return this.server.sockets.adapter.rooms.get(room).size;
+    return this.server.sockets.adapter.rooms.get(room)?.size || 0;
   }
 }
