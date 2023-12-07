@@ -12,6 +12,7 @@ import ConfirmModal from '@components/Modal/ConfirmModal/ConfirmModal'
 import Chatting from '@components/Chatting/Chatting'
 import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
+import HlsPlayer from '@components/HlsPlayer/HlsPlayer'
 
 interface ViewerModalProps {
   nickname: string
@@ -169,7 +170,9 @@ const BroadcastPage = () => {
           <Access leftButton="환경설정" rightButton="로그아웃" onLeftButton={onSetting} onRightButton={onLogout} />
         )}
       </styles.Access>
-      <styles.Broadcast></styles.Broadcast>
+      <styles.Broadcast>
+        <HlsPlayer id={id} />
+      </styles.Broadcast>
       <styles.Chatting currentTheme={theme}>
         <styles.ChattingList>
           {chattingList.map((chatting, index) => (
