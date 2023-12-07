@@ -15,6 +15,7 @@ COPY . .
 
 # .env 파일 생성
 RUN echo "VITE_API_URL=$VITE_API_URL" > .env
+RUN echo "VITE_HLS_URL=$VITE_HLS_URL" > .env
 
 # 애플리케이션 빌드
 RUN yarn build
