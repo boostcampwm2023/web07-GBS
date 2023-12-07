@@ -7,7 +7,7 @@ interface HlsPlayerProps {
 }
 
 const HlsPlayer = ({ id }: HlsPlayerProps) => {
-  const videoSrc = `${import.meta.env.VITE_HLS_URL}/${id}`
+  const videoSrc = `${import.meta.env.VITE_HLS_URL}/${id}.m3u8`
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
