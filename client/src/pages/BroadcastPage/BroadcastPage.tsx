@@ -16,8 +16,8 @@ import HlsPlayer from '@components/HlsPlayer/HlsPlayer'
 
 interface ViewerModalProps {
   nickname: string
-  authority: 'viewer' | 'manager' | 'streamer'
-  target: 'viewer' | 'manager' | 'streamer'
+  authority: 'viewer' | 'streamer'
+  target: 'viewer' | 'streamer'
   top: number
   left: number
 }
@@ -39,7 +39,6 @@ const BroadcastPage = () => {
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
   const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ nickname: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
-  const [manager, setManager] = useState<Array<string>>([])
   const [chatting, setChatting] = useState<string>('')
   const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
   const [confirmModal, setConfirmModal] = useState<boolean>(false)
@@ -66,36 +65,18 @@ const BroadcastPage = () => {
     setViewerModal(() => !viewerModal)
   }
 
-  const getTarget = (viewerNickname: string): 'viewer' | 'manager' | 'streamer' => {
-    if (viewerNickname === streamer.nickname) {
-      return 'streamer'
-    } else if (manager.indexOf(viewerNickname) !== -1) {
-      return 'manager'
-    }
-
-    return 'viewer'
+  const onKick = (viewerNickname: string) => {
+    socket.current.emit('chat', { nickname: viewerNickname })
   }
 
   const onNickname = (event: React.MouseEvent<HTMLInputElement>) => {
     const viewerNickname = event.currentTarget.innerText
-    const authority = 'streamer'
+    const authority = getAuthority()
     const target = getTarget(viewerNickname)
     const top = event.pageY
     const left = event.pageX
 
     setViewerModalInfo({ nickname: viewerNickname, authority: authority, target: target, top: top, left: left })
-    onViewer()
-  }
-
-  const onManager = (viewerNickname: string) => {
-    const index = manager.indexOf(viewerNickname)
-
-    if (index === -1) {
-      setManager([...manager, viewerNickname])
-    } else {
-      setManager(manager.filter((manager) => manager !== viewerNickname))
-    }
-
     onViewer()
   }
 
@@ -116,15 +97,38 @@ const BroadcastPage = () => {
     } else {
       socket.current.emit('chat', { message: chatting })
     }
-
     setChatting('')
   }
 
   const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault()
-
       onSend()
+    }
+  }
+
+  const onConfirm = () => {
+    setConfirmModal(false)
+    if (confirmModalMessage === '로그인을 해주세요.') {
+      onLogin()
+    } else if (confirmModalMessage === '방송 정보를 가져오는데 실패했습니다.' || confirmModalMessage === '방송에서 강퇴되었습니다.') {
+      window.location.replace('/')
+    }
+  }
+
+  const getAuthority = (): 'viewer' | 'streamer' => {
+    if (user.nickname === streamer.nickname) {
+      return 'streamer'
+    } else {
+      return 'viewer'
+    }
+  }
+
+  const getTarget = (viewerNickname: string): 'viewer' | 'streamer' => {
+    if (viewerNickname === streamer.nickname) {
+      return 'streamer'
+    } else {
+      return 'viewer'
     }
   }
 
@@ -147,16 +151,6 @@ const BroadcastPage = () => {
       })
   }
 
-  const onConfirm = () => {
-    setConfirmModal(false)
-
-    if (confirmModalMessage === '로그인을 해주세요.') {
-      onLogin()
-    } else if (confirmModalMessage === '방송 정보를 가져오는데 실패했습니다.') {
-      window.location.replace('/')
-    }
-  }
-
   useEffect(() => {
     const interval = setInterval(() => {
       getStreamer()
@@ -167,6 +161,12 @@ const BroadcastPage = () => {
     socket.current.emit('join', { room: id })
     socket.current.on('chat', (chatting: ChattingProps) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
+    })
+    socket.current.on('kick', (nickname: string) => {
+      if (user.nickname === nickname) {
+        setConfirmModalMessage('방송에서 강퇴되었습니다.')
+        setConfirmModal(true)
+      }
     })
 
     return () => {
@@ -230,8 +230,7 @@ const BroadcastPage = () => {
           top={viewerModalInfo.top}
           left={viewerModalInfo.left}
           onCancle={onViewer}
-          onManager={onManager}
-          onKick={onViewer}
+          onKick={onKick}
           currentTheme={theme}
         />
       )}

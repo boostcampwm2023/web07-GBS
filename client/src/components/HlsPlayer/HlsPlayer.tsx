@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
+import * as styles from './HlsPlayer.styles'
 import Hls from 'hls.js'
-import styled from 'styled-components'
 
 interface HlsPlayerProps {
   id?: string
@@ -32,24 +32,10 @@ const HlsPlayer = ({ id }: HlsPlayerProps) => {
   }, [])
 
   return (
-    <Container>
-      <Video ref={videoRef} controls />
-    </Container>
+    <styles.Container>
+      <styles.Video ref={videoRef} autoPlay muted controls />
+    </styles.Container>
   )
 }
 
 export default HlsPlayer
-
-const Container = styled.div`
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 9rem;
-`
-
-const Video = styled.video`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`

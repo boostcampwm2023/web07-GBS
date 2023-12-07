@@ -20,7 +20,6 @@ export const Default: Story = {
     authority: 'viewer',
     target: 'viewer',
     onCancle: () => {},
-    onManager: () => {},
     onKick: () => {},
     currentTheme: ThemeFlag.light,
   },

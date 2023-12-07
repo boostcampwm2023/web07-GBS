@@ -10,6 +10,7 @@ import {
 import { Server, Socket } from 'socket.io';
 import { JoinPayload } from './dto/join-payload.dto';
 import { ChatPayload } from './dto/chat-payload.dto';
+import { KickPayload } from './dto/kick-payload.dto';
 import { Logger } from '@nestjs/common';
 import { User } from 'src/users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -74,6 +75,23 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       id: client.data.userId,
       nickname: client.data.nickname,
       ...result,
+    });
+    return payload;
+  }
+
+  @SubscribeMessage('kick')
+  async handleKickEvent(
+    @MessageBody() payload: KickPayload,
+    @ConnectedSocket() client: Socket,
+  ): Promise<KickPayload> {
+    if (client.data.room !== client.data.userId) {
+      return;
+    }
+
+    this.logger.debug('Kick payload: ', payload);
+
+    this.server.to(client.data.room).emit('kick', {
+      nickname: payload.nickname,
     });
     return payload;
   }

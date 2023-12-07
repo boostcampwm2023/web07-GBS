@@ -67,7 +67,7 @@ const MainPage = () => {
               nickname: broadcast.nickname,
               title: `${broadcast.title === null ? `${broadcast.nickname}의 방송` : broadcast.title}`,
               viewer: broadcast.viewer,
-              thumbnail: broadcast.thumbnail.thumbnailurl,
+              thumbnail: broadcast.thumbnail.url,
             }
           }),
         )
