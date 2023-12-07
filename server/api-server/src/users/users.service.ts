@@ -51,7 +51,7 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    console.log(`params: ${id}, body: ${JSON.stringify(updateUserDto)}`);
+
     const user = await this.findOne(id);
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
