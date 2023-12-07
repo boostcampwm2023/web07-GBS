@@ -20,7 +20,6 @@ export const Access = styled.div`
 `
 
 export const Broadcast = styled.div`
-  border: 0.0625rem solid #000000;
   position: absolute;
   top: 6.25rem;
   left: 1.875rem;
@@ -127,37 +126,43 @@ export const Info = styled.div<ThemeInterface>`
 
 export const Title = styled.div`
   ${TYPO.BOLD_L}
-  display: flex;
-  align-items: center;
-  justify-content: left;
+  text-align: left;
   position: absolute;
   top: 0.9375rem;
   left: 1.875rem;
   width: 45rem;
   height: 4rem;
+  line-height: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 export const Nickname = styled.div`
   ${TYPO.LIGHT_R}
-  display: flex;
-  align-items: center;
-  justify-content: right;
+  text-align: right;
   position: absolute;
   top: 0.9375rem;
   right: 1.875rem;
   width: 12.5rem;
   height: 2rem;
+  line-height: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 export const Viewer = styled.div`
   ${TYPO.LIGHT_R}
-  display: flex;
-  align-items: center;
-  justify-content: right;
+  text-align: right;
   position: absolute;
   right: 1.875rem;
   bottom: 0.9375rem;
   width: 12.5rem;
   height: 2rem;
+  line-height: 2rem;
   color: #db0000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `

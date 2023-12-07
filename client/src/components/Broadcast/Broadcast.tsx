@@ -18,7 +18,7 @@ const Broadcast = ({ thumbnail, title, nickname, viewer, index }: BroadcastProps
       <styles.Thumbnail src={thumbnail} />
       <styles.Title>{title}</styles.Title>
       <styles.Nickname>{nickname}</styles.Nickname>
-      <styles.Viewer>시청자 {viewer}명</styles.Viewer>
+      <styles.Viewer>시청자 {viewer.toLocaleString()}명</styles.Viewer>
     </styles.Broadcast>
   )
 }

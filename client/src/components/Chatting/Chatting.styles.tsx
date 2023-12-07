@@ -12,11 +12,15 @@ export const Chatting = styled.div`
 
 export const Nickname = styled.div`
   ${TYPO.BOLD_R}
+  max-width: 5rem;
   line-height: 2rem;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
-export const Text = styled.div`
+export const Message = styled.div`
   ${TYPO.LIGHT_R}
   word-break:break-all;
   line-height: 2rem;

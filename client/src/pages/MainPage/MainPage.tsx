@@ -51,11 +51,20 @@ const MainPage = () => {
       .then((res) => {
         setBroadcastList(
           res.data.map((broadcast: any): BroadcastInterface => {
-            return { userId: broadcast.userId, nickname: broadcast.nickname, title: broadcast.title, viewer: broadcast.viewer, thumbnail: broadcast.thumbnail }
+            return {
+              userId: broadcast.userId,
+              nickname: broadcast.nickname,
+              title: `${res.title === null ? `${res.nickname}의 방송` : res.title}`,
+              viewer: broadcast.viewer,
+              thumbnail: broadcast.thumbnail,
+            }
           }),
         )
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err)
+        window.location.reload()
+      })
   }, [])
 
   return (

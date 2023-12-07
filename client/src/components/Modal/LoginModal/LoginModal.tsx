@@ -27,7 +27,10 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
             localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
             window.location.reload()
           })
-          .catch((err) => console.error(err))
+          .catch((err) => {
+            alert('로그인을 실패 했습니다.')
+            console.error(err)
+          })
           .finally(() => window.removeEventListener('focus', popupEvent))
       }
     }

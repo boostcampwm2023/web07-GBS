@@ -128,9 +128,12 @@ const BroadcastPage = () => {
         }
       })
       .then((res) => {
-        setStreamer({ title: res.title, nickname: res.nickname, viewer: res.viewer })
+        setStreamer({ title: `${res.title === null ? `${res.nickname}의 방송` : res.title}`, nickname: res.nickname, viewer: res.viewer })
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err)
+        window.location.reload()
+      })
   }
 
   useEffect(() => {
@@ -186,7 +189,7 @@ const BroadcastPage = () => {
       <styles.Info currentTheme={theme}>
         <styles.Title>{streamer.title}</styles.Title>
         <styles.Nickname>{streamer.nickname}</styles.Nickname>
-        <styles.Viewer>시청자 {streamer.viewer}명</styles.Viewer>
+        <styles.Viewer>시청자 {streamer.viewer.toLocaleString()}명</styles.Viewer>
       </styles.Info>
       {settingModal && <SettingModal onConfirm={onSetting} />}
       {loginModal && <LoginModal onCancle={onLogin} currentTheme={theme} />}
