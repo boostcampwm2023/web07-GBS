@@ -69,12 +69,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   ): Promise<ChatPayload> {
     this.logger.debug('Chat payload: ', payload);
 
-    const result = await this.aiChatFilter.filter(payload.message);
+    const message = await this.aiChatFilter.filter(payload.message);
 
     this.server.to(client.data.room).emit('chat', {
-      id: client.data.userId,
-      nickname: client.data.nickname,
-      ...result,
+      nickname: payload.nickname,
+      message : message,
     });
     return payload;
   }

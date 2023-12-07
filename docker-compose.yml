@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   db:
@@ -13,7 +13,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PW}
     volumes:
       - ./server/api-server/sql:/docker-entrypoint-initdb.d
-  
+
   redis:
     platform: linux/amd64
     image: redis
@@ -87,6 +87,8 @@ services:
       - custom_network
     ports:
       - 80:80
+    environment:
+      VITE_API_URL: ${VITE_API_URL}
 
 networks:
   custom_network:
