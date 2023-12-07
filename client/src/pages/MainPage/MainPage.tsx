@@ -58,12 +58,16 @@ const MainPage = () => {
       .then((res) => {
         setBroadcastList(
           res.data.map((broadcast: any): BroadcastInterface => {
+            if (broadcast.thumbnamil.contentLength === 0) {
+              throw new Error('Get Thumbnail Failed')
+            }
+
             return {
               userId: broadcast.userId,
               nickname: broadcast.nickname,
               title: `${broadcast.title === null ? `${broadcast.nickname}의 방송` : broadcast.title}`,
               viewer: broadcast.viewer,
-              thumbnail: broadcast.thumbnail,
+              thumbnail: broadcast.thumbnail.thumbnailurl,
             }
           }),
         )
