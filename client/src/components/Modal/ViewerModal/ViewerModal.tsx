@@ -8,7 +8,7 @@ interface ViewerModalProps {
   top: number
   left: number
   onCancle: () => void
-  onKick: () => void
+  onKick: (nickname: string) => void
   currentTheme: ThemeFlag
 }
 
@@ -25,7 +25,7 @@ const ViewerModal = ({ nickname, authority, target, top, left, onCancle, onKick,
           currentTheme={currentTheme}
         >
           <styles.Nickname>{nickname}</styles.Nickname>
-          <styles.Content onClick={onKick} currentTheme={currentTheme}>
+          <styles.Content onClick={() => onKick(nickname)} currentTheme={currentTheme}>
             강퇴하기
           </styles.Content>
         </styles.Modal>

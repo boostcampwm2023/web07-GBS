@@ -65,20 +65,8 @@ const BroadcastPage = () => {
     setViewerModal(() => !viewerModal)
   }
 
-  const getAuthority = (): 'viewer' | 'streamer' => {
-    if (user.nickname === streamer.nickname) {
-      return 'streamer'
-    } else {
-      return 'viewer'
-    }
-  }
-
-  const getTarget = (viewerNickname: string): 'viewer' | 'streamer' => {
-    if (viewerNickname === streamer.nickname) {
-      return 'streamer'
-    } else {
-      return 'viewer'
-    }
+  const onKick = (viewerNickname: string) => {
+    socket.current.emit('chat', { nickname: viewerNickname })
   }
 
   const onNickname = (event: React.MouseEvent<HTMLInputElement>) => {
@@ -119,6 +107,31 @@ const BroadcastPage = () => {
     }
   }
 
+  const onConfirm = () => {
+    setConfirmModal(false)
+    if (confirmModalMessage === '로그인을 해주세요.') {
+      onLogin()
+    } else if (confirmModalMessage === '방송 정보를 가져오는데 실패했습니다.' || confirmModalMessage === '방송에서 강퇴되었습니다.') {
+      window.location.replace('/')
+    }
+  }
+
+  const getAuthority = (): 'viewer' | 'streamer' => {
+    if (user.nickname === streamer.nickname) {
+      return 'streamer'
+    } else {
+      return 'viewer'
+    }
+  }
+
+  const getTarget = (viewerNickname: string): 'viewer' | 'streamer' => {
+    if (viewerNickname === streamer.nickname) {
+      return 'streamer'
+    } else {
+      return 'viewer'
+    }
+  }
+
   const getStreamer = () => {
     fetch(`${import.meta.env.VITE_API_URL}` + `/streams/${id}`, { method: 'GET', credentials: 'include' })
       .then((res) => {
@@ -138,15 +151,6 @@ const BroadcastPage = () => {
       })
   }
 
-  const onConfirm = () => {
-    setConfirmModal(false)
-    if (confirmModalMessage === '로그인을 해주세요.') {
-      onLogin()
-    } else if (confirmModalMessage === '방송 정보를 가져오는데 실패했습니다.') {
-      window.location.replace('/')
-    }
-  }
-
   useEffect(() => {
     const interval = setInterval(() => {
       getStreamer()
@@ -157,6 +161,12 @@ const BroadcastPage = () => {
     socket.current.emit('join', { room: id })
     socket.current.on('chat', (chatting: ChattingProps) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
+    })
+    socket.current.on('kick', (nickname: string) => {
+      if (user.nickname === nickname) {
+        setConfirmModalMessage('방송에서 강퇴되었습니다.')
+        setConfirmModal(true)
+      }
     })
 
     return () => {
@@ -220,7 +230,7 @@ const BroadcastPage = () => {
           top={viewerModalInfo.top}
           left={viewerModalInfo.left}
           onCancle={onViewer}
-          onKick={onViewer}
+          onKick={onKick}
           currentTheme={theme}
         />
       )}
