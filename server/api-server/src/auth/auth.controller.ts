@@ -8,6 +8,7 @@ import {
   Post,
   Body,
   HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { NaverAuthGuard } from './guard/naver-auth.guard';
 import { AuthService } from './auth.service';
@@ -69,9 +70,9 @@ export class AuthController {
 
   @Get('sessionId')
   async getSessionId(@Session() session: Record<string, any>) {
-    if (!session.id) {
-      throw new HttpException('Unauthorized', 401);
+    if (!session.userId) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
-    return { session: session.id };
+    return { session: session.userId };
   }
 }

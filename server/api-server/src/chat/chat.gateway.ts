@@ -33,11 +33,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private readonly logger = new Logger(ChatGateway.name);
 
   async handleConnection(client: Socket) {
-    const userId = client.handshake['session'].userId || '';
+    const id = client.handshake['session'].userId || '';
 
     let user: User;
     try {
-      user = await this.userRepo.findOne({ where: { userId } });
+      user = await this.userRepo.findOne(id);
     } catch (e) {
       this.logger.error(e);
     }
