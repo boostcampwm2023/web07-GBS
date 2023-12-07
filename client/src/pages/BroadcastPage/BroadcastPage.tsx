@@ -99,6 +99,13 @@ const BroadcastPage = () => {
     onViewer()
   }
 
+  const onChat = () => {
+    if (user.id === '') {
+      setConfirmModalMessage('로그인을 해주세요.')
+      setConfirmModal(true)
+    }
+  }
+
   const onSend = () => {
     if (user.id === '') {
       setConfirmModalMessage('로그인을 해주세요.')
@@ -146,7 +153,7 @@ const BroadcastPage = () => {
     if (confirmModalMessage === '로그인을 해주세요.') {
       onLogin()
     } else if (confirmModalMessage === '방송 정보를 가져오는데 실패했습니다.') {
-      window.location.reload()
+      window.location.replace('/')
     }
   }
 
@@ -196,8 +203,14 @@ const BroadcastPage = () => {
           ))}
         </styles.ChattingList>
         <styles.Input currentTheme={theme}>
-          <styles.Text currentTheme={theme} value={chatting} onChange={(event) => setChatting(event.target.value)} onKeyDown={onEnter}></styles.Text>
-          <styles.Send currentTheme={theme} onClick={onSend}>
+          <styles.Chat
+            value={chatting}
+            onClick={onChat}
+            onChange={(event) => setChatting(event.target.value)}
+            onKeyDown={onEnter}
+            currentTheme={theme}
+          ></styles.Chat>
+          <styles.Send onClick={onSend} currentTheme={theme}>
             등록하기
           </styles.Send>
         </styles.Input>

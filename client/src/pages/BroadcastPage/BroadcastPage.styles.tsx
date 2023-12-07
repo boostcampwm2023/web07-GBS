@@ -68,7 +68,7 @@ export const Input = styled.div<ThemeInterface>`
   width: 100%;
 `
 
-export const Text = styled.textarea<ThemeInterface>`
+export const Chat = styled.textarea<ThemeInterface>`
   ${TYPO.LIGHT_R}
   border: ${(props) => {
     if (props.currentTheme === ThemeFlag.light) return '0.0625rem solid #000000'

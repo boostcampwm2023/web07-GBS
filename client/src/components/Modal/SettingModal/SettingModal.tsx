@@ -46,7 +46,11 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         if (res.ok === true) {
           return res.json()
         } else {
-          throw new Error('ID Save Failed')
+          if (res.status === 500) {
+            throw new Error('ID Already Exists')
+          } else {
+            throw new Error('ID Save Failed')
+          }
         }
       })
       .then((res) => {
@@ -59,7 +63,11 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
       })
       .catch((err) => {
         console.error(err)
-        alert('ID변경에 실패 했습니다.')
+        if (err.message === 'ID Already Exists') {
+          alert('이미 존재하는 ID입니다.')
+        } else {
+          alert('ID 변경에 실패 했습니다.')
+        }
       })
   }
 
@@ -87,7 +95,11 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         if (res.ok === true) {
           return res.json()
         } else {
-          throw new Error('Nickname Save Failed')
+          if (res.status === 500) {
+            throw new Error('Nickname Already Exists')
+          } else {
+            throw new Error('Nickname Save Failed')
+          }
         }
       })
       .then((res) => {
@@ -100,7 +112,11 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
       })
       .catch((err) => {
         console.error(err)
-        alert('닉네임변경에 실패 했습니다.')
+        if (err.message === 'Nickname Already Exists') {
+          alert('이미 존재하는 닉네임입니다.')
+        } else {
+          alert('닉네임 변경에 실패 했습니다.')
+        }
       })
   }
 
