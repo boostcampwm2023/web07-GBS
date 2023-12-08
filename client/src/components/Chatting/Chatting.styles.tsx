@@ -13,7 +13,7 @@ export const Chatting = styled.div`
 export const Nickname = styled.div`
   ${TYPO.BOLD_R}
   overflow: hidden;
-  max-width: 3rem;
+  max-width: 4rem;
   line-height: 2rem;
   text-align: left;
   white-space: nowrap;
@@ -23,7 +23,7 @@ export const Nickname = styled.div`
 
 export const Message = styled.div`
   ${TYPO.LIGHT_R}
-  max-width: 20.375rem;
+  max-width: 19.375rem;
   line-height: 2rem;
   text-align: left;
   word-break: break-all;
