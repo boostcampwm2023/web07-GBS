@@ -16,6 +16,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [nickname, setNickname] = useState<string>(user.nickname)
   const [changeUser, setChangeUser] = useState<boolean>(false)
   const [streamKey, setStreamKey] = useState<string>('')
+  const [streamLink, setStreamLink] = useState<string>('')
   const isDarkMode = currentTheme === ThemeFlag.dark
 
   const onToggleContainer = () => {
@@ -123,19 +124,32 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
       })
   }
 
-  const onKeyInputButton = () => {
-    navigator.clipboard
-      .writeText(streamKey)
-      .then(() => {
-        alert('방송 비밀 키가 클립보드에 복사되었습니다.')
-      })
-      .catch((err) => {
-        console.error(err)
-        alert('방송 비밀키 복사에 실패 했습니다.')
-      })
+  const onCopyButton = (copy: 'key' | 'link') => {
+    if (copy === 'key') {
+      navigator.clipboard
+        .writeText(streamKey)
+        .then(() => {
+          alert('방송 비밀 키가 클립보드에 복사되었습니다.')
+        })
+        .catch((err) => {
+          console.error(err)
+          alert('방송 비밀키 복사에 실패 했습니다.')
+        })
+    } else if (copy === 'link') {
+      navigator.clipboard
+        .writeText(streamLink)
+        .then(() => {
+          alert('방송 송출 링크가 클립보드에 복사되었습니다.')
+        })
+        .catch((err) => {
+          console.error(err)
+          alert('방송 송출 링크 복사에 실패 했습니다.')
+        })
+    }
   }
 
   useEffect(() => {
+    setStreamLink('rtmp://stream.gbs-live.site/live')
     if (user.id !== '') {
       fetch(`${import.meta.env.VITE_API_URL}` + '/stream-keys/me', { method: 'GET', credentials: 'include' })
         .then((res) => {
@@ -201,7 +215,14 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
                 <styles.BodyText>방송 비밀 키</styles.BodyText>
                 <styles.InputContainer>
                   <styles.Input value={streamKey} type="password" readOnly={true} currentTheme={currentTheme} />
-                  <styles.InputButton onClick={onKeyInputButton} currentTheme={currentTheme}>
+                  <styles.InputButton onClick={() => onCopyButton('key')} currentTheme={currentTheme}>
+                    복사하기
+                  </styles.InputButton>
+                </styles.InputContainer>
+                <styles.BodyText>방송 송출 링크</styles.BodyText>
+                <styles.InputContainer>
+                  <styles.Input value={streamLink} type="password" readOnly={true} currentTheme={currentTheme} />
+                  <styles.InputButton onClick={() => onCopyButton('link')} currentTheme={currentTheme}>
                     복사하기
                   </styles.InputButton>
                 </styles.InputContainer>

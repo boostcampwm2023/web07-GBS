@@ -14,7 +14,7 @@ import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
 import HlsPlayer from '@components/HlsPlayer/HlsPlayer'
 
-interface ViewerModalProps {
+interface ViewerModalInterface {
   nickname: string
   authority: 'viewer' | 'streamer'
   target: 'viewer' | 'streamer'
@@ -22,7 +22,7 @@ interface ViewerModalProps {
   left: number
 }
 
-interface ChattingProps {
+interface ChattingInterface {
   nickname: string
   message: string
 }
@@ -42,9 +42,9 @@ const BroadcastPage = () => {
   const [settingModal, setSettingModal] = useState<boolean>(false)
   const [loginModal, setLoginModal] = useState<boolean>(false)
   const [viewerModal, setViewerModal] = useState<boolean>(false)
-  const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalProps>({ nickname: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
+  const [viewerModalInfo, setViewerModalInfo] = useState<ViewerModalInterface>({ nickname: '', authority: 'viewer', target: 'viewer', top: 0, left: 0 })
   const [chatting, setChatting] = useState<string>('')
-  const [chattingList, setChattingList] = useState<Array<ChattingProps>>([])
+  const [chattingList, setChattingList] = useState<Array<ChattingInterface>>([])
   const [confirmModal, setConfirmModal] = useState<boolean>(false)
   const [confirmModalMessage, setConfirmModalMessage] = useState<string>('')
   const [streamer, setStreamer] = useState<StreamerInterface>({ title: '', nickname: '', viewer: 0 })
@@ -52,8 +52,15 @@ const BroadcastPage = () => {
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
 
-  const onSetting = () => {
+  const onSetting = (changeUser: boolean) => {
     setSettingModal(() => !settingModal)
+
+    if (changeUser === true) {
+      socket.current = io(`${import.meta.env.VITE_API_URL}`, { withCredentials: true })
+      if (socket.current) {
+        socket.current.disconnect()
+      }
+    }
   }
 
   const onLogin = () => {
@@ -164,7 +171,7 @@ const BroadcastPage = () => {
     getStreamer()
     socket.current = io(`${import.meta.env.VITE_API_URL}`, { withCredentials: true })
     socket.current.emit('join', { room: id })
-    socket.current.on('chat', (chatting: ChattingProps) => {
+    socket.current.on('chat', (chatting: ChattingInterface) => {
       setChattingList((chattingList) => [chatting, ...chattingList])
     })
     socket.current.on('kick', (kickInfo: KickInterface) => {
