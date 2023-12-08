@@ -107,9 +107,9 @@ export const SettingContainer = styled.div`
   height: 2.25rem;
 `
 
-export const ToggleContainer = styled.div<{ isDarkMode: boolean }>`
+export const ToggleContainer = styled.div<{ isToggle: boolean }>`
   cursor: pointer;
-  background-color: ${({ isDarkMode }) => (isDarkMode ? '#333' : '#ddd')};
+  background-color: ${({ isToggle }) => (isToggle ? '#333' : '#ddd')};
   border-radius: 1rem;
   padding: 0.2rem;
   display: flex;
@@ -118,17 +118,17 @@ export const ToggleContainer = styled.div<{ isDarkMode: boolean }>`
   height: 2.25rem;
   position: relative;
   transition: background-color 0.2s ease;
-  border: ${({ isDarkMode }) => (isDarkMode ? '0.0625rem solid #555' : '0.0625rem solid #aaa')};
+  border: ${({ isToggle }) => (isToggle ? '0.0625rem solid #555' : '0.0625rem solid #aaa')};
 `
 
-export const ToggleKnob = styled.div<{ isDarkMode: boolean }>`
+export const ToggleKnob = styled.div<{ isToggle: boolean }>`
   background-color: #ffffff;
   border-radius: 50%;
   width: 1.8rem;
   height: 1.8rem;
   position: absolute;
   transition: transform 0.2s ease;
-  ${({ isDarkMode }) => isDarkMode && `transform: translateX(2.7rem);`}
+  ${({ isToggle }) => isToggle && `transform: translateX(2.7rem);`}
 `
 
 export const ButtonContainer = styled.div<ThemeInterface>`

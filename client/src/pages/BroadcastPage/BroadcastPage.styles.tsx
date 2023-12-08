@@ -45,6 +45,7 @@ export const Chatting = styled.div<ThemeInterface>`
 export const ChattingList = styled.div`
   display: flex;
   flex-direction: column-reverse;
+  overflow-x: hidden;
   overflow-y: scroll;
   width: 100%;
   height: 43.75rem;
