@@ -51,7 +51,7 @@ export const BlockContainer = styled.div`
 
 export const HeaderText = styled.div`
   ${TYPO.BOLD_M}
-  margin-bottom: 0.9375rem;
+  margin-top: 0.625rem;
   line-height: 2.25rem;
 `
 
@@ -59,6 +59,7 @@ export const BodyText = styled.div`
   ${TYPO.MEDIUM_M}
   display: flex;
   line-height: 2.25rem;
+  margin-top: 0.625rem;
 `
 
 export const InputContainer = styled.div`
@@ -66,7 +67,6 @@ export const InputContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 2.25rem;
-  margin-bottom: 0.625rem;
 `
 
 export const Input = styled.input<ThemeInterface>`
@@ -105,6 +105,7 @@ export const SettingContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 2.25rem;
+  margin-top: 0.625rem;
 `
 
 export const ToggleContainer = styled.div<{ isToggle: boolean }>`

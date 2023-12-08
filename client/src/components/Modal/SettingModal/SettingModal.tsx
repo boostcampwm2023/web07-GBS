@@ -240,11 +240,15 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
                 <styles.ToggleContainer isToggle={isDarkMode} onClick={onThemeToggle}>
                   <styles.ToggleKnob isToggle={isDarkMode} />
                 </styles.ToggleContainer>
-                <styles.BodyText>자동 채팅 필터링</styles.BodyText>
-                <styles.ToggleContainer isToggle={isFilter} onClick={onFilterToggle}>
-                  <styles.ToggleKnob isToggle={isFilter} />
-                </styles.ToggleContainer>
               </styles.SettingContainer>
+              {user.id !== '' && (
+                <styles.SettingContainer>
+                  <styles.BodyText>자동 채팅 필터링</styles.BodyText>
+                  <styles.ToggleContainer isToggle={isFilter} onClick={onFilterToggle}>
+                    <styles.ToggleKnob isToggle={isFilter} />
+                  </styles.ToggleContainer>
+                </styles.SettingContainer>
+              )}
             </styles.BlockContainer>
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
