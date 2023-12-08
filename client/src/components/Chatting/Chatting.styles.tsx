@@ -23,7 +23,7 @@ export const Nickname = styled.div`
 
 export const Message = styled.div`
   ${TYPO.LIGHT_R}
-  max-width: 19.375rem;
+  max-width: 18.375rem;
   line-height: 2rem;
   text-align: left;
   word-break: break-all;
