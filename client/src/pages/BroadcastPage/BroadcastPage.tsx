@@ -11,6 +11,7 @@ import ViewerModal from '@components/Modal/ViewerModal/ViewerModal'
 import ConfirmModal from '@components/Modal/ConfirmModal/ConfirmModal'
 import Chatting from '@components/Chatting/Chatting'
 import { themeState } from '@/states/theme'
+import { filterState } from '@/states/filter'
 import { userState } from '@/states/user'
 import HlsPlayer from '@components/HlsPlayer/HlsPlayer'
 
@@ -50,6 +51,7 @@ const BroadcastPage = () => {
   const [streamer, setStreamer] = useState<StreamerInterface>({ title: '', nickname: '', viewer: 0 })
   const socket = useRef<any>(null)
   const theme = useRecoilValue(themeState)
+  const filter = useRecoilValue(filterState)
   const user = useRecoilValue(userState)
 
   const onSetting = (changeUser: boolean) => {
@@ -107,7 +109,7 @@ const BroadcastPage = () => {
       setConfirmModalMessage('채팅을 입력해주신 후 보내주세요.')
       setConfirmModal(true)
     } else {
-      socket.current.emit('chat', { message: chatting })
+      socket.current.emit('chat', { message: chatting, useFilter: filter })
     }
     setChatting('')
   }

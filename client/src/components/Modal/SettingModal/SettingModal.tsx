@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil'
 import * as styles from './SettingModal.styles'
 import { ThemeFlag } from '@/types/theme'
 import { themeState } from '@/states/theme'
+import { filterState } from '@/states/filter'
 import { userState } from '@/states/user'
 
 interface SettingModalProps {
@@ -11,6 +12,7 @@ interface SettingModalProps {
 
 const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [currentTheme, setTheme] = useRecoilState(themeState)
+  const [filter, setFilter] = useRecoilState(filterState)
   const [user, setUser] = useRecoilState(userState)
   const [id, setId] = useState<string>(user.id)
   const [nickname, setNickname] = useState<string>(user.nickname)
@@ -18,10 +20,16 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [streamKey, setStreamKey] = useState<string>('')
   const [streamLink, setStreamLink] = useState<string>('')
   const isDarkMode = currentTheme === ThemeFlag.dark
+  const isFilter = filter === true
 
-  const onToggleContainer = () => {
+  const onThemeToggle = () => {
     setTheme(isDarkMode ? ThemeFlag.light : ThemeFlag.dark)
     localStorage.setItem('theme', `${currentTheme}`)
+  }
+
+  const onFilterToggle = () => {
+    setFilter(isFilter ? false : true)
+    localStorage.setItem('filter', `${filter}`)
   }
 
   const onIdInputButton = () => {
@@ -229,8 +237,12 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
               <styles.HeaderText>환경설정</styles.HeaderText>
               <styles.SettingContainer>
                 <styles.BodyText>다크모드</styles.BodyText>
-                <styles.ToggleContainer isDarkMode={isDarkMode} onClick={onToggleContainer}>
-                  <styles.ToggleKnob isDarkMode={isDarkMode} />
+                <styles.ToggleContainer isToggle={isDarkMode} onClick={onThemeToggle}>
+                  <styles.ToggleKnob isToggle={isDarkMode} />
+                </styles.ToggleContainer>
+                <styles.BodyText>자동 채팅 필터링</styles.BodyText>
+                <styles.ToggleContainer isToggle={isFilter} onClick={onFilterToggle}>
+                  <styles.ToggleKnob isToggle={isFilter} />
                 </styles.ToggleContainer>
               </styles.SettingContainer>
             </styles.BlockContainer>

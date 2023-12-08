@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import { User } from '@/types/user'
+import { UserInterface } from '@/types/user'
 
 const getUser = () => {
   const user = localStorage.getItem('user')
@@ -11,7 +11,7 @@ const getUser = () => {
   }
 }
 
-export const userState = atom<User>({
+export const userState = atom<UserInterface>({
   key: 'USER_STATE',
   default: {
     id: `${getUser() === null ? '' : getUser().id}`,
