@@ -6,7 +6,7 @@ import { themeState } from '@/states/theme'
 import { userState } from '@/states/user'
 
 interface SettingModalProps {
-  onConfirm: () => void
+  onConfirm: (changeUser: boolean) => void
 }
 
 const SettingModal = ({ onConfirm }: SettingModalProps) => {
@@ -169,10 +169,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   return (
     <styles.Backdrop
       onClick={() => {
-        onConfirm()
-        if (changeUser === true) {
-          window.location.reload()
-        }
+        onConfirm(changeUser)
       }}
     >
       <styles.ModalContainer>
@@ -241,10 +238,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
           <styles.ButtonContainer currentTheme={currentTheme}>
             <styles.Button
               onClick={() => {
-                onConfirm()
-                if (changeUser === true) {
-                  window.location.reload()
-                }
+                onConfirm(changeUser)
               }}
             >
               확인
