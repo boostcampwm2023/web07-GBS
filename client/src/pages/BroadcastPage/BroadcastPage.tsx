@@ -115,7 +115,9 @@ const BroadcastPage = () => {
   }
 
   const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter' && event.shiftKey === false) {
+    if (event.nativeEvent.isComposing) {
+      return
+    } else if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault()
       onSend()
     }
