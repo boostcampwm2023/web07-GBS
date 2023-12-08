@@ -20,16 +20,15 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [streamKey, setStreamKey] = useState<string>('')
   const [streamLink, setStreamLink] = useState<string>('')
   const isDarkMode = currentTheme === ThemeFlag.dark
-  const isFilter = filter === true
 
   const onThemeToggle = () => {
-    setTheme(isDarkMode ? ThemeFlag.light : ThemeFlag.dark)
     localStorage.setItem('theme', `${currentTheme}`)
+    setTheme(isDarkMode ? ThemeFlag.light : ThemeFlag.dark)
   }
 
   const onFilterToggle = () => {
-    setFilter(isFilter ? false : true)
-    localStorage.setItem('filter', `${filter}`)
+    localStorage.setItem('filter', `${!filter}`)
+    setFilter(!filter)
   }
 
   const onIdInputButton = () => {
@@ -67,9 +66,9 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         const userId = res.userId
         const userNickname = res.nickname
 
+        localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
         setUser({ id: userId, nickname: userNickname })
         setChangeUser(true)
-        localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
         alert('ID가 저장되었습니다.')
       })
       .catch((err) => {
@@ -117,9 +116,9 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
         const userId = res.userId
         const userNickname = res.nickname
 
+        localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
         setUser({ id: userId, nickname: userNickname })
         setChangeUser(true)
-        localStorage.setItem('user', JSON.stringify({ id: userId, nickname: userNickname }))
         alert('닉네임이 저장되었습니다.')
       })
       .catch((err) => {
@@ -244,8 +243,8 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
               {user.id !== '' && (
                 <styles.SettingContainer>
                   <styles.BodyText>자동 채팅 필터링</styles.BodyText>
-                  <styles.ToggleContainer isToggle={isFilter} onClick={onFilterToggle}>
-                    <styles.ToggleKnob isToggle={isFilter} />
+                  <styles.ToggleContainer isToggle={filter} onClick={onFilterToggle}>
+                    <styles.ToggleKnob isToggle={filter} />
                   </styles.ToggleContainer>
                 </styles.SettingContainer>
               )}
