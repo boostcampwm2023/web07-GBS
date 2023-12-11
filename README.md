@@ -70,4 +70,4 @@ GBS에서는 아프리카 TV, 트위치와 같이 실시간으로 인터넷 방�
 
 </br>
 
-**더 자세한 내용을 보고 싶으시다면 [GBS의 wiki](https://github.com/boostcampwm2023/web07-GBS/wiki)나 [GBS의 notion](https://www.notion.so/GBS-b3e35f1c05c24973a722bd406218a6ae)를 참고해주세요!**
+**더 자세한 내용을 보고 싶으시다면 [금쪽이들의 wiki](https://github.com/boostcampwm2023/web07-GBS/wiki)나 [금쪽이들의 notion](https://www.notion.so/GBS-b3e35f1c05c24973a722bd406218a6ae)를 참고해주세요!**
