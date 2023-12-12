@@ -1,9 +1,9 @@
 import type { StoryObj } from '@storybook/react'
-import SettingModal from './SettingModal'
+import HlsPlayer from './HlsPlayer'
 
 const meta = {
-  title: 'Modal/Setting',
-  component: SettingModal,
+  title: 'HlsPlayer',
+  component: HlsPlayer,
   tags: ['autodocs'],
 }
 
@@ -13,6 +13,6 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    onConfirm: () => {},
+    id: 'JMH',
   },
 }

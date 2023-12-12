@@ -1,10 +1,10 @@
 import type { StoryObj } from '@storybook/react'
-import ViewerModal from './ViewerModal'
+import ConfirmModal from './ConfirmModal'
 import { ThemeFlag } from '@/types/theme'
 
 const meta = {
-  title: 'Modal/Viewer',
-  component: ViewerModal,
+  title: 'Modal/Confirm',
+  component: ConfirmModal,
   tags: ['autodocs'],
 }
 
@@ -14,13 +14,8 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    top: 0,
-    left: 0,
-    nickname: 'JMH',
-    authority: 'viewer',
-    target: 'viewer',
-    onCancle: () => {},
-    onKick: () => {},
+    text: '테스트 입니다.',
+    onConfrim: () => {},
     currentTheme: ThemeFlag.light,
   },
 }
