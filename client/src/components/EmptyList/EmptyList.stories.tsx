@@ -1,10 +1,10 @@
 import type { StoryObj } from '@storybook/react'
-import ViewerModal from './ViewerModal'
+import EmptyList from './EmptyList'
 import { ThemeFlag } from '@/types/theme'
 
 const meta = {
-  title: 'Modal/Viewer',
-  component: ViewerModal,
+  title: 'EmptyList',
+  component: EmptyList,
   tags: ['autodocs'],
 }
 
@@ -14,13 +14,6 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    top: 0,
-    left: 0,
-    nickname: 'JMH',
-    authority: 'viewer',
-    target: 'viewer',
-    onCancle: () => {},
-    onKick: () => {},
     currentTheme: ThemeFlag.light,
   },
 }
