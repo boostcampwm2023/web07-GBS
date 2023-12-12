@@ -1,7 +1,5 @@
 ![image](https://github.com/boostcampwm2023/web07-GBS/assets/21211957/cc6c597b-09aa-4312-8ab0-30eec394dcfa)
 
-<h3 align="center">금쪽이들의 방송 플랫폼 만들기!</h3>
-
 # 🔎 프로젝트 소개
 
 ```
