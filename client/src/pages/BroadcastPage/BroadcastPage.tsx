@@ -127,6 +127,9 @@ const BroadcastPage = () => {
     } else if (chatting.trim() === '') {
       setConfirmModalMessage('채팅을 입력해주신 후 보내주세요.')
       setConfirmModal(true)
+    } else if (chatting.trim().length >= 200) {
+      setConfirmModalMessage('채팅은 최대 200글자까지 보낼 수 있습니다.')
+      setConfirmModal(true)
     } else {
       socket.current.emit('chat', { message: chatting, useFilter: filter })
     }
