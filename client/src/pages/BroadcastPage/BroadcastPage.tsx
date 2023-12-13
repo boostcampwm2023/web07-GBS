@@ -64,7 +64,21 @@ const BroadcastPage = () => {
     }
 
     if (changeUser === true) {
-      window.location.reload()
+      if (socket.current) {
+        socket.current.disconnect()
+      }
+
+      socket.current = io(`${import.meta.env.VITE_API_URL}`, { withCredentials: true })
+      socket.current.emit('join', { room: id })
+      socket.current.on('chat', (chatting: ChattingInterface) => {
+        setChattingList((chattingList) => [chatting, ...chattingList])
+      })
+      socket.current.on('kick', (kickInfo: KickInterface) => {
+        if (user.nickname === kickInfo.nickname) {
+          setConfirmModalMessage('방송에서 강퇴되었습니다.')
+          setConfirmModal(true)
+        }
+      })
     }
   }
 
@@ -214,6 +228,7 @@ const BroadcastPage = () => {
       if (socket.current) {
         socket.current.disconnect()
       }
+
       if (interval) {
         clearInterval(interval)
       }
