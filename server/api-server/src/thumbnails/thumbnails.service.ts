@@ -17,7 +17,7 @@ export class ThumbnailsService {
         },
       });
 
-      const objectName = `thumb/thumbnail_${userId}_240p264kbs.png`;
+      const objectName = `thumb/thumbnail-${userId}_240p264kbs.png`;
       const thumbnailUrl = `${process.env.AWS_S3_URL}${process.env.AWS_S3_BUCKET_NAME}/${objectName}`;
       const params = {
         Bucket: process.env.AWS_S3_BUCKET_NAME,
