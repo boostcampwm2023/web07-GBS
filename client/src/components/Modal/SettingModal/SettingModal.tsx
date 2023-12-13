@@ -28,7 +28,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   }
 
   const onThemeToggle = () => {
-    localStorage.setItem('theme', `${currentTheme}`)
+    localStorage.setItem('theme', `${!isDarkMode}`)
     setTheme(isDarkMode ? ThemeFlag.light : ThemeFlag.dark)
   }
 
