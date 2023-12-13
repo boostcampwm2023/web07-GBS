@@ -63,7 +63,7 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}` + '/streams', { method: 'GET', credentials: 'include' })
+    fetch(`${import.meta.env.VITE_API_URL}` + '/streams', { method: 'GET', credentials: 'include', cache: 'no-store' })
       .then((res) => {
         if (res.ok === true) {
           return res.json()
