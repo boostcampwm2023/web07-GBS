@@ -92,6 +92,7 @@ const MainPage = () => {
       })
       .catch((err) => {
         console.error(err)
+        setConfirmModal(true)
       })
   }, [])
 
