@@ -58,7 +58,7 @@ const BroadcastPage = () => {
     if (settingModal === true) {
       setTimeout(() => {
         setSettingModal(false)
-      }, 199)
+      }, 190)
     } else {
       setSettingModal(true)
     }
@@ -76,7 +76,7 @@ const BroadcastPage = () => {
     if (loginModal === true) {
       setTimeout(() => {
         setLoginModal(false)
-      }, 199)
+      }, 190)
     } else {
       setLoginModal(true)
     }
@@ -91,7 +91,7 @@ const BroadcastPage = () => {
     if (viewerModal === true) {
       setTimeout(() => {
         setViewerModal(false)
-      }, 199)
+      }, 190)
     } else {
       setViewerModal(true)
     }
@@ -127,8 +127,8 @@ const BroadcastPage = () => {
     } else if (chatting.trim() === '') {
       setConfirmModalMessage('채팅을 입력해주신 후 보내주세요.')
       setConfirmModal(true)
-    } else if (chatting.trim().length > 300) {
-      setConfirmModalMessage('채팅은 최대 300글자까지 보낼 수 있습니다.')
+    } else if (chatting.trim().length > 50) {
+      setConfirmModalMessage('채팅은 최대 50글자까지 보낼 수 있습니다.')
       setConfirmModal(true)
     } else {
       socket.current.emit('chat', { message: chatting, useFilter: filter })
@@ -148,7 +148,7 @@ const BroadcastPage = () => {
   const onConfirm = () => {
     setTimeout(() => {
       setConfirmModal(false)
-    }, 199)
+    }, 190)
 
     if (confirmModalMessage === '채팅을 입력하기 전 로그인을 해주세요.') {
       onLogin()

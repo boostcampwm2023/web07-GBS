@@ -29,22 +29,20 @@ const MainPage = () => {
   const user = useRecoilValue(userState)
 
   const onSetting = () => {
-    console.log('setting')
     if (settingModal === true) {
       setTimeout(() => {
         setSettingModal(false)
-      }, 199)
+      }, 190)
     } else {
       setSettingModal(true)
     }
   }
 
   const onLogin = () => {
-    console.log('login')
     if (loginModal === true) {
       setTimeout(() => {
         setLoginModal(false)
-      }, 199)
+      }, 190)
     } else {
       setLoginModal(true)
     }
@@ -58,7 +56,7 @@ const MainPage = () => {
   const onConfirm = () => {
     setTimeout(() => {
       setConfirmModal(false)
-    }, 199)
+    }, 190)
     window.location.reload()
   }
 
