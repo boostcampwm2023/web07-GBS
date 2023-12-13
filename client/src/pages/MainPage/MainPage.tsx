@@ -28,13 +28,17 @@ const MainPage = () => {
   const theme = useRecoilValue(themeState)
   const user = useRecoilValue(userState)
 
-  const onSetting = () => {
+  const onSetting = (changeUser: boolean) => {
     if (settingModal === true) {
       setTimeout(() => {
         setSettingModal(false)
       }, 190)
     } else {
       setSettingModal(true)
+    }
+
+    if (changeUser === true) {
+      window.location.reload()
     }
   }
 

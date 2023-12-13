@@ -64,11 +64,7 @@ const BroadcastPage = () => {
     }
 
     if (changeUser === true) {
-      if (socket.current) {
-        socket.current.disconnect()
-      }
-
-      socket.current = io(`${import.meta.env.VITE_API_URL}`, { withCredentials: true })
+      window.location.reload()
     }
   }
 
