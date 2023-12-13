@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     text: '테스트 입니다.',
-    onConfrim: () => {},
+    onConfirm: () => {},
     currentTheme: ThemeFlag.light,
   },
 }
