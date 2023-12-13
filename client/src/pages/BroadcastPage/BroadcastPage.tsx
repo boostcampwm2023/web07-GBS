@@ -55,18 +55,31 @@ const BroadcastPage = () => {
   const user = useRecoilValue(userState)
 
   const onSetting = (changeUser: boolean) => {
-    setSettingModal(() => !settingModal)
+    if (settingModal === true) {
+      setTimeout(() => {
+        setSettingModal(false)
+      }, 199)
+    } else {
+      setSettingModal(true)
+    }
 
     if (changeUser === true) {
-      socket.current = io(`${import.meta.env.VITE_API_URL}`, { withCredentials: true })
       if (socket.current) {
         socket.current.disconnect()
       }
+
+      socket.current = io(`${import.meta.env.VITE_API_URL}`, { withCredentials: true })
     }
   }
 
   const onLogin = () => {
-    setLoginModal(() => !loginModal)
+    if (loginModal === true) {
+      setTimeout(() => {
+        setLoginModal(false)
+      }, 199)
+    } else {
+      setLoginModal(true)
+    }
   }
 
   const onLogout = () => {
@@ -75,7 +88,13 @@ const BroadcastPage = () => {
   }
 
   const onViewer = () => {
-    setViewerModal(() => !viewerModal)
+    if (viewerModal === true) {
+      setTimeout(() => {
+        setViewerModal(false)
+      }, 199)
+    } else {
+      setViewerModal(true)
+    }
   }
 
   const onKick = (viewerNickname: string) => {
@@ -108,6 +127,9 @@ const BroadcastPage = () => {
     } else if (chatting.trim() === '') {
       setConfirmModalMessage('채팅을 입력해주신 후 보내주세요.')
       setConfirmModal(true)
+    } else if (chatting.trim().length > 300) {
+      setConfirmModalMessage('채팅은 최대 300글자까지 보낼 수 있습니다.')
+      setConfirmModal(true)
     } else {
       socket.current.emit('chat', { message: chatting, useFilter: filter })
     }
@@ -124,7 +146,10 @@ const BroadcastPage = () => {
   }
 
   const onConfirm = () => {
-    setConfirmModal(false)
+    setTimeout(() => {
+      setConfirmModal(false)
+    }, 199)
+
     if (confirmModalMessage === '채팅을 입력하기 전 로그인을 해주세요.') {
       onLogin()
     } else if (confirmModalMessage === '방송 정보를 가져오는데 실패했습니다.' || confirmModalMessage === '방송에서 강퇴되었습니다.') {
@@ -250,7 +275,7 @@ const BroadcastPage = () => {
           currentTheme={theme}
         />
       )}
-      {confirmModal && <ConfirmModal text={confirmModalMessage} onConfrim={onConfirm} currentTheme={theme} />}
+      {confirmModal && <ConfirmModal text={confirmModalMessage} onConfirm={onConfirm} currentTheme={theme} />}
     </styles.Container>
   )
 }

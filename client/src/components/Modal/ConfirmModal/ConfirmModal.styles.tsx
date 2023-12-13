@@ -1,8 +1,33 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag, ThemeInterface } from '@/types/theme'
+import { ModalInterface } from '@/types/modal'
 
-export const Backdrop = styled.div`
+interface ConfirmModalProps {
+  isOpen: boolean
+  currentTheme: ThemeFlag
+}
+
+const fadeIn = keyframes` 
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
+const fadeOut = keyframes` 
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`
+
+export const Backdrop = styled.div<ModalInterface>`
+  animation: ${(props) => (props.isOpen === true ? fadeIn : fadeOut)} 0.2s ease-in;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +48,8 @@ export const ModalContainer = styled(Backdrop)`
   text-align: center;
 `
 
-export const Modal = styled.div<ThemeInterface>`
+export const Modal = styled.div<ConfirmModalProps>`
+  animation: ${(props) => (props.isOpen === true ? fadeIn : fadeOut)} 0.2s ease-in;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
