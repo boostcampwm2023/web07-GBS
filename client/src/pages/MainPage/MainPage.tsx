@@ -29,11 +29,25 @@ const MainPage = () => {
   const user = useRecoilValue(userState)
 
   const onSetting = () => {
-    setSettingModal(() => !settingModal)
+    console.log('setting')
+    if (settingModal === true) {
+      setTimeout(() => {
+        setSettingModal(false)
+      }, 199)
+    } else {
+      setSettingModal(true)
+    }
   }
 
   const onLogin = () => {
-    setLoginModal(() => !loginModal)
+    console.log('login')
+    if (loginModal === true) {
+      setTimeout(() => {
+        setLoginModal(false)
+      }, 199)
+    } else {
+      setLoginModal(true)
+    }
   }
 
   const onLogout = () => {
@@ -42,7 +56,9 @@ const MainPage = () => {
   }
 
   const onConfirm = () => {
-    setConfirmModal(false)
+    setTimeout(() => {
+      setConfirmModal(false)
+    }, 199)
     window.location.reload()
   }
 
@@ -105,7 +121,7 @@ const MainPage = () => {
       </styles.List>
       {settingModal && <SettingModal onConfirm={onSetting} />}
       {loginModal && <LoginModal onCancle={onLogin} currentTheme={theme} />}
-      {confirmModal && <ConfirmModal text="방송 목록을 가져오는데 실패했습니다." onConfrim={onConfirm} currentTheme={theme} />}
+      {confirmModal && <ConfirmModal text="방송 목록을 가져오는데 실패했습니다." onConfirm={onConfirm} currentTheme={theme} />}
     </styles.Container>
   )
 }

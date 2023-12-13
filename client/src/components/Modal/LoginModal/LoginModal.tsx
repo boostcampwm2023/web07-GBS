@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import * as styles from './LoginModal.styles'
 import { ThemeFlag } from '@/types/theme'
 
@@ -7,6 +8,13 @@ interface LoginModalProps {
 }
 
 const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(true)
+
+  const onClick = () => {
+    setIsOpen(false)
+    onCancle()
+  }
+
   const onLoginImage = (image: 'naver' | 'google') => {
     const popup = window.open(`${import.meta.env.VITE_API_URL}` + `/oauth/login/${image}`, '_blank', 'menubar=no, toolbar=no, width=500, height=600')
 
@@ -39,12 +47,13 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
   }
 
   return (
-    <styles.Backdrop onClick={onCancle}>
-      <styles.ModalContainer>
+    <styles.Backdrop onClick={onClick} isOpen={isOpen}>
+      <styles.ModalContainer isOpen={isOpen}>
         <styles.Modal
           onClick={(event) => {
             event.stopPropagation()
           }}
+          isOpen={isOpen}
           currentTheme={currentTheme}
         >
           <styles.BodyContainer>
@@ -55,7 +64,7 @@ const LoginModal = ({ onCancle, currentTheme }: LoginModalProps) => {
             </styles.LoginImageContainer>
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
-            <styles.Button onClick={onCancle}>취소</styles.Button>
+            <styles.Button onClick={onClick}>취소</styles.Button>
           </styles.ButtonContainer>
         </styles.Modal>
       </styles.ModalContainer>

@@ -1,14 +1,35 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import TYPO from '@/styles/typo/TYPO'
 import { ThemeFlag, ThemeInterface } from '@/types/theme'
+import { ModalInterface } from '@/types/modal'
 
 interface ViewerModalProps {
   top: number
   left: number
+  isOpen: boolean
   currentTheme: ThemeFlag
 }
 
-export const Backdrop = styled.div`
+const fadeIn = keyframes` 
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
+const fadeOut = keyframes` 
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`
+
+export const Backdrop = styled.div<ModalInterface>`
+  animation: ${(props) => (props.isOpen === true ? fadeIn : fadeOut)} 0.2s ease-in;
   position: fixed;
   top: 0;
   left: 0;
@@ -38,6 +59,7 @@ const pxToRem = (px: number): string => {
 }
 
 export const Modal = styled.div<ViewerModalProps>`
+  animation: ${(props) => (props.isOpen === true ? fadeIn : fadeOut)} 0.2s ease-in;
   display: flex;
   flex-direction: column;
   border: ${(props) => {

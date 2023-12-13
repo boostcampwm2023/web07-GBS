@@ -19,7 +19,13 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   const [changeUser, setChangeUser] = useState<boolean>(false)
   const [streamLink, setStreamLink] = useState<string>('')
   const [streamKey, setStreamKey] = useState<string>('')
+  const [isOpen, setIsOpen] = useState<boolean>(true)
   const isDarkMode = currentTheme === ThemeFlag.dark
+
+  const onClick = () => {
+    setIsOpen(false)
+    onConfirm(changeUser)
+  }
 
   const onThemeToggle = () => {
     localStorage.setItem('theme', `${currentTheme}`)
@@ -48,7 +54,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ nickname: user.nickname, userId: id.trim() }),
+      body: JSON.stringify({ userId: id.trim(), nickname: user.nickname.trim() }),
       credentials: 'include',
     })
       .then((res) => {
@@ -98,7 +104,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ nickname: nickname.trim(), userId: user.id }),
+      body: JSON.stringify({ userId: user.id.trim(), nickname: nickname.trim() }),
       credentials: 'include',
     })
       .then((res) => {
@@ -174,16 +180,13 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
   }, [])
 
   return (
-    <styles.Backdrop
-      onClick={() => {
-        onConfirm(changeUser)
-      }}
-    >
-      <styles.ModalContainer>
+    <styles.Backdrop onClick={onClick} isOpen={isOpen}>
+      <styles.ModalContainer isOpen={isOpen}>
         <styles.Modal
           onClick={(event) => {
             event.stopPropagation()
           }}
+          isOpen={isOpen}
           currentTheme={currentTheme}
         >
           <styles.BodyContainer>
@@ -251,13 +254,7 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
             </styles.BlockContainer>
           </styles.BodyContainer>
           <styles.ButtonContainer currentTheme={currentTheme}>
-            <styles.Button
-              onClick={() => {
-                onConfirm(changeUser)
-              }}
-            >
-              확인
-            </styles.Button>
+            <styles.Button onClick={onClick}>확인</styles.Button>
           </styles.ButtonContainer>
         </styles.Modal>
       </styles.ModalContainer>

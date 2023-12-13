@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import * as styles from './ViewerModal.styles'
 import { ThemeFlag } from '@/types/theme'
 
@@ -13,6 +14,18 @@ interface ViewerModalProps {
 }
 
 const ViewerModal = ({ nickname, authority, target, top, left, onCancle, onKick, currentTheme }: ViewerModalProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(true)
+
+  const onBackdrop = () => {
+    setIsOpen(false)
+    onCancle()
+  }
+
+  const onContent = () => {
+    setIsOpen(false)
+    onKick(nickname)
+  }
+
   const getViewerModal = () => {
     if (authority === 'streamer' && target === 'viewer') {
       return (
@@ -22,10 +35,11 @@ const ViewerModal = ({ nickname, authority, target, top, left, onCancle, onKick,
           }}
           top={top}
           left={left}
+          isOpen={isOpen}
           currentTheme={currentTheme}
         >
           <styles.Nickname>{nickname}</styles.Nickname>
-          <styles.Content onClick={() => onKick(nickname)} currentTheme={currentTheme}>
+          <styles.Content onClick={onContent} currentTheme={currentTheme}>
             강퇴하기
           </styles.Content>
         </styles.Modal>
@@ -38,6 +52,7 @@ const ViewerModal = ({ nickname, authority, target, top, left, onCancle, onKick,
           }}
           top={top}
           left={left}
+          isOpen={isOpen}
           currentTheme={currentTheme}
         >
           <styles.Nickname>{nickname}</styles.Nickname>
@@ -47,8 +62,8 @@ const ViewerModal = ({ nickname, authority, target, top, left, onCancle, onKick,
   }
 
   return (
-    <styles.Backdrop onClick={onCancle}>
-      <styles.ModalContainer>{getViewerModal()}</styles.ModalContainer>
+    <styles.Backdrop onClick={onBackdrop} isOpen={isOpen}>
+      <styles.ModalContainer isOpen={isOpen}>{getViewerModal()}</styles.ModalContainer>
     </styles.Backdrop>
   )
 }
