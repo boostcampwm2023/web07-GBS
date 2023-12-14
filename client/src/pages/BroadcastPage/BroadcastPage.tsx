@@ -149,8 +149,6 @@ const BroadcastPage = () => {
   const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.nativeEvent.isComposing) {
       return
-    } else if (settingModal === true || loginModal === true || viewerModal === true || confirmModal === true) {
-      setChatting('')
     } else if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault()
       onSend()
@@ -260,7 +258,11 @@ const BroadcastPage = () => {
           <styles.Chat
             value={chatting}
             onClick={onChat}
-            onChange={(event) => setChatting(event.target.value)}
+            onChange={(event) => {
+              if (!settingModal && !loginModal && !viewerModal && !confirmModal) {
+                setChatting(event.target.value)
+              }
+            }}
             onKeyDown={onEnter}
             currentTheme={theme}
           ></styles.Chat>
