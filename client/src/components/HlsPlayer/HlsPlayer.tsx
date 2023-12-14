@@ -13,7 +13,7 @@ const HlsPlayer = ({ id }: HlsPlayerProps) => {
   useEffect(() => {
     const video = videoRef.current
     let hls: Hls
-    console.log(videoSrc)
+
     if (video) {
       if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = videoSrc
