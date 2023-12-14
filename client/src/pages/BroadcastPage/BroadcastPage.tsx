@@ -131,10 +131,6 @@ const BroadcastPage = () => {
   }
 
   const onSend = () => {
-    if (document.activeElement) {
-      ;(document.activeElement as HTMLElement).blur()
-    }
-
     if (user.id === '') {
       setConfirmModalMessage('채팅을 입력하기 전 로그인을 해주세요.')
       setConfirmModal(true)
@@ -151,7 +147,7 @@ const BroadcastPage = () => {
   }
 
   const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.nativeEvent.isComposing) {
+    if (event.nativeEvent.isComposing || settingModal === true || loginModal === true || viewerModal === true || confirmModal === true) {
       return
     } else if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault()
