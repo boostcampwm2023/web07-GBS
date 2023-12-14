@@ -10,6 +10,7 @@ import { ReadStreamDto } from './dto/read-stream.dto';
 import { PageDto } from 'src/common/dto/page.dto';
 import { ChatGateway } from 'src/chat/chat.gateway';
 import { ThumbnailsService } from 'src/thumbnails/thumbnails.service';
+import { VideoInfoDto } from './dto/video-info.dto';
 
 @Injectable()
 export class StreamsService {
@@ -72,7 +73,7 @@ export class StreamsService {
     const videoInfos = await this.videoInfoProvider.getVideoInfo();
     const { streamKey, ...videoInfo } = videoInfos.find(
       (info) => info.streamKey === user.stream.streamKey,
-    );
+    ) ?? { streamKey: "" } as VideoInfoDto;
 
     return {
       userId,

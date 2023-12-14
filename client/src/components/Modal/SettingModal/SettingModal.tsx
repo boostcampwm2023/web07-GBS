@@ -7,10 +7,11 @@ import { filterState } from '@/states/filter'
 import { userState } from '@/states/user'
 
 interface SettingModalProps {
+  authority: 'viewer' | 'streamer'
   onConfirm: (changeUser: boolean) => void
 }
 
-const SettingModal = ({ onConfirm }: SettingModalProps) => {
+const SettingModal = ({ authority, onConfirm }: SettingModalProps) => {
   const [currentTheme, setTheme] = useRecoilState(themeState)
   const [filter, setFilter] = useRecoilState(filterState)
   const [user, setUser] = useRecoilState(userState)
@@ -41,6 +42,11 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
     if (id.trim() === '') {
       setId(user.id)
       alert('올바른 ID를 입력해주세요.')
+
+      return
+    } else if (authority === 'streamer') {
+      setId(user.id)
+      alert('방숭 중에는 ID를 변경할 수 없습니다.')
 
       return
     } else if (id.trim() === user.id) {
@@ -91,6 +97,11 @@ const SettingModal = ({ onConfirm }: SettingModalProps) => {
     if (nickname.trim() === '') {
       setNickname(user.nickname)
       alert('올바른 닉네임을 입력해주세요.')
+
+      return
+    } else if (authority === 'streamer') {
+      setNickname(user.nickname)
+      alert('방숭 중에는 닉네임을 변경할 수 없습니다.')
 
       return
     } else if (nickname.trim() === user.nickname) {

@@ -148,6 +148,8 @@ const BroadcastPage = () => {
 
   const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.nativeEvent.isComposing || settingModal === true || loginModal === true || viewerModal === true || confirmModal === true) {
+      setChatting('')
+
       return
     } else if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault()
@@ -272,7 +274,7 @@ const BroadcastPage = () => {
         <styles.Nickname>{streamer.nickname}</styles.Nickname>
         <styles.Viewer>시청자 {streamer.viewer.toLocaleString()}명</styles.Viewer>
       </styles.Info>
-      {settingModal && <SettingModal onConfirm={onSetting} />}
+      {settingModal && <SettingModal authority={getAuthority()} onConfirm={onSetting} />}
       {loginModal && <LoginModal onCancle={onLogin} currentTheme={theme} />}
       {viewerModal && (
         <ViewerModal
