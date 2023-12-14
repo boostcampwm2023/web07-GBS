@@ -147,7 +147,7 @@ const BroadcastPage = () => {
   }
 
   const onEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.nativeEvent.isComposing) {
+    if (event.nativeEvent.isComposing || settingModal || loginModal || viewerModal || confirmModal) {
       return
     } else if (event.key === 'Enter' && event.shiftKey === false) {
       event.preventDefault()
