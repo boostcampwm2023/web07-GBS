@@ -117,7 +117,7 @@ const MainPage = () => {
           <EmptyList currentTheme={theme} />
         )}
       </styles.List>
-      {settingModal && <SettingModal onConfirm={onSetting} />}
+      {settingModal && <SettingModal authority={'viewer'} onConfirm={onSetting} />}
       {loginModal && <LoginModal onCancle={onLogin} currentTheme={theme} />}
       {confirmModal && <ConfirmModal text="방송 목록을 가져오는데 실패했습니다." onConfirm={onConfirm} currentTheme={theme} />}
     </styles.Container>
