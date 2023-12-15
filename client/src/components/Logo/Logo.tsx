@@ -2,7 +2,13 @@ import * as styles from './Logo.styles'
 import { ThemeFlag } from '@/types/theme'
 
 interface LogoProps {
+  /**
+   * 로고 종류 'wide' or 'box
+   */
   logo: 'wide' | 'box'
+  /**
+   * 다크모드 여부
+   */
   currentTheme: ThemeFlag
 }
 

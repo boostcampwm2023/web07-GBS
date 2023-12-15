@@ -3,6 +3,9 @@ import * as styles from './HlsPlayer.styles'
 import Hls from 'hls.js'
 
 interface HlsPlayerProps {
+  /**
+   * 연결할 스트리머의 id
+   */
   id?: string
 }
 

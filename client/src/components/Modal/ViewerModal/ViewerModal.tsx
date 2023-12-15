@@ -3,13 +3,37 @@ import * as styles from './ViewerModal.styles'
 import { ThemeFlag } from '@/types/theme'
 
 interface ViewerModalProps {
+  /**
+   * 표시되는 닉네임
+   */
   nickname: string
+  /**
+   * 권환 확인. 시청자 or 스트리머
+   */
   authority: 'viewer' | 'streamer'
+  /**
+   * 사용자 확인. 시청자 or 스트리머
+   */
   target: 'viewer' | 'streamer'
+  /**
+   * 모달에 전달할 top 값
+   */
   top: number
+  /**
+   * 모달에 전달할 left 값
+   */
   left: number
+  /**
+   * 취소 버튼 클릭 시 실행할 함수
+   */
   onCancle: () => void
+  /**
+   * 강제 퇴장 버튼 클릭 시 실행 함수
+   */
   onKick: (nickname: string) => void
+  /**
+   * 다크모드 여부
+   */
   currentTheme: ThemeFlag
 }
 
