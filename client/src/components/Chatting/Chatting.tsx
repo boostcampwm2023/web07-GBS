@@ -1,8 +1,17 @@
 import * as styles from './Chatting.styles'
 
 interface ChattingProps {
+  /**
+   * 채팅에 표시될 닉네임
+   */
   nickname: string
+  /**
+   * 채팅에 표시될 메세지 내용
+   */
   message: string
+  /**
+   * nickname을 클릭했을 때 실행될 함수
+   */
   onNickname: (event: React.MouseEvent<HTMLInputElement>) => void
 }
 

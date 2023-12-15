@@ -3,7 +3,13 @@ import * as styles from './LoginModal.styles'
 import { ThemeFlag } from '@/types/theme'
 
 interface LoginModalProps {
+  /**
+   * 취소 버튼 클릭 시 실행 함수
+   */
   onCancle: () => void
+  /**
+   * 다크모드 여부
+   */
   currentTheme: ThemeFlag
 }
 
