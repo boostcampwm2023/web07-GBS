@@ -20,7 +20,7 @@ GBS에서는 아프리카 TV, 트위치와 같이 실시간으로 인터넷 방�
 | :------------------------------------------------------------------------: | :------------------------------------------------------------------------: | :------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
 |                                     BE                                     |                                     BE                                     |                                     FE                                     |                                     FE                                      |
 | <img src="https://avatars.githubusercontent.com/u/92200502?v=4" width=150> | <img src="https://avatars.githubusercontent.com/u/97646802?v=4" width=150> | <img src="https://avatars.githubusercontent.com/u/21211957?v=4" width=150> | <img src="https://avatars.githubusercontent.com/u/119842443?v=4" width=150> |
-|                   [@jmhee28](https://github.com/jmhee28)                   |                      [@kkg5](https://github.com/kkg5)                      |               [@ChoiSangwon](https://github.com/ChoiSangwon)               |                [@top-chaser](https://github.com/top-chaser)                 |
+|                   [@jmhee28](https://github.com/jmhee28)                   |                      [@kkg5](https://github.com/kkg5)                      |               [@ChoiSangwon](https://github.com/ChoiSangwon)               |                [@NovRule](https://github.com/NovRule)                 |
 
 # ⚒️ 주요 기능
 
