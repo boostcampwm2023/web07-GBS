@@ -28,21 +28,21 @@ GBS에서는 아프리카 TV, 트위치와 같이 실시간으로 인터넷 방�
 
 # ⚒️ 주요 기능
 
+> 메인 화면에서 현재 진행중인 방송을 볼 수 있어요!
+
+![스크린샷 2023-12-11 165455](https://github.com/boostcampwm2023/web07-GBS/assets/119842443/ca47c885-7136-4472-b56f-5b74d7e398db)
+
 > 네이버 및 구글 아이디로 간편 로그인을 할 수 있어요!
 
 ![스크린샷 2023-12-11 165508](https://github.com/boostcampwm2023/web07-GBS/assets/119842443/214c3463-8f09-442b-9d38-0533b80acd23)
 
-> 방송을 하고 싶다면 방송 비밀 키와 OBS를 연동해 GBS로 방송을 송출할 수 있어요!
-
-![스크린샷 2023-12-11 165719](https://github.com/boostcampwm2023/web07-GBS/assets/119842443/a772399b-40ae-46eb-aca8-4215fe23dd51)
-
-> 방송을 보고 싶다면 메인 화면에서 현재 진행중인 방송을 볼 수 있어요!
-
-![스크린샷 2023-12-11 165455](https://github.com/boostcampwm2023/web07-GBS/assets/119842443/ca47c885-7136-4472-b56f-5b74d7e398db)
-
 > 원하는 방송에 들어가 채팅을 통해 다른 시청자들과 소통할 수 있어요!
 
 ![스크린샷 2023-12-11 173110](https://github.com/boostcampwm2023/web07-GBS/assets/119842443/716297bf-934d-453b-a39b-33b22327b339)
+
+> 방송을 하고 싶다면 방송 비밀 키와 OBS를 연동해 GBS로 방송을 송출할 수 있어요!
+
+![스크린샷 2023-12-11 165719](https://github.com/boostcampwm2023/web07-GBS/assets/119842443/a772399b-40ae-46eb-aca8-4215fe23dd51)
 
 # 🔥 기술적 도전
 
